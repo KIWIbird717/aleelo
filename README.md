@@ -1,93 +1,115 @@
-# frontend-2.0
+## 🚀 Get started
 
+##### 1. Установка зависимостей
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.cyno.one/aleela/frontend-2.0.git
-git branch -M main
-git push -uf origin main
+```shell
+npm install
 ```
 
-## Integrate with your tools
+##### 2. Заупуск frontend. Есть несколько способов на выбор:
 
-- [ ] [Set up project integrations](https://gitlab.cyno.one/aleela/frontend-2.0/-/settings/integrations)
+- **Рекомендуемый.** Выполнить билд и сразу сделать запуск
+  ```shell
+  npm run tg
+  ```
+- Отдельно сделать билд, а потом запустить его
+  ```shell
+  npm run build
+  npm run start
+  ```
+- Заупск в dev моде. **Медленный и не стабильный в telegram webapp**
+  ```shell
+  npm run dev
+  ```
 
-## Collaborate with your team
+##### Готово, ссылку на запущенный frontend можно вставить в telegram webapp.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+##### Дополнение для разработки 👇
 
-## Test and Deploy
+##### 3. Запустить **ngrok** на локальном устройстве:
 
-Use the built-in continuous integration in GitLab.
+Это понадобится для запуска приложения в окне Telegram webapp. В telegram webapp нельзя вставить ссылку, которая не использует **https** протокол.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- Данные для регистрации через **корпоративный аккаунт cyno** ngrok [Ngrok login](https://dashboard.ngrok.com/login)
+  | email | password |
+  |----------------------|----------------------|
+  | development@xono.one | rephy8-fybDij-nazgas |
+- _Опционально._ Может потребоваться процедура установки ngrok на устройство и авторизация в акаунт, про авторизацию в ngrok через терминал можно узнать тут: [Setup & Installation](https://dashboard.ngrok.com/get-started/setup/macos)
+- Если была выполнена авторизацию через корпоративный аккаунт, то можно запустить ngrok tunel слудующими командами на выбор **(3000 - порт, на которм запущен проект на локалке)**:
+  ```shell
+   # № 1
+   ngrok tunnel --label edge=edghts_2cM3nRLw8CI9EJc1ACGyb1bMFti 3000
+   # или воспользоваться второй командой
+   # № 2
+   ngrok tunnel --label edge=edghts_2cjqgH7PN07CUnDj1d1XKA82ciX 3000
+  ```
 
-***
+##### 4. Запуск в telegram webap
 
-# Editing this README
+Для запуска проекта в telegram webapp можно воспользоваться уже готовым ботом [Swipy Dating](https://t.me/swipy_dating_bot). Данный бот поддерживает команду для запуска другого проекта по предоставленной htpps ссылке.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- Необходимо отправить в бота одно из следующих сообщений:
+  ```sh
+    # если запущено на ngrok tunel № 1
+    /link https://c36e9febfb56b7f6.ngrok.app
+    # если запущено на ngrok tunel № 2
+    /link https://e70d1cf77f746acd.ngrok.app
+  ```
+- Открыть telegram webapp приложение по высланной от бота ссылке
 
-## Suggestions for a good README
+##### Готово! Проект готов к разработке.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- После запуска ngrok его можно больше не перазапускать, главное чтобы он был активен в запущенном терминале.
+- Для просмотра внесенных изменений в проекте можно сделать ребилд (пункт 2.1 или 2.2) и переоткрыть telegram webapp приложение. Или можно запустить проект через `npm run dev` (пункт 2.3), тогда изменения будут приходит автоматически, но это может быть не быстро из-за проксирования приолжения через ngrok.
 
-## Name
-Choose a self-explaining name for your project.
+## 🏗️ Структура проекта
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+На проекте используется структура FSD
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- ссылка на подробную документацию FSD структуры [Feature-Sliced Design](https://feature-sliced.design/)
+- ссылка на статью из документации FSD по использованию данной структуры с nextjs [Dealing with App Router](https://feature-sliced.design/docs/guides/tech/with-nextjs#app-router)
+- На данном проекте структура немного адаптирована под nexjs.
+  - структуру FSD выстраивать в дерриктории `./src`
+  - `/src/views` дерриктория, заменяющаяя стандартную деррикторию `pages`
+  - `./src/app` выполняет свои функции согласно документации FSD
+- дерриктория `./app` в корне проекта по стандарту nextjs используется для роутинга
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 🔒 Предотвращение закрытия окна telegram webapp
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+**МОЖНО ОЗНАКОМИТСЯ С ДЕМО ПРОЕКТОМ, ГДЕ ПОКАЗАНО ВСЕ НА ПРИМЕРАХ** ВОТ ССЫЛКА НА РЕПОЗИТОРИЙ: https://github.com/KIWIbird717/prevent-tg-webapp-con-swipe-close
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Окно telegram webapp может закрываться при свайпе вниз, если пользователь долистал с низу страницы до верха, или когда пользователь находится на странице, где нет скрола (тоесть контент помещается по высоте экрана) то если он сделает свайп вниз, то окно telegram webap также свернется. Для каждого из этих случаев предусмотрено 3 сценария предотрващения закрытия окна telegram webapp:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+##### 1. Для страниц со скролом.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Если на странице размещен контент который не помещается по ширине экрана (тоесть появляется скрол), то нужно использовать layout обвертку `View`. При использовании данной обверки предотвращается закрытие окна telegram webapp при скроле сверзу вниз в начале страницы.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Пример:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```tsx
+export default function WithViewFull() {
+  return (
+    <View className="flex flex-col gap-4 p-4">
+      <Link href="./" className="rounded-xl bg-slate-100 px-4 py-2 text-[20px]">
+        Назад
+      </Link>
+      <h1 className="text-center text-[40px] font-bold leading-[45px]">
+        <span className="text-emerald-500">View</span> компонент и страница со скролом
+      </h1>
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+      <PseduoContent />
+    </View>
+  );
+}
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+##### 2. Для страниц без скрола. Кейс № 1
 
-## License
-For open source projects, say how it is licensed.
+Если на странице контент помещается по ширине экрана без скрола, то для предотвращения закрытия страницы по свайпу внизу, можно также использовать обвертку `View`, контент от этого никак не изменится, но пропадет закрытие окна webapp по скролу вниз.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Это самый оптимальный вариант и в большинтсве кейсов на страницах лучше использовать обвертку `View`. Но у первых 2-х способов есть небольшой минус в виде оверскрола страницы в самой верхней и нижней части страницы. Для предотвращения таго поведения есть 3-й способ.
+
+#### 3. Для страниц без скрола. Кейс № 2
+
+Если требуется полностью зафиксировать страницу с контентом который полностью помещается на экране (тоесть скрол при этом отсутствует) и при этом предотвратить закрытие окна telegram webapp, то для этого можно использовать хук `usePreventScroll`. Данный хук полностьб блокирует эвент скрола в компоненте.
+Описание хука и примеры использования в самом файле с хуком `usePreventScroll.ts`
