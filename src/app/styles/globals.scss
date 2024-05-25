@@ -9,6 +9,7 @@
     // Primary palette
     --mint-default: #1c373d;
     --mint-900: #387682;
+    --mint-950: #38768280;
     --mint-800: #a1c6cc;
     --mint-700: #c9e2e7;
     --mint-600: #e3f1f0;
@@ -54,6 +55,7 @@
     --orange-600: #f9f0ec;
 
     --red-default: #bf1a2f;
+    --red-950: #E54753;
     --red-900: #e84855;
     --red-800: #e76f51;
     --red-700: #f4a261;
@@ -65,7 +67,6 @@
     --blue-700: #5899e2;
     --blue-600: #65afff;
     --blue-500: #7CBCC580;
-
   }
 }
 
@@ -101,7 +102,7 @@ div {
 }
 
 .gradient-borders {
-  background: linear-gradient(180deg, #a1c6cc 0%, #387682 100%);
+  background: linear-gradient(180deg, #B0CBCF 0.01%, #E3F1F0 100%);
 }
 
 .gradient-selected {
