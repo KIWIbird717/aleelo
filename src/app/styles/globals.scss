@@ -4,14 +4,142 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+  :root {
+    // Primary palette
+    --mint-default: #1c373d;
+    --mint-900: #387682;
+    --mint-800: #a1c6cc;
+    --mint-700: #c9e2e7;
+    --mint-600: #e3f1f0;
+
+    --brown-default: #864c45;
+    --brown-900: #cb6b39;
+    --brown-800: #efcd64;
+    --brown-700: #f6e6b2;
+    --brown-600: #f5f4ec;
+
+    --grey-default: #78889a;
+    --grey-900: #bfcbd3;
+    --grey-800: #e3e7ea;
+    --grey-700: #f3f7f8;
+    --grey-600: #ffffff;
+
+    --white-default: #ffffff;
+
+    // Secondary colors
+    --turquoise-default: #237177;
+    --turquoise-900: #37a7ae;
+    --turquoise-800: #78d2d8;
+    --turquoise-700: #c0eaed;
+    --turquoise-600: #effafa;
+    --turquoise-500: #35646e;
+
+    --green-default: #29663d;
+    --green-900: #579e6f;
+    --green-800: #7ecb98;
+    --green-700: #b6e2c5;
+    --green-600: #f0f9f3;
+
+    --yellow-default: #776718;
+    --yellow-900: #d9c357;
+    --yellow-800: #e9da8e;
+    --yellow-700: #f5eecc;
+    --yellow-600: #fcf9ee;
+
+    --orange-default: #b95c34;
+    --orange-900: #ed9364;
+    --orange-800: #f9b38c;
+    --orange-700: #fcd8c5;
+    --orange-600: #f9f0ec;
+
+    --red-default: #bf1a2f;
+    --red-900: #e84855;
+    --red-800: #e76f51;
+    --red-700: #f4a261;
+    --red-600: #ffc482;
+
+    --blue-default: #0e1d23;
+    --blue-900: #2b3a67;
+    --blue-800: #335c81;
+    --blue-700: #5899e2;
+    --blue-600: #65afff;
+    --blue-500: #7CBCC580;
+
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+body {
+  margin: 0;
+  position: relative;
+  font-family: "Axiforma";
+  background-image: url("../images/bg.png");
+  background-color: #c0d8da;
+}
+
+section {
+  @apply p-8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div {
+  font-family: "Axiforma", sans-serif;
+}
+
+.gradient-turquoise {
+  background: linear-gradient(180deg, #5db2ac 0%, #336069 100%);
+}
+
+.gradient-orange {
+  background: linear-gradient(180deg, #ffd866 0%, #cb6b39 100%);
+}
+
+.gradient-borders {
+  background: linear-gradient(180deg, #a1c6cc 0%, #387682 100%);
+}
+
+.gradient-selected {
+  background: linear-gradient(90deg, #a1c6cc 0%, #387682 100%);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 31px;
+  text-align: center;
+  text-shadow: 1px 1px 0px #ffffffd9;
+  color: #35646e;
+}
+
+.box {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 9px;
+  text-align: center;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation ease 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 0px #ffffffd9;
+  color: var(--turquoise-500);
 }
