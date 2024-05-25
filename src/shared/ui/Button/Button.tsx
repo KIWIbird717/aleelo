@@ -1,9 +1,10 @@
 "use client";
 
 import { useAnimate } from "framer-motion";
+// import { useAnimate } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ComponentProps, FC, ReactNode } from "react";
 import { ClassNameValue, twMerge } from "tailwind-merge";
-import { className } from "postcss-selector-parser";
 
 // варианты стилей кнопок
 const variants = {
@@ -41,9 +42,10 @@ const variants = {
 
 // дефолтный вариант кнопки (если в пропсах не был указан параметр variant)
 const DEFAULT_VARIANT = {
-  className: "bg-button-gradient-turquoise text-white shadow-[inset_-8px_-8px_13px_0px_rgba(26,80,122,1),inset_2px_2px_8px_0px_rgba(30,101,149,1),0_8px_14px_-3px_rgba(17,61,95,0.4)]",
+  className:
+    "bg-button-gradient-turquoise text-white shadow-[inset_-8px_-8px_13px_0px_rgba(26,80,122,1),inset_2px_2px_8px_0px_rgba(30,101,149,1),0_8px_14px_-3px_rgba(17,61,95,0.4)]",
   iconClassName: "text-shadow-green",
-}
+};
 // варианты размеров кнопок
 const sizes: { [key: string]: { className: ClassNameValue } } = {
   large: {
@@ -69,30 +71,25 @@ type ButtonProps = {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
   className?: string;
-  icon?: ReactNode
+  icon?: ReactNode;
 } & ComponentProps<"button">;
 
-export const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => {
+export const Button: FC<ButtonProps> = ({ children, icon, onClick, ...props }) => {
   const [scope, animate] = useAnimate();
 
   const variantClassName = props.variant
     ? variants[props.variant].className
-    : DEFAULT_VARIANT.className
+    : DEFAULT_VARIANT.className;
 
   const variantIcon = props.variant
     ? variants[props.variant].iconClassName
-    : DEFAULT_VARIANT.iconClassName
+    : DEFAULT_VARIANT.iconClassName;
 
-  const sizeClassName = props.size
-    ? sizes[props.size].className
-    : sizes.large.className;
+  const sizeClassName = props.size ? sizes[props.size].className : sizes.large.className;
 
-  const disabledClassName = props.disabled
-    && "bg-blue-500 shadow-none text-mint-900";
+  const disabledClassName = props.disabled && "bg-blue-500 shadow-none text-mint-900";
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     animate([
       [scope.current, { scale: 0.95, y: 5 }, { duration: halfAnimDuration }],
       [scope.current, { scale: 1, y: 0 }, { duration: halfAnimDuration }],
@@ -112,10 +109,8 @@ export const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => {
         props.className,
       )}
     >
-      <span className={variantIcon}>
-         {children}
-      </span>
-      {props.size !== "small" && props.icon && props.icon}
+      <span className={variantIcon}>{children}</span>
+      {props.size !== "small" && icon && icon}
     </button>
   );
 };
