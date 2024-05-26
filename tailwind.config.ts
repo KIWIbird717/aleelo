@@ -85,6 +85,7 @@ const config: Config = {
       },
       green: {
         DEFAULT: "var(--green-default)",
+        990: "var(--green-990)",
         900: "var(--green-900)",
         800: "var(--green-800)",
         700: "var(--green-700)",
