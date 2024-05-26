@@ -54,6 +54,7 @@ const config: Config = {
         950: "var(--mint-950)",
         900: "var(--mint-900)",
         800: "var(--mint-800)",
+        750: "var(--mint-750)",
         700: "var(--mint-700)",
         600: "var(--mint-600)",
       },
@@ -93,6 +94,7 @@ const config: Config = {
       },
       yellow: {
         DEFAULT: "var(--yellow-default)",
+        950: "var(--yellow-950)",
         900: "var(--yellow-900)",
         800: "var(--yellow-800)",
         700: "var(--yellow-700)",
@@ -146,6 +148,15 @@ const config: Config = {
         },
         ".text-shadow-red": {
           textShadow: "0px 1px 2px rgba(170, 25, 34, 1)",
+        },
+        ".text-shadow-gold": {
+          textShadow: "0px 1px 2px rgba(28, 55, 61, 0.8)",
+        },
+        ".text-shadow-light": {
+          textShadow: "0px 1px 1px rgba(255, 255, 255, 0.85)",
+        },
+        ".text-shadow-red-two": {
+          textShadow: "0px 1px 2px rgba(165, 54, 30, 1)",
         },
       };
 
