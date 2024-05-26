@@ -10,13 +10,7 @@ const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  return (
-    <RadioGroupPrimitive.Root
-      className={cn("grid gap-2", className)}
-      {...props}
-      ref={ref}
-    />
-  );
+  return <RadioGroupPrimitive.Root className={cn("grid gap-2", className)} {...props} ref={ref} />;
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
@@ -28,13 +22,17 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        "aspect-square h-8 w-8 rounded-full border-[2px] border-mint-800 text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+        "text-primary focus-visible:ring-ring aspect-square h-8 w-8 rounded-full border-[2px] border-mint-800 shadow focus:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator className="flex w-full h-full items-center justify-center">
-        <div className={"w-[20px] h-[20px] bg-gradient-checkbox-active rounded-full shadow-checkboxActive"} />
+      <RadioGroupPrimitive.Indicator className="flex h-full w-full items-center justify-center">
+        <div
+          className={
+            "h-[20px] w-[20px] rounded-full bg-gradient-checkbox-active shadow-checkboxActive"
+          }
+        />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );
@@ -49,20 +47,11 @@ interface IRadioGroupContent {
   text: string;
 }
 
-const RadioGroupContent: FC<IRadioGroupContent> = (
-  {
-    className,
-    id,
-    value,
-    text,
-  },
-) => {
+const RadioGroupContent: FC<IRadioGroupContent> = ({ className, id, value, text }) => {
   return (
     <div className={twMerge(className, "flex items-center gap-[11px]")}>
       <RadioGroupItem value={value} id={id} />
-      <label htmlFor={id}
-             className={"text-mint-900 font-normal text-[12px] leading-[17px]"}
-      >
+      <label htmlFor={id} className={"text-[12px] font-normal leading-[17px] text-mint-900"}>
         {text}
       </label>
     </div>
