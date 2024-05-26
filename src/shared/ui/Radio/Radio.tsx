@@ -71,4 +71,11 @@ const RadioGroupContent: FC<IRadioGroupContent> = (
 
 RadioGroupContent.displayName = RadioGroupContent.name;
 
+//Пример использования:
+
+// <RadioGroup>
+//   <RadioGroupContent id={"r1"} value={"default"} text={"Default"} />
+//   <RadioGroupContent id={"r2"} value={"comfortable"} text={"Comfortable"} />
+// </RadioGroup>
+
 export { RadioGroup, RadioGroupItem, RadioGroupContent };
