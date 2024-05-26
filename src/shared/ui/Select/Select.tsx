@@ -1,9 +1,9 @@
 "use client";
 
-import { forwardRef, type ComponentProps, useState, useRef, useEffect } from "react";
+import { type ComponentProps, forwardRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import ArrowDownIcon  from "@/app/images/svg/arrow-down.svg";
-import  ArrowUpIcon  from "@/app/images/svg/arrow-up.svg";
+import ArrowDownIcon from "@/app/images/svg/arrow-down.svg";
+import ArrowUpIcon from "@/app/images/svg/arrow-up.svg";
 
 export interface ISelectOptions {
   value: string;
@@ -93,3 +93,5 @@ export const Select = forwardRef<HTMLSelectElement, InputProps>(
     );
   },
 );
+
+Select.displayName = Select.name;
