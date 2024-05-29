@@ -2,7 +2,7 @@
 
 import { useAnimate } from "framer-motion";
 import type { ComponentProps, FC, ReactNode } from "react";
-import { ClassNameValue, twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
 // варианты стилей кнопок
 const variants = {
@@ -37,8 +37,7 @@ const DEFAULT_VARIANT =
   "bg-button-gradient-turquoise text-white shadow-[inset_-8px_-8px_13px_0px_rgba(26,80,122,1),inset_2px_2px_8px_0px_rgba(30,101,149,1),0_8px_14px_-3px_rgba(17,61,95,0.4)]";
 
 // классы, которые используются всеми вариантами кнопок
-const DEFAULT_CLASSES =
-  "flex items-center justify-center h-[48px] w-[48px] rounded-full";
+const DEFAULT_CLASSES = "flex items-center justify-center h-[48px] w-[48px] rounded-full shrink-0";
 
 export const animDuration = 0.2; // sec скорость анимации кнопки
 export const halfAnimDuration = animDuration / 2; // sec
@@ -46,22 +45,17 @@ export const halfAnimDuration = animDuration / 2; // sec
 type ButtonProps = {
   variant?: keyof typeof variants;
   className?: string;
-  icon?: ReactNode
+  icon?: ReactNode;
 } & ComponentProps<"button">;
 
 export const ButtonIcon: FC<ButtonProps> = ({ onClick, ...props }) => {
   const [scope, animate] = useAnimate();
 
-  const variantClassName = props.variant
-    ? variants[props.variant].className
-    : DEFAULT_VARIANT;
+  const variantClassName = props.variant ? variants[props.variant].className : DEFAULT_VARIANT;
 
-  const disabledClassName = props.disabled
-    && "bg-blue-500 shadow-none text-mint-900";
+  const disabledClassName = props.disabled && "bg-blue-500 shadow-none text-mint-900";
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     animate([
       [scope.current, { scale: 0.95, y: 5 }, { duration: halfAnimDuration }],
       [scope.current, { scale: 1, y: 0 }, { duration: halfAnimDuration }],
@@ -73,12 +67,7 @@ export const ButtonIcon: FC<ButtonProps> = ({ onClick, ...props }) => {
       {...props}
       ref={scope}
       onClick={handleClick}
-      className={twMerge(
-        variantClassName,
-        DEFAULT_CLASSES,
-        disabledClassName,
-        props.className,
-      )}
+      className={twMerge(variantClassName, DEFAULT_CLASSES, disabledClassName, props.className)}
     >
       {props.icon}
     </button>

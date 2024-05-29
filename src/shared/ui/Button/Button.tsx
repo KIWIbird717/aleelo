@@ -61,7 +61,7 @@ const sizes: { [key: string]: { className: ClassNameValue } } = {
 
 // классы, которые используются всеми вариантами кнопок
 const DEFAULT_CLASSES =
-  "flex items-center gap-[10px] px-[40px] font-semibold text-[20px] leading-6 rounded-[30px] w-fit";
+  "flex items-center gap-[10px] px-[40px] font-semibold text-[20px] leading-6 rounded-[30px] w-fit shrink-0";
 
 export const animDuration = 0.2; // sec скорость анимации кнопки
 export const halfAnimDuration = animDuration / 2; // sec

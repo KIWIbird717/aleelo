@@ -6,6 +6,9 @@ import { cn } from "@/shared/func/utils";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 
+/**
+ * Рефернс + подробное описание пропсов: @link https://www.radix-ui.com/primitives/docs/components/radio-group
+ */
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>

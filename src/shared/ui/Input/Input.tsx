@@ -15,7 +15,7 @@ interface InputProps extends ComponentProps<"input"> {
 const DEFAULT_CLASSES_INPUT =
   "outline-none bg-white shadow-input rounded-[28px] pl-[25px] pr-[61px] text-[13px] leading-[19.5px] font-normal text-grey h-[46px] placeholder:color-placeholder w-[99%]";
 const DEFAULT_CLASSES =
-  "relative bg-gradient-borders rounded-[28px] h-[50px] flex items-center justify-center gap-4 drop-shadow-input shadow-input w-full leading-none";
+  "relative bg-gradient-borders rounded-[28px] h-[50px] flex items-center justify-center gap-4 drop-shadow-input shadow-input w-full leading-none shrink-0";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ error, disabled, ...props }, ref) => {
