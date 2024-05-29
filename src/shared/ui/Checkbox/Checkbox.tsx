@@ -8,6 +8,12 @@ import CheckedDisabledIcon from "@/app/images/svg/checked-disabled.svg";
 import { cn } from "@/shared/func/utils";
 import { twMerge } from "tailwind-merge";
 
+//  <Checkbox checked={boolean}
+//         onCheckedChange={onChangeHandler}
+//       />
+
+// https://ui.shadcn.com/docs/components/checkbox
+
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>

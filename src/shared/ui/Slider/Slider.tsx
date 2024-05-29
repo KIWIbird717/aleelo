@@ -6,7 +6,6 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from "reac
 import { twMerge } from "tailwind-merge";
 
 interface ISliderProps {
-  minMax?: boolean;
   tooltip?: boolean;
   progressBar?: boolean;
   textStyle?: "dark" | "light";
@@ -19,19 +18,22 @@ const Slider = forwardRef<
   (
     {
       className,
-      minMax,
       tooltip,
       progressBar,
       textStyle = "dark",
+      value,
+      onValueChange,
       ...props
     }, ref,
   ) => {
-    const [value, setValue] = useState(45);
+    // const [value, setValue] = useState(45);
     const [isHolding, setIsHolding] = useState(false);
 
     const handleValueChange = (newValue: number[]) => {
       if (progressBar) return;
-      setValue(newValue[0]);
+      if(onValueChange) {
+        onValueChange(newValue)
+      }
     };
 
     const handlePointerDown = () => {
@@ -48,10 +50,10 @@ const Slider = forwardRef<
       <SliderPrimitive.Root
         ref={ref}
         className={cn(
-          "relative flex w-full  items-center",
+          "relative touch-none select-none h-full max-h-[48px] flex w-full items-center",
           className,
         )}
-        value={[value]}
+        value={value}
         onValueChange={handleValueChange}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -76,7 +78,9 @@ const Slider = forwardRef<
           </div>
 
           {/*tooltip*/}
-          {tooltip && <div className={"absolute bottom-[65px] text-[13px]"}>
+          {tooltip && isHolding && <div className={"absolute bottom-[65px] text-[13px] animate-tooltip-appear"}
+                                        style={{ transformOrigin: 'bottom center' }}
+          >
             <div
               className={"relative font-bold w-[54px] h-[26px] flex items-center justify-center leading-[19.5px]  rounded-[40px] bg-button-gradient-orange !z-[2]"}>
               <span className={"text-white text-shadow-red-two"}>{value}%</span>
@@ -96,7 +100,7 @@ const Slider = forwardRef<
         </div>}
 
         {/*min max*/}
-        {minMax &&
+        {(props.min || props.max) &&
           <div className={"w-full flex justify-between absolute top-[27px] text-[13px] font-bold leading-[19.5px]"}>
             <span
               className={twMerge(textStyle === "dark" ? "!text-brown-700 text-shadow-gold" : "!text-mint-900 text-shadow-light")}

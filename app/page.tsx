@@ -1,49 +1,68 @@
 "use client";
 
-import { Button } from "@/shared/ui/Button/Button";
-import { Input } from "@/shared/ui/Input/Input";
-import ErrorIcon from "@/app/images/svg/error.svg";
 import { View } from "@/shared/layout/View";
-import { useState } from "react";
-import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
-import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
-import { CircularLoader } from "@/shared/ui/CIrcularLoader";
-import { RadioGroup, RadioGroupContent, RadioGroupItem } from "@/shared/ui/Radio/Radio";
 import { Select } from "@/shared/ui/Select/Select";
-import { Slider } from "@/shared/ui/Slider/Slider";
 import { Switch } from "@/shared/ui/Switch/Switch";
 import { Textarea } from "@/shared/ui/Textarea/Textarea";
 
+import { RadioGroup, RadioGroupContent } from "@/shared/ui/Radio/Radio";
+import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
+import { useState } from "react";
+import { Input } from "@/shared/ui/Input/Input";
+import { Slider } from "@/shared/ui/Slider/Slider";
+
+const options = [
+  { title: "title", value: "value1" },
+  { title: "title2", value: "value2" },
+  { title: "title3", value: "value3" },
+  { title: "title3", value: "value4" },
+  { title: "title3", value: "value5" },
+];
+
 export default function Home() {
-  const [state, setstate] = useState(false);
+  const [boolean, setBoolean] = useState(true);
+  const [sliderValue, setSliderValue] = useState(45);
+
+  const handleValueChange = (newValue: number[]) => {
+    setSliderValue(newValue[0])
+  };
+
+  const onChangeHandler = (checked: boolean) => {
+    setBoolean(checked);
+  };
+
   return (
-    <View className="flex flex-col items-center justify-between p-24">
-      <Input placeholder={"input text"} error={state ? "Error" : undefined} />
-      <ButtonIcon icon={<ErrorIcon />} />
-      <Checkbox />
-      <div className="flex items-center gap-5">
-        <CircularLoader value={50} variant="lg" />
-        <CircularLoader value={50} variant="sm" />
+    <View className="flex flex-col items-center gap-2 p-12">
+      <Input />
+      <Input error={"sds"} />
+
+      <Checkbox checked={boolean}
+                onCheckedChange={onChangeHandler}
+      />
+
+      <Slider tooltip={true}
+              onValueChange={handleValueChange}
+              value={[sliderValue]}
+              min={10}
+              max={20}
+      />
+
+
+      {/*  готово*/}
+      <Textarea rows={3} />
+      <div className={"flex flex-col gap-1"}>
+        <Switch />
+        <Switch disabled checked />
+        <Switch disabled />
       </div>
-      <RadioGroup>
-        <RadioGroupContent id="r1" text="radio" value="comfortable" />
-        <RadioGroupContent id="r1" text="radio" value="comfortable" />
+
+      <RadioGroup defaultValue={"default"}>
+        <RadioGroupContent id={"r1"} value={"default"} text={"Default"} />
+        <RadioGroupContent id={"r2"} value={"comfortable"} text={"Comfortable"} />
       </RadioGroup>
       <Select
-        options={[
-          { title: "title", value: "value" },
-          { title: "title2", value: "value" },
-          { title: "title3", value: "value" },
-          { title: "title3", value: "value" },
-          { title: "title3", value: "value" },
-        ]}
+        options={options}
       />
-      <Slider />
-      <Switch />
-      <Textarea />
-      <Button onClick={() => setstate((state) => !state)} icon={<ErrorIcon />}>
-        Button
-      </Button>
     </View>
   );
 }

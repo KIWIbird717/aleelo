@@ -23,7 +23,7 @@ const Switch = React.forwardRef<
   const UNCHECKED_CLASSES_ROOT =
     twMerge(!props.disabled && "data-[state=unchecked]:shadow-switchUnchecked data-[state=unchecked]:bg-gradient-switch-unchecked")
   const CHECKED_CLASSES_ROOT =
-    twMerge(!props.disabled && "data-[state=checked]:bg-button-gradient-orange-reverse")
+    twMerge(!props.disabled && "data-[state=checked]:shadow-switchChecked data-[state=checked]:bg-button-gradient-orange-reverse")
   const DISABLED_CLASSES_ROOT = "disabled:bg-mint-800  disabled:cursor-not-allowed";
 
   const DEFAULT_CLASSES_THUMB = "pointer-events-none flex justify-center  items-center h-[36px] w-[36px]  rounded-full ring-0 transition-transform bg-mint-800 data-[state=unchecked]:translate-x-0 data-[state=checked]:translate-x-7"

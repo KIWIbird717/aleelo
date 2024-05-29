@@ -1,5 +1,4 @@
 @import "./normalize.scss";
-@import "./animations.scss";
 
 @tailwind base;
 @tailwind components;
@@ -39,14 +38,14 @@
     --turquoise-500: #35646e;
 
     --green-default: #29663d;
-    --green-990: #19493e;
+    --green-990: #19493E;
     --green-900: #579e6f;
     --green-800: #7ecb98;
     --green-700: #b6e2c5;
     --green-600: #f0f9f3;
 
     --yellow-default: #776718;
-    --yellow-950: #fab51e;
+    --yellow-950: #FAB51E;
     --yellow-900: #d9c357;
     --yellow-800: #e9da8e;
     --yellow-700: #f5eecc;
@@ -159,7 +158,53 @@ h5 {
   text-align: center;
 }
 
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation ease 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .text-shadow {
   text-shadow: 1px 1px 0px #ffffffd9;
   color: var(--turquoise-500);
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes tooltip-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-tooltip-appear {
+  animation: tooltip-appear 0.3s ease-out;
 }
