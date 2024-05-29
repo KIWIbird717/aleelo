@@ -3,10 +3,19 @@
 import { forwardRef, type ComponentProps, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import ErrorIcon from "@/app/images/svg/error.svg";
+import { AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const MotionSpan = dynamic(() => import("framer-motion").then((mod) => mod.motion.span));
 
 interface InputProps extends ComponentProps<"input"> {
   error?: string;
 }
+
+const DEFAULT_CLASSES_INPUT =
+  "outline-none bg-white shadow-input rounded-[28px] pl-[25px] pr-[61px] text-[13px] leading-[19.5px] font-normal text-grey h-[46px] placeholder:color-placeholder w-[99%]";
+const DEFAULT_CLASSES =
+  "relative bg-gradient-borders rounded-[28px] h-[50px] flex items-center justify-center gap-4 drop-shadow-input shadow-input w-full leading-none";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ error, disabled, ...props }, ref) => {
@@ -19,14 +28,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const handleBlur = () => {
       setIsFocused(false);
     };
-    const DEFAULT_CLASSES =
-      "relative bg-gradient-borders rounded-[28px] h-[50px] flex items-center justify-center gap-4 drop-shadow-input shadow-input w-full leading-none";
     const IS_FOCUS = twMerge(isFocused && "bg-gradient-border-active");
     const IS_ERROR = twMerge(error && "bg-gradient-border-error");
     const IS_DISABLED = twMerge(disabled && "bg-gradient-border-disabled shadow-none");
 
-    const DEFAULT_CLASSES_INPUT =
-      "outline-none bg-white shadow-input rounded-[28px] pl-[25px] pr-[61px] text-[13px] leading-[19.5px] font-normal text-grey h-[46px] placeholder:color-placeholder w-[99%]";
     const IS_ERROR_INPUT = twMerge(error && "shadow-inputError");
     const IS_DISABLED_INPUT = twMerge(
       disabled && "bg-[rgba(161,198,204,0.5)] shadow-none text-mint-950 placeholder:text-mint-950",
@@ -42,11 +47,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
           {...props}
         />
-        {error && !disabled && (
-          <span className="absolute right-[20px] top-[13px] cursor-pointer">
-            <ErrorIcon />
-          </span>
-        )}
+        <AnimatePresence>
+          {error && !disabled && (
+            <MotionSpan
+              className="absolute right-[20px] top-[13px] cursor-pointer"
+              initial={{ scale: 0.2, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <ErrorIcon />
+            </MotionSpan>
+          )}
+        </AnimatePresence>
       </div>
     );
   },
