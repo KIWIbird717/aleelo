@@ -162,30 +162,6 @@ const config: Config = {
 
       addUtilities(newUtilities);
     }),
-    // ({ addAtributes }) => {
-    //   const newUtilities = {
-    //     ".text-shadow-yellow": {
-    //       textShadow: "0px 1px 2px rgba(255, 255, 255, 1)",
-    //     },
-    //     ".text-shadow-orange": {
-    //       textShadow: "0px 1px 2px rgba(165, 54, 30, 1)",
-    //     },
-    //     ".text-shadow-green": {
-    //       textShadow: "0px 1px 2px rgba(17, 61, 95, 1)",
-    //     },
-    //     ".text-shadow-snow": {
-    //       textShadow: "0px 1px 1px rgba(28, 55, 61, 0.5) inner",
-    //     },
-    //     ".text-shadow-blue": {
-    //       textShadow: "0px 1px 2px rgba(43, 58, 103, 1)",
-    //     },
-    //     ".text-shadow-red": {
-    //       textShadow: "0px 1px 2px rgba(170, 25, 34, 1)",
-    //     },
-    //   };
-
-    //   addAtributes(newUtilities, ["responsive", "hover"]);
-    // },
   ],
 };
 export default config;
