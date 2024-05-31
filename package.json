@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "tg": "npm run build && npm run start"
+    "tg": "npm run build && npm run start",
+    "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
