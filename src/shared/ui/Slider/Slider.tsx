@@ -1,7 +1,7 @@
 "use client";
 
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import { cn } from "@/shared/func/utils";
+import { cn } from "@/shared/lib/utils/cn";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";

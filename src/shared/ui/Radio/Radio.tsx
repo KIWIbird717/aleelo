@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { cn } from "@/shared/func/utils";
+import { cn } from "@/shared/lib/utils/cn";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -12,7 +12,6 @@ import { twMerge } from "tailwind-merge";
 //   <RadioGroupContent id={"r1"} value={"default"} text={"Default"} />
 //   <RadioGroupContent id={"r2"} value={"comfortable"} text={"Comfortable"} />
 // </RadioGroup>
-
 
 /**
  * Рефернс + подробное описание пропсов: @link https://www.radix-ui.com/primitives/docs/components/radio-group
@@ -41,7 +40,7 @@ const RadioGroupItem = React.forwardRef<
       <RadioGroupPrimitive.Indicator className="flex h-full w-full items-center justify-center">
         <div
           className={
-            "h-[20px] w-[20px] rounded-full bg-gradient-checkbox-active shadow-checkboxActive animate-fadeIn"
+            "animate-fadeIn h-[20px] w-[20px] rounded-full bg-gradient-checkbox-active shadow-checkboxActive"
           }
         />
       </RadioGroupPrimitive.Indicator>
@@ -70,6 +69,5 @@ const RadioGroupContent: FC<IRadioGroupContent> = ({ className, id, value, text 
 };
 
 RadioGroupContent.displayName = RadioGroupContent.name;
-
 
 export { RadioGroup, RadioGroupItem, RadioGroupContent };

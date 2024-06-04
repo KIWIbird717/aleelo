@@ -113,3 +113,9 @@ export default function WithViewFull() {
 
 Если требуется полностью зафиксировать страницу с контентом который полностью помещается на экране (тоесть скрол при этом отсутствует) и при этом предотвратить закрытие окна telegram webapp, то для этого можно использовать хук `usePreventScroll`. Данный хук полностьб блокирует эвент скрола в компоненте.
 Описание хука и примеры использования в самом файле с хуком `usePreventScroll.ts`
+
+# Styling
+
+## Stack
+
+- getting started with `class-variance-authority` [installation](https://cva.style/docs/getting-started/installation)
