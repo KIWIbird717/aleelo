@@ -8,10 +8,9 @@ import { Textarea } from "@/shared/ui/Textarea/Textarea";
 import { RadioGroup, RadioGroupContent } from "@/shared/ui/Radio/Radio";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
 import { useState } from "react";
-import { Input } from "@/shared/ui/Input/Input";
 import { Slider } from "@/shared/ui/Slider/Slider";
-import { InputSecondary } from "@/shared/ui/Input/secondary";
 import { Button } from "@/shared/ui/Button/Button";
+import { Input } from "@/shared/ui/Input";
 
 const options = [
   { title: "title", value: "value1" },
@@ -38,13 +37,12 @@ export default function Home() {
 
   return (
     <View className="flex flex-col items-center gap-2 p-12">
-      <InputSecondary error={isError} disabled={setDisabled} />
+      <Input error={isError} disabled={setDisabled} />
       <div className="flex gap-2">
         <Button onClick={() => setIsError((state) => !state)}>Set error</Button>
         <Button onClick={() => setSetDisabled((state) => !state)}>Set disabled</Button>
       </div>
       <Input />
-      <Input error={"sds"} />
 
       <Checkbox checked={boolean} onCheckedChange={onChangeHandler} />
 

@@ -13,7 +13,7 @@ type Props = {
   disabled?: boolean;
 } & ComponentProps<"input">;
 
-export const InputSecondary = forwardRef<InputRefType, Props>((props, ref) => {
+export const Input = forwardRef<InputRefType, Props>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const inputRef = useRef<InputRefType>(null);
@@ -68,4 +68,4 @@ export const InputSecondary = forwardRef<InputRefType, Props>((props, ref) => {
   );
 });
 
-InputSecondary.displayName = InputSecondary.name;
+Input.displayName = Input.name;
