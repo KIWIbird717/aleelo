@@ -7,10 +7,12 @@ import { Textarea } from "@/shared/ui/Textarea/Textarea";
 
 import { RadioGroup, RadioGroupContent } from "@/shared/ui/Radio/Radio";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Slider } from "@/shared/ui/Slider/Slider";
 import { Button } from "@/shared/ui/Button/Button";
 import { Input } from "@/shared/ui/Input";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
+import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 
 const options = [
   { title: "title", value: "value1" },
@@ -23,6 +25,16 @@ const options = [
 export default function Home() {
   const [boolean, setBoolean] = useState(true);
   const [sliderValue, setSliderValue] = useState(45);
+  const userState = useAppSelector((state) => state.user.name);
+  const dispatch = useAppDispatch();
+
+  console.log({ userState });
+
+  useEffect(() => {
+    console.log({ userState });
+    if (userState) return;
+    dispatch(UserSlice.setUsername("Evgeniy"));
+  }, [userState]);
 
   const handleValueChange = (newValue: number[]) => {
     setSliderValue(newValue[0]);
