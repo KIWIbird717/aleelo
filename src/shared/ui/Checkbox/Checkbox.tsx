@@ -7,10 +7,9 @@ import CheckedDisabledIcon from "@/app/images/svg/checked-disabled.svg";
 
 import { cn } from "@/shared/lib/utils/cn";
 import { twMerge } from "tailwind-merge";
+import dynamic from "next/dynamic";
 
-//  <Checkbox checked={boolean}
-//         onCheckedChange={onChangeHandler}
-//       />
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 // https://ui.shadcn.com/docs/components/checkbox
 
@@ -19,7 +18,7 @@ const Checkbox = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
 >(({ className, ...props }, ref) => {
   const DEFAULT_CLASSES = twMerge(
-    "peer w-[32px] h-[32px] shrink-0 rounded-[8px] bg-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border-[2px] border-[#C9E2E7]",
+    "peer w-[32px] h-[32px] shrink-0 rounded-[8px] bg-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border-[2px] border-[#C9E2E7] transition-all duration-150",
   );
   const CHECKED_CLASSES = twMerge(
     !props.disabled &&
