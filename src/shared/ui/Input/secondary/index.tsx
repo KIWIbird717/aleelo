@@ -26,9 +26,9 @@ export const InputSecondary = forwardRef<InputRefType, Props>((props, ref) => {
     <div
       className={cn(
         isFocused && "shadow-inputActive transition-all duration-200 ease-out",
-        "bg-turquoise-400 relative z-[10] h-[50px] w-full overflow-hidden rounded-full p-[2px]",
+        "relative z-[10] h-[50px] w-full overflow-hidden rounded-full bg-turquoise-400 p-[2px]",
         props.error && "bg-gradient-border-error",
-        props.disabled && "shadow-none",
+        props.disabled && "opacity-50 shadow-none",
       )}
     >
       <input
