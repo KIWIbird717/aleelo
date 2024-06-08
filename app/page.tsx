@@ -18,6 +18,8 @@ import { useState } from "react";
 export default function Home() {
   const telegram = useTelegram();
   telegram?.expand();
+  telegram?.setHeaderColor("#B9CDCF");
+  telegram?.setBackgroundColor("#B9CDCF");
 
   const [circularProgress, setCircularProgress] = useState(10);
   const [inputError, setInputError] = useState(false);
