@@ -6,6 +6,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from "reac
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -23,7 +24,7 @@ const Slider = forwardRef<
     { className, tooltip, progressBar, textStyle = "dark", value, onValueChange, ...props },
     ref,
   ) => {
-    // const [value, setValue] = useState(45);
+    const preventScroll = usePreventOnSwipeWindowClose(false);
     const [isHolding, setIsHolding] = useState(false);
 
     const handleValueChange = (newValue: number[]) => {
@@ -36,11 +37,13 @@ const Slider = forwardRef<
     const handlePointerDown = () => {
       if (progressBar) return;
       setIsHolding(true);
+      preventScroll(true);
     };
 
     const handlePointerUp = () => {
       if (progressBar) return;
       setIsHolding(false);
+      preventScroll(false);
     };
 
     return (
@@ -125,7 +128,7 @@ const Slider = forwardRef<
                   : "!text-mint-900 text-shadow-light",
               )}
             >
-              min
+              {props.min}%
             </span>
             <span
               className={twMerge(
@@ -134,7 +137,7 @@ const Slider = forwardRef<
                   : "!text-mint-900 text-shadow-light",
               )}
             >
-              max
+              {props.max}%
             </span>
           </div>
         )}

@@ -4,11 +4,13 @@ import * as React from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
 import { cn } from "@/shared/lib/utils/cn";
 import { twMerge } from "tailwind-merge";
+import { useTelegram } from "@/shared/lib/hooks/useTelegram";
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => {
+>(({ className, onClick, ...props }, ref) => {
+  const telegram = useTelegram();
   const DEFAULT_CLASSES =
     "peer inline-flex items-center h-[36px] w-[64px] border-none shrink-0 rounded-full border-2 border-transparent transition-colors";
 
@@ -40,6 +42,11 @@ const Switch = React.forwardRef<
 
   const DEFAULT_CLASSES_THUMB_INNER = "w-[calc(100%-4px)] h-[calc(100%-4px)] rounded-full";
 
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    telegram?.HapticFeedback.impactOccurred("light");
+    onClick && onClick(event);
+  };
+
   return (
     <SwitchPrimitives.Root
       className={cn(
@@ -50,6 +57,7 @@ const Switch = React.forwardRef<
         CHECKED_CLASSES_ROOT,
         className,
       )}
+      onClick={handleClick}
       {...props}
       ref={ref}
     >

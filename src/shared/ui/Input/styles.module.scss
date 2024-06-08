@@ -1,0 +1,11 @@
+.inputShadow {
+  -webkit-appearance: none;
+  box-shadow: inset 0px 3px 8px 0px rgba(63, 130, 146, 0.5);
+  -webkit-box-shadow: inset 0px 3px 8px 0px rgba(63, 130, 146, 0.5);
+}
+
+.inputShadowError {
+  -webkit-appearance: none;
+  box-shadow: 0px 3px 8px rgba(159, 35, 27, 0.5) inset;
+  -webkit-box-shadow: 0px 3px 8px rgba(159, 35, 27, 0.5) inset;
+}

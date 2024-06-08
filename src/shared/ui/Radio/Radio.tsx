@@ -5,6 +5,8 @@ import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { cn } from "@/shared/lib/utils/cn";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
+import { useTelegram } from "@/shared/lib/hooks/useTelegram";
+import styles from "./styles.module.scss";
 
 //Пример использования:
 
@@ -19,8 +21,21 @@ import { twMerge } from "tailwind-merge";
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
-  return <RadioGroupPrimitive.Root className={cn("grid gap-2", className)} {...props} ref={ref} />;
+>(({ className, onValueChange, ...props }, ref) => {
+  const telegram = useTelegram();
+  const handleValueChange: RadioGroupPrimitive.RadioGroupProps["onValueChange"] = (value) => {
+    onValueChange && onValueChange(value);
+    telegram?.HapticFeedback.impactOccurred("light");
+  };
+
+  return (
+    <RadioGroupPrimitive.Root
+      onValueChange={handleValueChange}
+      className={cn("grid gap-2", className)}
+      {...props}
+      ref={ref}
+    />
+  );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
@@ -39,9 +54,10 @@ const RadioGroupItem = React.forwardRef<
     >
       <RadioGroupPrimitive.Indicator className="flex h-full w-full items-center justify-center">
         <div
-          className={
-            "animate-fadeIn h-[20px] w-[20px] rounded-full bg-gradient-checkbox-active shadow-checkboxActive"
-          }
+          className={cn(
+            "h-[20px] w-[20px] rounded-full bg-gradient-checkbox-active shadow-checkboxActive",
+            styles.animateCubicBezier,
+          )}
         />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>

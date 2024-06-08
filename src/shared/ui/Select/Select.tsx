@@ -53,7 +53,7 @@ export const Select = forwardRef<HTMLSelectElement, InputProps>(({ options, ...p
     "flex items-center justify-between gap-4 outline-none bg-white shadow-input rounded-[28px] pl-[25px] pr-5 text-[13px] leading-[19.5px] font-normal text-grey h-[46px] placeholder:color-placeholder w-[calc(100%-4px)]";
 
   const DEFAULT_CLASSES_WRAPPER =
-    "z-[10] w-full absolute top-[48px] flex flex-col pl-[6px] py-3 !h-[183px] bg-white rounded-[25px] !bg-scroll-red mt-2 shadow-options";
+    "z-[10] w-full absolute top-[48px] flex flex-col pl-[6px] py-3 px-2 !h-[183px] bg-white rounded-[25px] !bg-scroll-red mt-2 shadow-options";
 
   const DEFAULT_CLASSES_SELECT =
     "flex items-center h-[46px] px-[14px] py-[10px] w-full text-left rounded-[10px] hover:bg-red text-[13px] leading-[19.5px] font-normal text-green-990 hover:bg-button-selected hover:text-white";
