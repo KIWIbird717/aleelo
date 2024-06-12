@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "../src/app/styles/globals.scss";
-import Head from "next/head";
 import Script from "next/script";
 import StoreProvider from "@/shared/lib/redux-store/StoreProvider";
+import { BootstrapTgWindow } from "@/shared/layout/BootstrapTgWindow";
 
 export const metadata: Metadata = {
   title: "Aleeo",
@@ -20,7 +20,9 @@ export default function RootLayout({
         <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
       </head>
       <body>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <BootstrapTgWindow>{children}</BootstrapTgWindow>
+        </StoreProvider>
       </body>
     </html>
   );
