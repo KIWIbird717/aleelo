@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3101",
+    "start": "next start",
     "lint": "next lint",
     "tg": "npm run build && npm run start",
     "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""

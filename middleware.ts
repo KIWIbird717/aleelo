@@ -11,6 +11,8 @@ export default createMiddleware({
   localeDetection: false,
 });
 
+export { default as defaultNextAut } from "next-auth/middleware";
+
 export const config = {
   // Сопоставляем только интернационализированные пути
   matcher: ["/", `/(ru|en)/:path*`],

@@ -11,6 +11,11 @@ const handler = NextAuth({
         username: { label: "Username", type: "text", placeholder: "username" },
         password: { label: "Password", type: "text", placeholder: "password" },
       },
+      /**
+       * Тут принимаем данные от пользователя
+       * чтобы проверить credentials
+       * Docs: https://next-auth.js.org/configuration/providers/credentials
+       */
       authorize: async (credentials, req) => {
         const myProfile = await serverApi.get("/auth/profile");
         console.log({ myProfile });
@@ -19,9 +24,6 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-  },
   callbacks: {
     async jwt({ token, user, session, trigger }) {
       console.log({ token });
