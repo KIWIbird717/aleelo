@@ -14,8 +14,7 @@ export const InitLoader = () => {
   const path = usePathname();
 
   useEffect(() => {
-    console.log({ status, path });
-    if (status === "authenticated" || status === "unauthenticated") {
+    if (status === "unauthenticated") {
       router.push(`${path}/auth/signin`);
     }
   }, [status]);

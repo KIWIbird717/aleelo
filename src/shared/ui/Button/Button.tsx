@@ -2,8 +2,6 @@
 
 import { cn } from "@/shared/lib/utils/cn";
 import { useAnimate } from "framer-motion";
-// import { useAnimate } from "framer-motion";
-import dynamic from "next/dynamic";
 import type { ComponentProps, FC, ReactNode } from "react";
 import { ClassNameValue, twMerge } from "tailwind-merge";
 
@@ -97,6 +95,7 @@ export const Button: FC<ButtonNS.Props> = ({ children, icon, onClick, ...props }
     animate([
       [scope.current, { scale: 0.95, y: 5 }, { duration: ButtonNS.halfAnimDuration }],
       [scope.current, { scale: 1, y: 0 }, { duration: ButtonNS.halfAnimDuration }],
+      ["#anim", {}],
     ]);
     onClick && onClick(event);
   };
