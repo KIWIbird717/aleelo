@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, ReactNode, useEffect } from "react";
-import { useTelegram } from "../hooks/useTelegram";
+import { useTelegram } from "@/shared/lib/hooks/useTelegram";
 
 type Props = {
   children?: ReactNode;

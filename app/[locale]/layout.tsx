@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "../../src/app/styles/globals.scss";
 import Script from "next/script";
 import StoreProvider from "@/shared/lib/redux-store/StoreProvider";
-import { BootstrapTgWindow } from "@/shared/lib/providers/BootstrapTgWindow";
-import { AuthSessionProvider } from "@/shared/lib/providers/AuthSessionProvider";
+import { BootstrapTgWindow } from "@/shared/providers/BootstrapTgWindow";
+import { AuthSessionProvider } from "@/shared/providers/AuthSessionProvider";
 
 export const metadata: Metadata = {
   title: "Aleeo",

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3101",
     "lint": "next lint",
     "tg": "npm run build && npm run start",
     "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
@@ -43,6 +43,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "sass": "^1.77.2",
+    "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

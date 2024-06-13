@@ -18,13 +18,6 @@ const handler = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
-    newUser: "/auth/new-user",
-  },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",

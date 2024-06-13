@@ -15,9 +15,9 @@ export const InitLoader = () => {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push(`${path}/auth/signin`);
+      router.push(`${path}/auth/onboarding`);
     }
-  }, [status]);
+  }, [path, router, status]);
 
   return (
     <section

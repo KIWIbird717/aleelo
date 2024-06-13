@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { IUserSlice } from "./type";
 
 export namespace UserSlice {
-  export interface IUserSlice {
-    name: string | null;
-  }
-
   const initialState: IUserSlice = {
     name: null,
   };
