@@ -1,26 +1,14 @@
-"use client";
-
-import React, { useEffect } from "react";
 import InitLoaderSvg from "@/app/images/init-loader/init-loader.svg";
 import { Typography } from "../../shared/ui/Typography/Typography";
 import styles from "./styles.module.scss";
 import { cn } from "@/shared/lib/utils/cn";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+
+import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 
 export const InitLoader = () => {
-  const { status } = useSession();
-  const router = useRouter();
-  const path = usePathname();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push(`${path}/auth/onboarding`);
-    }
-    if (status === "authenticated") {
-      router.push(`${path}/home`);
-    }
-  }, [path, router, status]);
+  setTimeout(() => {
+    serverSideRedirect(`/ru/auth/onboarding`);
+  }, 2000);
 
   return (
     <section
