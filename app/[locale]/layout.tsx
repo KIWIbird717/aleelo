@@ -11,22 +11,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                     params,
+                                   }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
-      </head>
-      <body>
-        <StoreProvider>
-          <AuthSessionProvider>
-            <BootstrapTgWindow>{children}</BootstrapTgWindow>
-          </AuthSessionProvider>
-        </StoreProvider>
-      </body>
+    <html lang={params.locale}>
+    <head>
+      <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
+    </head>
+    <body>
+    <StoreProvider>
+      <AuthSessionProvider>
+        <BootstrapTgWindow>{children}</BootstrapTgWindow>
+      </AuthSessionProvider>
+    </StoreProvider>
+    </body>
     </html>
   );
 }

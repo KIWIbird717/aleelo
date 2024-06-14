@@ -17,7 +17,12 @@ export const InitLoader = () => {
     if (status === "unauthenticated") {
       router.push(`${path}/auth/onboarding`);
     }
+    if (status === "authenticated") {
+      router.push(`${path}/home`);
+    }
   }, [path, router, status]);
+
+  console.log({ path });
 
   return (
     <section
