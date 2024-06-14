@@ -32,6 +32,8 @@ const config: Config = {
         "gradient-switch-unchecked": "linear-gradient(180deg, #78889A 0%, #BFCBD3 100%)",
         "gradient-slider":
           "linear-gradient(180deg, rgba(161, 198, 204, 0.5) 0%, rgba(56, 118, 130, 0.5) 100%)",
+        "gradient-throw":
+          "linear-gradient(180deg, #E3E7EA 0%, #BFCBD3 100%)",
       },
       keyframes: {
         gradientMove: {
@@ -66,6 +68,7 @@ const config: Config = {
           "0px 2px 4px 0px rgba(59, 109, 147, 0.4), 0px 0px 6px 0px rgba(200, 223, 238, 1) inset, -2px -2px 4px 0px rgba(197, 215, 226, 1) inset",
         sliderText: "0px 1px 2px 0px rgba(28, 55, 61, 0.8) inset",
         dialogOnBoarding: "0px 8px 14px 0px rgba(4, 53, 69, 0.45)",
+        throw: "0px 8px 14px -3px rgba(115, 158, 165, 0.8), 2px 2px 8px 0px rgba(120, 136, 154, 1) inset, -8px -8px 13px 0px rgba(126, 143, 163, 1) inset",
       },
       dropShadow: {
         input: "0px 3px 8px 0px #3F829280 inset",
