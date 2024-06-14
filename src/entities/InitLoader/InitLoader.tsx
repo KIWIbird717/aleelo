@@ -22,8 +22,6 @@ export const InitLoader = () => {
     }
   }, [path, router, status]);
 
-  console.log({ path });
-
   return (
     <section
       className={cn(
