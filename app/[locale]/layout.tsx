@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../../src/app/styles/globals.scss";
+import "@/app/styles/globals.scss";
 import Script from "next/script";
 import StoreProvider from "@/shared/lib/redux-store/StoreProvider";
 import { BootstrapTgWindow } from "@/shared/providers/BootstrapTgWindow";

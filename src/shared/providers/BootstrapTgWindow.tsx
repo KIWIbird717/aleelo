@@ -17,5 +17,5 @@ export const BootstrapTgWindow: FC<Props> = (props) => {
   telegram?.setHeaderColor("#B9CDCF");
   telegram?.setBackgroundColor("#B9CDCF");
 
-  return <>{props.children}</>;
+  return props.children;
 };

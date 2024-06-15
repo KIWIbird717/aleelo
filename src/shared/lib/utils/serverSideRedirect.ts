@@ -13,4 +13,3 @@ import { redirect as nextRedirect } from "next/navigation";
 export const serverSideRedirect = async (...args: ArgumentTypes<typeof nextRedirect>) => {
   nextRedirect(...args);
 };
-// }

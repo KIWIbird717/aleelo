@@ -1,11 +1,19 @@
-import { InitLoader } from "@/entities/InitLoader/InitLoader";
-import { View } from "@/shared/layout/View";
-import React from "react";
+"use client";
 
-export default async function MainPage() {
-  return (
-    <View>
+import { InitLoader } from "@/entities/InitLoader/InitLoader";
+import { AuthorizationCheck } from "@/entities/AuthorizationCheck";
+import React from "react";
+import { View } from "@/shared/layout/View";
+
+const isServer = typeof window === "undefined";
+
+export default function MainPage() {
+  return isServer ? (
+    <InitLoader />
+  ) : (
+    <>
       <InitLoader />
-    </View>
+      <AuthorizationCheck />
+    </>
   );
 }
