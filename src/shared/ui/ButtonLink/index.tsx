@@ -67,7 +67,7 @@ export const ButtonLink: FC<ButtonProps> = ({ children, href, ...props }) => {
     <Link
       {...props}
       href={href}
-      prefetch
+      prefetch={true}
       className={twMerge(variantClassName, sizeClassName, DEFAULT_CLASSES, props.className)}
     >
       {children}

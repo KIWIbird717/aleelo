@@ -9,16 +9,17 @@ import { useState } from "react";
 import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { authorize } from "./actions/authorize";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { serverApi } from "@/shared/lib/axios";
+import { useRouter } from "next/navigation";
 
 const isServer = typeof window === "undefined";
 
 export const LetsMeetWidget = () => {
   usePreventOnSwipeWindowClose(true);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [stage, setStage] = useState(0);
   const isLastStage = stage === 2;
@@ -41,6 +42,8 @@ export const LetsMeetWidget = () => {
    * interceptor serverApi: {@link serverApi}) и устанавливаем данные о пользователе в redux-store
    */
   useRequest(async () => {
+    router.prefetch("/signin"); // подгрузка бандла для страницы /signin
+
     if (!isServer) {
       // авторизуем пользователя
       const authRes = await authorize();
