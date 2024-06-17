@@ -84,12 +84,7 @@ export class Logger {
   }
 
   private static textColor(text: string, color: Color) {
-    const isNode = typeof window === "undefined";
-    if (isNode) {
-      return [nodeColors[color], text, nodeColors.Reset];
-    } else {
-      return [`\x1B[34m`, `${text}`, `\x1B[34m`];
-    }
+    return nodeColors[color] + text + nodeColors.Reset;
   }
 
   private static printLog({
@@ -131,9 +126,9 @@ export class Logger {
     if (context) {
       if (isNode) {
         this.consoleAlwd.log(
-          ...Logger.textColor(logType, textColor),
+          Logger.textColor(logType, textColor),
           currentTime,
-          ...Logger.textColor(`[${context}]`, textColor),
+          Logger.textColor(`[${context}]`, textColor),
           "-",
           message,
           ...optionalParams,
@@ -151,7 +146,7 @@ export class Logger {
     } else {
       if (isNode) {
         this.consoleAlwd.log(
-          ...Logger.textColor(logType, textColor),
+          Logger.textColor(logType, textColor),
           currentTime,
           " - ",
           message,

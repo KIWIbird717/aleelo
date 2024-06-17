@@ -14,7 +14,7 @@ export const mediaApi = axios.create({
 serverApi.interceptors.request.use((config) => {
   const token = getCookie("jwt");
 
-  const logger = new Logger("serverApi.interceptors.request.use");
+  const logger = new Logger("serverApi.interceptors");
   logger.debug({ token });
   return config;
 });
