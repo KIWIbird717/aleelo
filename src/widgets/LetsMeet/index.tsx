@@ -18,7 +18,6 @@ const isServer = typeof window === "undefined";
 
 export const LetsMeetWidget = () => {
   usePreventOnSwipeWindowClose(true);
-  const logger = new Logger(LetsMeetWidget.name);
   const dispatch = useAppDispatch();
 
   const [stage, setStage] = useState(0);
@@ -34,6 +33,13 @@ export const LetsMeetWidget = () => {
     });
   };
 
+  /**
+   * Получаем jwt токен для идентификации пользователя
+   * и устанавливаем его в localStorage, чтобы в дальнейшем использовать для axios запросов.
+   *
+   * Поле этого отправляем уже авторизированный запрос (с установленными в хедерах Authorization в
+   * interceptor serverApi: {@link serverApi}) и устанавливаем данные о пользователе в redux-store
+   */
   useRequest(async () => {
     if (!isServer) {
       // авторизуем пользователя

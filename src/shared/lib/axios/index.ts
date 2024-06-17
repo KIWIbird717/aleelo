@@ -1,7 +1,4 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { store } from "../redux-store/store";
 
 const isServer = typeof window === "undefined";
 
@@ -15,7 +12,6 @@ export const mediaApi = axios.create({
 });
 
 serverApi.interceptors.request.use((config) => {
-  const logger = new Logger("serverApi.interceptors");
   if (!isServer) {
     const jwtToken = localStorage.getItem("jwt");
     config.headers.Authorization = `Bearer ${jwtToken}`;

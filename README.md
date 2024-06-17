@@ -200,6 +200,8 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   Название для поля слайса в `configureStore` и `combineReducers` должно совпадать с установленным названием для слайса в файле с моделью слайса (поле `name` в функции `createSlice`). Название для полей в `configureStore` и `combineReducers` должно быть одинаковым.
 
+- Также хорошей практикой будет экспорт переменных из слайса с помощью namespace
+
 - Пример создания слайса:
 
   ```ts
@@ -209,55 +211,65 @@ export default function Layout({ children }: { children: ReactNode }) {
   import { createSlice } from "@reduxjs/toolkit";
   import type IMySlice from "./types.d.ts";
 
-  /**
-   * Создаем изначальное состояния для значений в слайсе.
-   * Также применяем к изначальному состоянию тип этого состояния.
-   *
-   * Представим, что из файла utils/redux/my-slice/types.d.ts
-   * экспортируется по дефолту такой интерфейс:
-   * interface IMySlice {
-   *   something: string | null
-   * }
-   */
-  const initialState: IMySlice = {
-    something: null,
-  };
+  export namespace MySlice {
+    /**
+     * Создаем изначальное состояния для значений в слайсе.
+     * Также применяем к изначальному состоянию тип этого состояния.
+     *
+     * Представим, что из файла utils/redux/my-slice/types.d.ts
+     * экспортируется по дефолту такой интерфейс:
+     * interface IMySlice {
+     *   something: string | null
+     * }
+     */
+    const initialState: IMySlice = {
+      something: null,
+    };
 
-  // создаем слайс
-  export const mySlice = createSlice({
-    name: "my",
-    initialState,
-    reducers: {
-      setSomething: (state, action: PayloadAction<IMySlice["something"]>) => {
-        state.something = action.payload;
+    // создаем слайс
+    export const mySlice = createSlice({
+      name: "my",
+      initialState,
+      reducers: {
+        setSomething: (state, action: PayloadAction<IMySlice["something"]>) => {
+          state.something = action.payload;
+        },
       },
-    },
-  });
+    });
 
-  // экспорт слайса. Экспортируем экшены и редьюсеры
-  export const { setSomething } = authSlice.actions;
-  export default mySlice.reducer;
+    // экспорт слайса. Экспортируем экшены и редьюсеры
+    export const { setSomething } = authSlice.actions;
+    export const myReducer = mySlice.reducer;
+    export const Type = IMySlice; // экспортируем тип слайса, чтобы его удобно можно было достать из namespace
+  }
   ```
 
 - Пример объединения редьюсеров:
 
   ```ts
-  // utils/redux/store.ts
+  // frontend/src/shared/lib/redux-store/store.ts
 
-  import mySlice from "./my-slice/mySlice"; // импортируем по дефолту наш созданный редьюсер
+  import { configureStore } from "@reduxjs/toolkit";
+  import { MySlice } from "./slices/user-slice/userSlice";
 
-  const  store = configureStore({
-  	reducer: {
-  	  ...
-  	  my: mySlice, // название my должно совпадать с тем, которое было установлено в слайсе в поле name
-  	}
-  })
+  export const store = () => {
+    return configureStore({
+      reducer: {
+        user: MySlice.myReducer,
+      },
+      /**
+       * You cant set up more middlewares
+       * Check instruction: @see https://redux-toolkit.js.org/api/serializabilityMiddleware
+       */
+      middleware: (gDM) => gDM({ serializableCheck: false }),
+    });
+  };
 
-  // устанавливаем типы для слайса
-  const  rootReducer = combineReducers({
-  	...
-  	my: mySlice
-  })
+  // Infer the type of makeStore
+  export type AppStore = ReturnType<typeof store>;
+  // Infer the `RootState` and `AppDispatch` types from the store itself
+  export type RootState = ReturnType<AppStore["getState"]>;
+  export type AppDispatch = AppStore["dispatch"];
   ```
 
 ### Получение состояния
@@ -291,4 +303,38 @@ function Components() {
 
 	return (...)
 }
+```
+
+# 🖨️ Logger
+
+Класс Logger выводит сообщения в консоль в зависимости от настроек окружения.
+
+## Get started with logger
+
+Использовать вместо обычного console.log, console.error, console.warn. Данный
+класс должен использоваться только во время разработки. После сборки проекта
+отключить вывод сообщений в консоль в .env файле поставив переменную окружения
+`NEXT_PUBLIC_LOGGER_STATE = off`. Изначально переменная окружения `NEXT_PUBLIC_LOGGER_STATE`
+
+стоит в значении `on`.
+
+Если в логере нужно отслеживать где была вызвана ошибка, то в переменной окружения
+в .env файле нужно поставить переменную окружения `NEXT_PUBLIC_NEXT_PUBLIC_TRACE_ERRORS = true`.
+Таким образом в консоли будет отображаться стек вызовов функций.
+
+## Usage
+
+```typescript
+// Логирование без контекста
+Logger.log("log message"); // [LOG] 05:10:21 - log message
+Logger.debug("debug message"); // [DEBUG] 05:10:21 - debug message
+Logger.warn("warn message"); // [WARN] 05:10:21 - warn message
+Logger.error("error message"); // [ERROR] 05:10:21 - error message
+
+// Логирование c контекста
+const logger = new Logger("context");
+logger.log("log message with context"); // [LOG] 05:10:21 [context] - log message with context
+logger.debug("debug message with context"); // [DEBUG] 05:10:21 [context] - debug message with context
+logger.warn("warn message with context"); // [WARN] 05:10:21 [context] - warn message with context
+logger.error("error message with context"); // [ERROR] 05:10:21 [context] - error message with context
 ```
