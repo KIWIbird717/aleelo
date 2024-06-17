@@ -1,8 +1,6 @@
 "use server";
 
 import { serverApi } from "@/shared/lib/axios";
-import { setCookie } from "cookies-next";
-import { cookies } from "next/headers";
 
 type ResponseType = {
   jwt: string;

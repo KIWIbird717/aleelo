@@ -8,28 +8,34 @@ import { ButtonLink } from "@/shared/ui/ButtonLink";
 import { useState } from "react";
 import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
-import { authorize } from "./actions/authorise";
-import { useTelegram } from "@/shared/lib/hooks/useTelegram";
+import { authorize } from "./actions/authorize";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
+
+const isServer = typeof window === "undefined";
 
 export const LetsMeetWidget = () => {
+  const logger = new Logger(LetsMeetWidget.name);
+
   usePreventOnSwipeWindowClose(true);
-  const [stage, setSetstage] = useState(0);
+  const [stage, setStage] = useState(0);
   const isLastStage = stage === 2;
 
   const handleClick = () => {
     if (isLastStage) {
       return serverSideRedirect("signin");
     }
-    setSetstage((state) => {
+    setStage((state) => {
       if (state > 1) return state;
       return (state += 1);
     });
   };
 
   useRequest(async () => {
-    const authRes = await authorize();
-    console.log("set cookies", authRes);
-  }, []);
+    if (!isServer) {
+      const authRes = await authorize();
+      logger.debug("check auth", { authRes });
+    }
+  }, [isServer]);
 
   return (
     <div className="fade-in flex h-screen flex-col justify-between overflow-hidden">
