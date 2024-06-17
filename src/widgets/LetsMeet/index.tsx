@@ -5,11 +5,13 @@ import { ParalaxBackground } from "./shared/layout/ParalaxBackground";
 import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
 import { Button } from "@/shared/ui/Button/Button";
 import { ButtonLink } from "@/shared/ui/ButtonLink";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { authorize } from "./actions/authorize";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
+import { getCookie, setCookie } from "cookies-next";
+import Cookies from "js-cookie";
 
 const isServer = typeof window === "undefined";
 
@@ -33,9 +35,21 @@ export const LetsMeetWidget = () => {
   useRequest(async () => {
     if (!isServer) {
       const authRes = await authorize();
-      logger.debug("check auth", { authRes });
+      logger.debug("Set jwt token", { authRes });
+      fetch("/api/cookies", { method: "POST", body: JSON.stringify({ jwt: authRes.jwt }) });
+      Cookies.set("jwt2", authRes.jwt);
     }
   }, [isServer]);
+
+  useEffect(() => {
+    if (!isServer) {
+      setTimeout(async () => {
+        const testCookies = await fetch(`/api/cookies`).then((res) => res.json());
+        logger.debug("Cookies from server request testCookies:", testCookies);
+        logger.debug("Cookies jwt2:", Cookies.get("jwt2"));
+      }, 5000);
+    }
+  }, []);
 
   return (
     <div className="fade-in flex h-screen flex-col justify-between overflow-hidden">
