@@ -7,7 +7,7 @@ import { isCancelError } from "../utils/isCancelError";
  * @description
  * Этот hook упрощает работу с запросами к api сервисам.
  *
- * Работает как `useEffect`. В callback функцию передан доп. параматр `signal`,
+ * Работает как `useEffect`. В callback функцию передан доп. параметр `signal`,
  * который предотвращает лишние запросы к api. Работает также как signal от
  * AbortController. Желательно передавать `signal` в параметры запроса для
  * лучшей оптимизации работы вебприложения и вебсервера
@@ -48,5 +48,6 @@ export default function useRequest<T>(
     return () => {
       abortController.abort();
     };
-  }, deps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps]);
 }

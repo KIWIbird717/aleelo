@@ -1,16 +1,11 @@
 import React from "react";
 import { View } from "@/shared/layout/View";
-import { FamiliarisationEft } from "@/widgets/FamiliarisationEft";
+import { GettingToKnowWithGame } from "@/widgets/GettingToKnowWithGame";
 
-export default function SignInPage(
-  {
-    params: { locale },
-  }: {
-    params: { locale: string };
-  }) {
+export default function SignInPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <View backgroundEffect={"gradient"} className="relative">
-      <FamiliarisationEft locale={locale} />
+      <GettingToKnowWithGame locale={locale} />
     </View>
   );
 }

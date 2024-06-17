@@ -12,13 +12,13 @@ import EftSecond from "@/app/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-interface IFamiliarisationEftProps {
+interface IGettingToKnowWithGameProps {
   locale: string;
 }
 
 const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
 
-export const FamiliarisationEft: FC<IFamiliarisationEftProps> = ({ locale }) => {
+export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale }) => {
   const [stage, setStage] = useState(0);
   const { push } = useRouter();
 
