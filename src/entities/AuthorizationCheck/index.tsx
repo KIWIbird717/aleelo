@@ -4,16 +4,22 @@ import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { usePathname } from "next/navigation";
 import { serverApi } from "@/shared/lib/axios";
+import { AxiosError } from "axios";
 
 export const AuthorizationCheck = () => {
   const path = usePathname();
 
   useRequest(async () => {
-    const myProfile = await serverApi.get("auth/profile");
-    if (!myProfile) {
+    try {
+      const myProfile = await serverApi.get("auth/profile");
+      if (!myProfile) {
+        return serverSideRedirect(`${path}/auth/onboarding`);
+      }
+      return serverSideRedirect(`${path}/home`);
+    } catch (error) {
+      // если ошибка 401 (Unauthorized)
       return serverSideRedirect(`${path}/auth/onboarding`);
     }
-    return serverSideRedirect(`${path}/home`);
   }, [path]);
 
   return null;
