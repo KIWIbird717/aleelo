@@ -1,18 +1,19 @@
 "use client";
 
-import { getData } from "./actions/getProfile";
 import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { usePathname } from "next/navigation";
+import { serverApi } from "@/shared/lib/axios";
 
 export const AuthorizationCheck = () => {
   const path = usePathname();
 
   useRequest(async () => {
-    const myProfile = await getData();
+    const myProfile = await serverApi.get("auth/profile");
     if (!myProfile) {
       return serverSideRedirect(`${path}/auth/onboarding`);
     }
+    return serverSideRedirect(`${path}/home`);
   }, [path]);
 
   return null;

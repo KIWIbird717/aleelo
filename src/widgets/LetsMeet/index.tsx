@@ -5,20 +5,22 @@ import { ParalaxBackground } from "./shared/layout/ParalaxBackground";
 import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
 import { Button } from "@/shared/ui/Button/Button";
 import { ButtonLink } from "@/shared/ui/ButtonLink";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { authorize } from "./actions/authorize";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { getCookie, setCookie } from "cookies-next";
-import Cookies from "js-cookie";
+import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
+import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
+import { serverApi } from "@/shared/lib/axios";
 
 const isServer = typeof window === "undefined";
 
 export const LetsMeetWidget = () => {
-  const logger = new Logger(LetsMeetWidget.name);
-
   usePreventOnSwipeWindowClose(true);
+  const logger = new Logger(LetsMeetWidget.name);
+  const dispatch = useAppDispatch();
+
   const [stage, setStage] = useState(0);
   const isLastStage = stage === 2;
 
@@ -34,22 +36,14 @@ export const LetsMeetWidget = () => {
 
   useRequest(async () => {
     if (!isServer) {
+      // авторизуем пользователя
       const authRes = await authorize();
-      logger.debug("Set jwt token", { authRes });
-      fetch("/api/cookies", { method: "POST", body: JSON.stringify({ jwt: authRes.jwt }) });
-      Cookies.set("jwt2", authRes.jwt);
+      localStorage.setItem("jwt", authRes.jwt);
+      // получаем и устанавливаем пользователя
+      const myProfile = await serverApi.get("/auth/profile");
+      dispatch(UserSlice.setProfile(myProfile.data));
     }
   }, [isServer]);
-
-  useEffect(() => {
-    if (!isServer) {
-      setTimeout(async () => {
-        const testCookies = await fetch(`/api/cookies`).then((res) => res.json());
-        logger.debug("Cookies from server request testCookies:", testCookies);
-        logger.debug("Cookies jwt2:", Cookies.get("jwt2"));
-      }, 5000);
-    }
-  }, []);
 
   return (
     <div className="fade-in flex h-screen flex-col justify-between overflow-hidden">

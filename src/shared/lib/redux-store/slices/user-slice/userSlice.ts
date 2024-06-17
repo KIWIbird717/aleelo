@@ -4,19 +4,25 @@ import { IUserSlice } from "./type";
 
 export namespace UserSlice {
   const initialState: IUserSlice = {
-    name: null,
+    profile: null,
+    jwt: null,
+    refreshToken: null,
   };
 
   export const userSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-      setUsername: (state, action: PayloadAction<IUserSlice["name"]>) => {
-        state.name = action.payload;
+      setProfile: (state, action: PayloadAction<IUserSlice["profile"]>) => {
+        state.profile = action.payload;
+      },
+      setJwt: (state, action: PayloadAction<IUserSlice["jwt"]>) => {
+        state.jwt = action.payload;
       },
     },
   });
 
-  export const { setUsername } = userSlice.actions;
+  export const { setProfile, setJwt } = userSlice.actions;
   export const userReducer = userSlice.reducer;
+  export type Type = IUserSlice;
 }
