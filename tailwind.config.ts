@@ -4,12 +4,11 @@ import plugin from "tailwindcss/plugin";
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/entities/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/shared/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/views/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/widgets/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./entities/**/*.{js,ts,jsx,tsx,mdx}",
+    "./features/**/*.{js,ts,jsx,tsx,mdx}",
+    "./shared/**/*.{js,ts,jsx,tsx,mdx}",
+    "./widgets/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -32,13 +31,10 @@ const config: Config = {
         "gradient-switch-unchecked": "linear-gradient(180deg, #78889A 0%, #BFCBD3 100%)",
         "gradient-slider":
           "linear-gradient(180deg, rgba(161, 198, 204, 0.5) 0%, rgba(56, 118, 130, 0.5) 100%)",
-        "gradient-throw":
-          "linear-gradient(180deg, #E3E7EA 0%, #BFCBD3 100%)",
-        "gradient-modal-sheet":
-          "linear-gradient(180deg, #C9E2E7 0.01%, #A1C6CC 92.81%)",
+        "gradient-throw": "linear-gradient(180deg, #E3E7EA 0%, #BFCBD3 100%)",
+        "gradient-modal-sheet": "linear-gradient(180deg, #C9E2E7 0.01%, #A1C6CC 92.81%)",
         "gradient-border-edit":
           "linear-gradient(180deg, rgba(123, 199, 196, 0.5) 0%, rgba(62, 137, 141, 0.5) 100%)",
-
       },
       keyframes: {
         gradientMove: {
@@ -74,10 +70,14 @@ const config: Config = {
         sliderText: "0px 1px 2px 0px rgba(28, 55, 61, 0.8) inset",
         dialogOnBoarding: "0px 8px 14px 0px rgba(4, 53, 69, 0.45)",
         white: "0px 1px 1px 0px rgba(255, 255, 255, 0.85)",
-        throw: "0px 8px 14px -3px rgba(115, 158, 165, 0.8), 2px 2px 8px 0px rgba(120, 136, 154, 1) inset, -8px -8px 13px 0px rgba(126, 143, 163, 1) inset",
-        buttonEdit: "0px 7px 13px -2px rgba(17, 76, 95, 0.3), 1px 1px 7px 0px rgba(86, 145, 163, 0.5) inset, -7px -7px 9px 0px rgba(53, 121, 131, 0.3) inset",
-        element: "0px 8px 14px -3px rgba(56, 117, 130, 0.47), 2px 2px 8px 0px rgba(39, 95, 146, 1) inset, -8px -8px 13px 0px rgba(33, 49, 80, 0.5) inset",
-        elementHappy: "0px 8px 14px -3px rgba(33, 78, 86, 0.3), 0px 1px 4px 0px rgba(241, 170, 19, 1) inset, 0px -5px 10px 0px rgba(207, 47, 47, 0.4) inset"
+        throw:
+          "0px 8px 14px -3px rgba(115, 158, 165, 0.8), 2px 2px 8px 0px rgba(120, 136, 154, 1) inset, -8px -8px 13px 0px rgba(126, 143, 163, 1) inset",
+        buttonEdit:
+          "0px 7px 13px -2px rgba(17, 76, 95, 0.3), 1px 1px 7px 0px rgba(86, 145, 163, 0.5) inset, -7px -7px 9px 0px rgba(53, 121, 131, 0.3) inset",
+        element:
+          "0px 8px 14px -3px rgba(56, 117, 130, 0.47), 2px 2px 8px 0px rgba(39, 95, 146, 1) inset, -8px -8px 13px 0px rgba(33, 49, 80, 0.5) inset",
+        elementHappy:
+          "0px 8px 14px -3px rgba(33, 78, 86, 0.3), 0px 1px 4px 0px rgba(241, 170, 19, 1) inset, 0px -5px 10px 0px rgba(207, 47, 47, 0.4) inset",
       },
       dropShadow: {
         input: "0px 3px 8px 0px #3F829280 inset",
@@ -197,7 +197,7 @@ const config: Config = {
         },
         ".text-shadow-light": {
           textShadow: "0px 1px 1px rgba(255, 255, 255, 0.85)",
-    },
+        },
         ".text-shadow-red-two": {
           textShadow: "0px 1px 2px rgba(165, 54, 30, 1)",
         },

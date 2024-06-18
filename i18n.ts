@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
-import { mediaApi } from "@/shared/lib/axios";
+import { mediaApi } from "./shared/lib/axios";
 
 // Может быть импортирован из общей конфигурации
 export const locales = ["en", "ru"];

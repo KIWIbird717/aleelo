@@ -7,11 +7,9 @@ export default createMiddleware({
 
   // По умолчанию используется английский
   defaultLocale: "en",
-
-  localeDetection: false,
 });
 
 export const config = {
-  // Сопоставляем только интернационализированные пути
-  matcher: ["/", `/(ru|en)/:path*`],
+  // Match only internationalized pathnames
+  matcher: ["/", "/(ru|en)/:path*"],
 };
