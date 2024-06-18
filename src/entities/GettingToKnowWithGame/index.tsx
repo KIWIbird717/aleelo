@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import LeftArrow from "@/app/images/svg/signin/left-arrow.svg";
@@ -11,6 +11,9 @@ import EftFirst from "@/app/images/signin/eft-first.png";
 import EftSecond from "@/app/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
+import { serverApi } from "@/shared/lib/axios";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
@@ -18,31 +21,43 @@ interface IGettingToKnowWithGameProps {
 
 const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
 
-export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale }) => {
-  const [stage, setStage] = useState(0);
-  const { push } = useRouter();
+const items = [
+  {
+    id: 0,
+    image: EftFirst,
+    text: "Привет! Меня меня зовут Ефт. Я буду помогать тебе познавать мир aleelа. Я буду помогать тебе.",
+  },
+  {
+    id: 1,
+    image: EftSecond,
+    text: "Смотри, поле. Ты будешь по нему идти. Раз в день делать ход, делать практики, через сутки - писать свои мысли.",
+  },
+  {
+    id: 2,
+    image: EftSecond,
+    text: "Сейчас ты на клетке #1 - Рождение. Нажми на нее.",
+  },
+];
 
-  const items = [
-    {
-      id: 0,
-      image: EftFirst,
-      text: "Привет! Меня меня зовут Ефт. Я буду помогать тебе познавать мир aleelа. Я буду помогать тебе.",
-    },
-    {
-      id: 1,
-      image: EftSecond,
-      text: "Смотри, поле. Ты будешь по нему идти. Раз в день делать ход, делать практики, через сутки - писать свои мысли.",
-    },
-    {
-      id: 2,
-      image: EftSecond,
-      text: "Сейчас ты на клетке #1 - Рождение. Нажми на нее.",
-    },
-  ];
+export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale }) => {
+  const logger = new Logger(GettingToKnowWithGame.name);
+  const [stage, setStage] = useState(0);
+  const router = useRouter();
+
+  const homeRoute = `/${locale}/home`;
+
+  const finishOnboarding = async () => {
+    try {
+      await serverApi.put("game/onboarding/finish");
+      return serverSideRedirect(homeRoute);
+    } catch (error) {
+      logger.error(`Error in [${finishOnboarding.name}]`, error);
+    }
+  };
 
   const handleClick = () => {
     if (stage === 2) {
-      return push(`/${locale}/home`);
+      return finishOnboarding();
     }
 
     setStage((state) => {
@@ -50,6 +65,11 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
       return (state += 1);
     });
   };
+
+  // подгрузка страницы на которую будет редирект
+  useEffect(() => {
+    router.prefetch(homeRoute);
+  }, [router, homeRoute]);
 
   return (
     <div className="fixed bottom-0 h-[284px] w-full">

@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "@/shared/layout/View";
-import { GettingToKnowWithGame } from "@/widgets/GettingToKnowWithGame";
+import { GettingToKnowWithGame } from "@/entities/GettingToKnowWithGame";
 
 export default function SignInPage({ params: { locale } }: { params: { locale: string } }) {
   return (
