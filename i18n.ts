@@ -10,7 +10,6 @@ export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as any)) notFound();
 
   const localisationJson = await mediaApi.get(`/localisation/${locale}.json`);
-  console.log({ localisationJson });
   return {
     messages: localisationJson.data,
   };
