@@ -1,5 +1,7 @@
-import { FC, ReactNode } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 import { cn } from "@/shared/lib/utils/cn";
+import GradiendBg from "@/app/images/backgrounds/gradient.jpg";
+import Image from "next/image";
 
 const variants = {
   gradient: "bg-gradient-to-b to-[#67B6B3]/70 from-[#264F58]/70 w-screen h-screen",
@@ -8,6 +10,7 @@ const variants = {
 };
 
 type Props = {
+  style?: CSSProperties;
   className?: string;
   /**
    * акладывает на bg
@@ -28,7 +31,7 @@ export const View: FC<Props> = (props) => {
   return (
     <main
       className={cn(
-        "h-[calc(100vh+200px)]",
+        `relative h-[calc(100vh+1px)]`,
         props.className,
         props.backgroundEffect && variants[props.backgroundEffect],
       )}

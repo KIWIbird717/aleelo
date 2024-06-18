@@ -9,7 +9,7 @@
     // Primary palette
     --mint-default: #1c373d;
     --mint-950: #38768280;
-    --mint-940: #2F6068;
+    --mint-940: #2f6068;
     --mint-900: #387682;
     --mint-800: #a1c6cc;
     --mint-750: rgba(161, 198, 204, 0.5);
@@ -68,7 +68,7 @@
 
     --blue-default: #0e1d23;
     --blue-900: #2b3a67;
-    --blue-850: #1D456F;
+    --blue-850: #1d456f;
     --blue-800: #335c81;
     --blue-700: #5899e2;
     --blue-600: #65afff;
@@ -82,10 +82,9 @@ body {
   font-family: "Axiforma";
   background-image: url("../images/bg.png");
   background-color: #c0d8da;
-}
-
-section {
-  @apply p-8;
+  background-size: contain;
+  transition: all;
+  animation-duration: 500ms;
 }
 
 h1,
@@ -149,6 +148,34 @@ h5 {
   opacity: 0;
   animation: fadeInAnimation ease 0.5s;
   animation-fill-mode: forwards;
+}
+
+// отключение выделения для всех айтемов
+* {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+// Turn off scrollbar
+*::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+*::-webkit-scrollbar-track {
+  width: 0px;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 0px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  width: 0px;
 }
 
 @keyframes fadeInAnimation {
