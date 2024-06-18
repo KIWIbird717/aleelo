@@ -9,6 +9,7 @@
     // Primary palette
     --mint-default: #1c373d;
     --mint-950: #38768280;
+    --mint-940: #2F6068;
     --mint-900: #387682;
     --mint-800: #a1c6cc;
     --mint-750: rgba(161, 198, 204, 0.5);
@@ -67,6 +68,7 @@
 
     --blue-default: #0e1d23;
     --blue-900: #2b3a67;
+    --blue-850: #1D456F;
     --blue-800: #335c81;
     --blue-700: #5899e2;
     --blue-600: #65afff;
@@ -176,4 +178,8 @@ h5 {
 
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+.react-modal-sheet-backdrop {
+  background: none !important;
 }

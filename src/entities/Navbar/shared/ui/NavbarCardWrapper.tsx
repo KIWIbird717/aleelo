@@ -1,22 +1,26 @@
-import React, { FC } from "react";
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 
 type Props = {
   width: number;
+  svgGRef: MutableRefObject<SVGSVGElement | null>
+  svgRef: MutableRefObject<SVGSVGElement | null>
 } & React.SVGProps<SVGSVGElement>;
 
 export const NavbarCardWrapper: FC<Props> = (props) => {
-  const { width, ...restProps } = props;
+  const { width, svgGRef, svgRef, ...restProps } = props;
   const height = (137 / 383) * width;
+
   return (
     <svg
       {...restProps}
+      ref={svgRef}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g filter="url(#filter0_diii_6_20851)">
+      <g ref={svgGRef} filter="url(#filter0_diii_6_20851)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useDimensions } from "@/shared/lib/hooks/useDimensions";
-import React, { useMemo } from "react";
+import React, { FC, MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 import { NavbarCardWrapper } from "./shared/ui/NavbarCardWrapper";
 import GameIcon from "@/app/images/svg/navbar/game.svg";
 import GameActiveIcon from "@/app/images/svg/navbar/game-active.svg";
@@ -15,9 +15,15 @@ import { usePathname } from "next/navigation";
 const X_MARGINS = 20; // px
 const DEVIDE = 0.96279;
 
+interface INavbarProps {
+  width: number;
+  svgGRef: MutableRefObject<SVGSVGElement | null>
+  svgRef: MutableRefObject<SVGSVGElement | null>
+}
 
-export const Navbar = () => {
-  const { width } = useDimensions();
+
+export const Navbar:FC<INavbarProps> = ({svgGRef, svgRef, width}) => {
+
   const pathName = usePathname().split("/")[usePathname().split("/").length - 1];
 
   const navElements = useMemo(
@@ -53,16 +59,20 @@ export const Navbar = () => {
   );
 
   return (
-    <div className="fixed bottom-[-13px]">
+    <div className="fixed bottom-[-13px] z-[999]">
       <div className="relative">
-        <div className="absolute top-[38px] mx-[14px] flex w-[90%] h-[80px] items-center justify-between px-6">
+        <div className="absolute bottom-[20%] mx-[14px] flex w-[90.5%] h-[59%] items-center justify-between px-6">
           {navElements.map((el, i) => {
             const thirdEl = el.id === 2;
+
             return <div key={el.id}
-                        className={cn("flex flex-col items-center gap-1.5", thirdEl && "relative bottom-3")}
+                        className={cn("flex flex-col items-center justify-center gap-1.5",
+                          thirdEl && "relative bottom-3",
+                        )}
             >
               <div
-                className={cn(thirdEl && "flex items-center justify-center h-[58px] w-[58px] rounded-full relative bg-gradient-throw shadow-throw",
+                className={cn("w-[36px] h-[36px] flex items-center justify-center",
+                  thirdEl && "flex items-center justify-center h-[58px] w-[58px] rounded-full relative bg-gradient-throw shadow-throw",
                   pathName === el.link && "",
                 )}>
                 {el.icon}
@@ -76,7 +86,13 @@ export const Navbar = () => {
             </div>;
           })}
         </div>
-        <NavbarCardWrapper className="z-[-1]" width={width / DEVIDE} />
+
+        <NavbarCardWrapper svgGRef={svgGRef}
+                           svgRef={svgRef}
+                           className="z-[-1]"
+                           width={width / DEVIDE}
+        />
+
       </div>
     </div>
   );
