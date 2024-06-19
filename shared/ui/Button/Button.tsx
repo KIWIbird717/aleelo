@@ -63,6 +63,7 @@ export namespace ButtonNS {
   export const DEFAULT_CLASSES =
     "flex items-center justify-center gap-[10px] px-[40px] font-semibold text-[20px] leading-6 rounded-[30px] w-fit shrink-0";
 
+  // ДАННЫЕ ЗНАЧЕНИЯ ИСПОЛЬЗУЮТСЯ И ВНЕ КОМПОНЕНТА!!!
   export const animDuration = 0.15; // sec скорость анимации кнопки
   export const halfAnimDuration = animDuration / 2; // sec
   export type Props = {
@@ -95,7 +96,6 @@ export const Button: FC<ButtonNS.Props> = ({ children, icon, onClick, ...props }
     animate([
       [scope.current, { scale: 0.95, y: 5 }, { duration: ButtonNS.halfAnimDuration }],
       [scope.current, { scale: 1, y: 0 }, { duration: ButtonNS.halfAnimDuration }],
-      ["#anim", {}],
     ]);
     onClick && onClick(event);
   };
