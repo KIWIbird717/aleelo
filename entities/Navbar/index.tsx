@@ -8,22 +8,27 @@ import PracticeIcon from "@/public/images/svg/navbar/practice.svg";
 import ThrowIcon from "@/public/images/svg/navbar/throw.svg";
 import FlowIcon from "@/public/images/svg/navbar/flow.svg";
 import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
+import ArrowIcon from "@/public/images/svg/navbar/arrow.svg";
 import { cn } from "../../shared/lib/utils/cn";
 import { usePathname } from "next/navigation";
+
 
 const X_MARGINS = 20; // px
 const DEVIDE = 0.96279;
 
 interface INavbarProps {
   width: number;
-  svgGRef: MutableRefObject<SVGSVGElement | null>;
-  svgRef: MutableRefObject<SVGSVGElement | null>;
+  svgGRef?: MutableRefObject<SVGSVGElement | null>;
+  svgRef?: MutableRefObject<SVGSVGElement | null>;
 }
 
 export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
   const path = usePathname() || "";
 
   const pathName = path.split("/")[path.split("/").length - 1];
+  const pageName = path.split("/")[2]
+  const centerTitle =  pageName === "home" ? "Бросок" : pageName === "practice" ? "Переход" : ""
+  const centerIcon =  pageName === "home" ? <ThrowIcon /> : pageName === "practice" ? <ArrowIcon /> : <ThrowIcon />
 
   const navElements = useMemo(
     () => [
@@ -41,8 +46,8 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
       },
       {
         id: 2,
-        name: "Бросок",
-        icon: <ThrowIcon />,
+        name: centerTitle,
+        icon: centerIcon,
         link: "throw",
       },
       {
@@ -58,7 +63,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
         link: "profile",
       },
     ],
-    [pathName],
+    [centerIcon, centerTitle, pathName],
   );
 
   return (
@@ -90,7 +95,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
                   className={cn(
                     "text-[11px] font-normal leading-4 text-grey",
                     thirdEl && "font-semibold",
-                    pathName === el.link && "font-bold text-brown-900",
+                    pathName === el.link && "font-bold text-brown-900"
                   )}
                 >
                   {el.name}

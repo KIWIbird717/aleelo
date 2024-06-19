@@ -210,3 +210,10 @@ h5 {
 .react-modal-sheet-backdrop {
   background: none !important;
 }
+
+//practice-text
+.practice-gradient-text {
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(180deg, #C9E2E7 8.26%, rgba(201, 226, 231, 0) 100%);
+}

@@ -78,6 +78,8 @@ const config: Config = {
           "0px 8px 14px -3px rgba(56, 117, 130, 0.47), 2px 2px 8px 0px rgba(39, 95, 146, 1) inset, -8px -8px 13px 0px rgba(33, 49, 80, 0.5) inset",
         elementHappy:
           "0px 8px 14px -3px rgba(33, 78, 86, 0.3), 0px 1px 4px 0px rgba(241, 170, 19, 1) inset, 0px -5px 10px 0px rgba(207, 47, 47, 0.4) inset",
+        audioBtn: "0px 8px 14px -3px rgba(17, 76, 95, 0.45), 2px 2px 8px 0px rgba(86, 145, 163, 0.5) inset, -8px -8px 10px 0px rgba(53, 121, 131, 0.3) inset",
+        audioImage: "0px 4px 24px 0px rgba(0, 0, 0, 0.6) inset"
       },
       dropShadow: {
         input: "0px 3px 8px 0px #3F829280 inset",
@@ -200,7 +202,7 @@ const config: Config = {
         },
         ".text-shadow-red-two": {
           textShadow: "0px 1px 2px rgba(165, 54, 30, 1)",
-        },
+        }
       };
 
       addUtilities(newUtilities);

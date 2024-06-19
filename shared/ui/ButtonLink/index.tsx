@@ -41,6 +41,9 @@ const sizes: { [key: string]: { className: ClassNameValue } } = {
   small: {
     className: "h-[40px]",
   },
+  icon: {
+    className: "w-[48px] h-[48px]",
+  },
 } as const;
 
 // классы, которые используются всеми вариантами кнопок
@@ -63,14 +66,32 @@ export const ButtonLink: FC<ButtonProps> = ({ children, href, ...props }) => {
 
   const sizeClassName = props.size ? sizes[props.size].className : sizes.large.className;
 
-  return (
-    <Link
-      {...props}
-      href={href}
-      prefetch={true}
-      className={twMerge(variantClassName, sizeClassName, DEFAULT_CLASSES, props.className)}
-    >
-      {children}
-    </Link>
-  );
+  if (props.variant === "snow" && props.size === "icon") {
+    return (
+      <div className={twMerge("flex justify-center items-center bg-gradient-border-edit rounded-full",
+        props.size && sizes[props.size].className,
+      )}
+      >
+        <Link
+          {...props}
+          href={href}
+          prefetch={true}
+          className={twMerge(variantClassName, sizeClassName, DEFAULT_CLASSES, props.className, "w-[44px] h-[44px] p-0")}
+        >
+          {children}
+        </Link>
+      </div>
+    );
+  } else {
+    return (
+      <Link
+        {...props}
+        href={href}
+        prefetch={true}
+        className={twMerge(variantClassName, sizeClassName, DEFAULT_CLASSES, props.className)}
+      >
+        {children}
+      </Link>
+    );
+  }
 };

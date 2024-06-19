@@ -1,7 +1,7 @@
 "use client";
 
 import React, { CSSProperties, FC, JSXElementConstructor, ReactNode, SVGProps } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Logger } from "../../shared/lib/utils/logger/Logger";
 import { cn } from "@/shared/lib/utils/cn";
 import { Map as MapCells } from "./shared/cells";
@@ -9,6 +9,7 @@ import lodash from "lodash";
 import dynamic from "next/dynamic";
 import { useAnimate } from "framer-motion";
 import { ButtonNS } from "@/shared/ui/Button/Button";
+import { useRouter } from "next/navigation";
 
 /**
  * трансформируем массив таким образом, чтобы
@@ -91,6 +92,9 @@ const Cell: FC<CellProps> = (props) => {
   const t = useTranslations();
   const title = t(`cells_${props.id}_title`);
 
+  const locale = useLocale()
+  const {push} = useRouter()
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     animate([
       [scope.current, { scale: 0.8 }, { duration: ButtonNS.halfAnimDuration }],
@@ -102,6 +106,8 @@ const Cell: FC<CellProps> = (props) => {
       id: props.id,
     };
     props.onClick && props.onClick(cellInfo, event);
+
+    push(`/${locale}/practice/${props.id}`)
   };
 
   return (

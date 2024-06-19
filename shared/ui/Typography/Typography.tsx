@@ -21,7 +21,7 @@ export const Typography = <Tag extends TypographyTag = "div">({
 }: TypographyProps<Tag>) => {
   const Component = tag;
 
-  const DEFAULT_CLASSES = twMerge("text-mint-900");
+  const DEFAULT_CLASSES = twMerge("");
 
   return (
     <Component className={twMerge(variant, className, DEFAULT_CLASSES)} {...props}>

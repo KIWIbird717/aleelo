@@ -2,8 +2,8 @@ import React, { FC, MutableRefObject, useEffect, useRef, useState } from "react"
 
 type Props = {
   width: number;
-  svgGRef: MutableRefObject<SVGSVGElement | null>
-  svgRef: MutableRefObject<SVGSVGElement | null>
+  svgGRef?: MutableRefObject<SVGSVGElement | null>
+  svgRef?: MutableRefObject<SVGSVGElement | null>
 } & React.SVGProps<SVGSVGElement>;
 
 export const NavbarCardWrapper: FC<Props> = (props) => {

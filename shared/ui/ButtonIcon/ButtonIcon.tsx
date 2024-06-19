@@ -20,6 +20,10 @@ export namespace ButtonIconNS {
       className:
         "bg-white text-turquoise shadow-[inset_-8px_-8px_10px_0px_rgba(53,121,131,0.3),inset_2px_2px_8px_0px_rgba(86,145,163,0.5),0_8px_14px_-3px_rgba(17,76,95,0.3)]",
     },
+    icon: {
+      className:
+        "bg-white text-turquoise shadow-[inset_-8px_-8px_10px_0px_rgba(53,121,131,0.3),inset_2px_2px_8px_0px_rgba(86,145,163,0.5),0_8px_14px_-3px_rgba(17,76,95,0.3)]",
+    },
     blue: {
       className:
         "bg-button-gradient-blue text-white shadow-[inset_-8px_-8px_13px_0px_rgba(43,63,103,0.5),inset_2px_2px_8px_0px_rgba(32,128,169,1),0_8px_14px_-3px_rgba(45,80,114,0.7)]",
@@ -70,19 +74,42 @@ export const ButtonIcon: FC<ButtonIconNS.Props> = ({ onClick, ...props }) => {
     telegram?.HapticFeedback.impactOccurred("light");
     onClick && onClick(event);
   };
-  return (
-    <button
-      {...props}
-      ref={scope}
-      onClick={handleClick}
-      className={twMerge(
-        variantClassName,
-        ButtonIconNS.DEFAULT_CLASSES,
-        disabledClassName,
-        props.className,
-      )}
-    >
-      {props.children}
-    </button>
-  );
+
+  if (props.variant === "icon") {
+    return (
+      <div
+        className={twMerge("w-[48px] h-[48px] flex justify-center items-center bg-gradient-border-edit rounded-full")}>
+        <button
+          {...props}
+          ref={scope}
+          onClick={handleClick}
+          className={twMerge(
+            variantClassName,
+            ButtonIconNS.DEFAULT_CLASSES,
+            disabledClassName,
+            props.className,
+            "w-[44px] h-[44px]"
+          )}
+        >
+          {props.children}
+        </button>
+      </div>
+    )
+  } else {
+    return (
+      <button
+        {...props}
+        ref={scope}
+        onClick={handleClick}
+        className={twMerge(
+          variantClassName,
+          ButtonIconNS.DEFAULT_CLASSES,
+          disabledClassName,
+          props.className,
+        )}
+      >
+        {props.children}
+      </button>
+    );
+  }
 };
