@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { ModalSheet } from "@/widgets/ModalSheet";
 import { Navbar } from "@/entities/Navbar";
-import { useDimensions } from "@/shared/lib/hooks/useDimensions";
 import { serverApi } from "@/shared/lib/axios";
 import { Map } from "@/entities/Map";
 import { View } from "@/shared/layout/View";

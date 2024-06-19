@@ -8,7 +8,7 @@ import PracticeIcon from "@/public/images/svg/navbar/practice.svg";
 import ThrowIcon from "@/public/images/svg/navbar/throw.svg";
 import FlowIcon from "@/public/images/svg/navbar/flow.svg";
 import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
-import ArrowIcon from "@/public/images/svg/navbar/arrow.svg";
+import BackIcon from "@/public/images/svg/navbar/back.svg";
 import { cn } from "../../shared/lib/utils/cn";
 import { usePathname } from "next/navigation";
 
@@ -17,18 +17,22 @@ const X_MARGINS = 20; // px
 const DEVIDE = 0.96279;
 
 interface INavbarProps {
+  isBack?: boolean;
+  onHide?: () => void;
   width: number;
   svgGRef?: MutableRefObject<SVGSVGElement | null>;
   svgRef?: MutableRefObject<SVGSVGElement | null>;
 }
 
-export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
+export const Navbar: FC<INavbarProps> = (
+  { svgGRef, svgRef, width, isBack, onHide },
+) => {
   const path = usePathname() || "";
 
   const pathName = path.split("/")[path.split("/").length - 1];
-  const pageName = path.split("/")[2]
-  const centerTitle =  pageName === "home" ? "Бросок" : pageName === "practice" ? "Переход" : ""
-  const centerIcon =  pageName === "home" ? <ThrowIcon /> : pageName === "practice" ? <ArrowIcon /> : <ThrowIcon />
+  const pageName = path.split("/")[2];
+  const centerTitle = isBack ? "Вернуться" : "Бросок";
+  const centerIcon = isBack ? <BackIcon /> : <ThrowIcon />;
 
   const navElements = useMemo(
     () => [
@@ -66,6 +70,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
     [centerIcon, centerTitle, pathName],
   );
 
+
   return (
     <div className="fixed bottom-[-13px] z-[999]">
       <div className="relative">
@@ -73,20 +78,28 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
           {navElements.map((el, i) => {
             const thirdEl = el.id === 2;
 
+            const onClickHandler = () => {
+              if (thirdEl && onHide) {
+                  onHide();
+              }
+            };
+
             return (
-              <div
+              <button
                 key={el.id}
                 className={cn(
                   "flex flex-col items-center justify-center gap-1.5",
                   thirdEl && "relative bottom-3",
                 )}
+                onClick={onClickHandler}
               >
                 <div
                   className={cn(
                     "flex h-[36px] w-[36px] items-center justify-center",
                     thirdEl &&
-                      "relative flex h-[58px] w-[58px] items-center justify-center rounded-full bg-gradient-throw shadow-throw",
+                    "relative flex h-[58px] w-[58px] items-center justify-center rounded-full bg-gradient-throw shadow-throw",
                     pathName === el.link && "",
+                    thirdEl && isBack && "bg-button-gradient-turquoise shadow-shadowGreen"
                   )}
                 >
                   {el.icon}
@@ -95,12 +108,12 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width }) => {
                   className={cn(
                     "text-[11px] font-normal leading-4 text-grey",
                     thirdEl && "font-semibold",
-                    pathName === el.link && "font-bold text-brown-900"
+                    pathName === el.link && "font-bold text-brown-900",
                   )}
                 >
                   {el.name}
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

@@ -5,9 +5,8 @@ import { Sheet } from "react-modal-sheet";
 import { SheetContentHeader } from "./entities/SheetContentHeader";
 import { Calendar } from "./entities/Calendar";
 import { CellInfo } from "./entities/CellInfo";
-import { usePrevious } from "@radix-ui/react-use-previous";
 import { twMerge } from "tailwind-merge";
-import { usePreventOnSwipeWindowClose } from "../../shared/lib/hooks/usePreventSwipeClose";
+import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
 
 interface IModalSheetProps {
   svgWidth: number | null;
