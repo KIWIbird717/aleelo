@@ -3,6 +3,7 @@ import { Player } from "@/widgets/AudioPlayer/entities/Player";
 import { ShareAndPracticeBtns } from "@/widgets/AudioPlayer/entities/ShareAndPracticeBtns";
 import Image from "next/image";
 import ImagePractice from "@/public/images/backgrounds/img-practice.png";
+import { motion } from "framer-motion";
 
 interface IAudioPlayerProps {
   width: number;
@@ -14,7 +15,14 @@ export const AudioPlayer: FC<IAudioPlayerProps> = (
 ) => {
 
   return (
-    <div className={"flex h-[calc(50%+72px)] justify-center w-full fixed bottom-[8px] pt-[72px] overflow-hidden"}>
+    <motion.div
+      className={"flex h-[calc(50%+72px)] justify-center w-full fixed bottom-[8px] pt-[72px] overflow-hidden"}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.5 }}
+      key="audioPlayer"
+    >
       <Player width={width} />
 
       <ShareAndPracticeBtns padding={padding} />
@@ -23,6 +31,6 @@ export const AudioPlayer: FC<IAudioPlayerProps> = (
              src={ImagePractice}
              alt={"img-practice"}
       />
-    </div>
+    </motion.div>
   );
 };

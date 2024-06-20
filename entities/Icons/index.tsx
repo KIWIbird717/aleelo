@@ -5,6 +5,7 @@ import EarthIcon from "@/public/images/svg/icons/earth.svg";
 import Level2Icon from "@/public/images/svg/icons/level/level2.svg";
 import HappyIcon from "@/public/images/svg/icons/happy.svg";
 import { Element } from "@/widgets/ModalSheet/entities/CellInfo/shared/ui/element";
+import { motion } from "framer-motion";
 
 interface IIconsProps {
   className?: string
@@ -34,12 +35,21 @@ const items = [
   },
 ];
 
+const iconVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1 },
+};
+
 export const Icons: FC<IIconsProps> = (
   {className, padding}
 ) => {
   return (
-    <div className={twMerge("flex", className)}
-         style={{padding: `0 ${padding}px`}}
+    <motion.div
+      className={twMerge("flex", className)}
+      style={{ padding: `0 ${padding}px` }}
+      initial="hidden"
+      animate="visible"
+      transition={{ staggerChildren: 0.2 }}
     >
       {items.map((item) => {
         const classNameIcon = twMerge(
@@ -57,6 +67,9 @@ export const Icons: FC<IIconsProps> = (
         );
 
         return (
+          <motion.div key={item.id}
+                      variants={iconVariants}
+          >
           <Element
             key={item.id}
             title={item.title}
@@ -64,8 +77,9 @@ export const Icons: FC<IIconsProps> = (
             classNameIcon={classNameIcon}
             classNameText={classNameText}
           />
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 };

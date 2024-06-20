@@ -1,30 +1,36 @@
 import { FC } from "react";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
 
 interface IPracticeDescriptionProps {
-  onShow: () => void
-  isShowText: boolean
+  onShow: () => void;
+  isShowText: boolean;
 }
 
 export const PracticeDescription: FC<IPracticeDescriptionProps> = (
-  {onShow, isShowText}
+  { onShow, isShowText },
 ) => {
   return (
     <div className="relative max-w-lg">
-      <button className={"text-left"}
-              onClick={onShow}
+      <motion.button className={"text-left"}
+                     onClick={onShow}
+                     whileTap={{ scale: 0.95 }}
       >
-        <div className="relative z-10 bg-gray-900 text-mint-700 overflow-hidden"
-             style={{
-               maskImage: !isShowText ? "linear-gradient(to bottom, black 60%, transparent 100%)" : "",
-               WebkitMaskImage: !isShowText ?  "linear-gradient(to bottom, black 0%, transparent 100%)" : "",
-             }}
+        <motion.div
+          className="relative z-10 bg-gray-900 text-mint-700 overflow-hidden"
+          style={{
+            maskImage: !isShowText ? "linear-gradient(to bottom, black 60%, transparent 100%)" : "",
+            WebkitMaskImage: !isShowText ? "linear-gradient(to bottom, black 0%, transparent 100%)" : "",
+          }}
+          initial={{ height: "31.79vh" }}
+          animate={{ height: isShowText ? "auto" : "31.79vh" }}
+          exit={{ height: "31.79vh" }}
+          transition={{ duration: 0.5 }}
         >
-
           <Typography tag={"p"}
-                      className={twMerge("font-normal text-[15px] h-[31.79vh] leading-[21px] overflow-hidden",
-                        isShowText && "h-full"
+                      className={twMerge("font-normal text-[15px] leading-[21px] overflow-hidden",
+                        isShowText && "h-full",
                       )}
           >
             До рождения человек находится вне игры. Жизнь- игра, и чтобы ее начать нужно родиться. Лила является
@@ -37,8 +43,8 @@ export const PracticeDescription: FC<IPracticeDescriptionProps> = (
             чтобы иметь ту жизнь, которую хотим.
 
           </Typography>
-        </div>
-      </button>
+        </motion.div>
+      </motion.button>
     </div>
-);
+  );
 };
