@@ -6,19 +6,17 @@ import ImagePractice from "@/public/images/backgrounds/img-practice.png";
 import dynamic from "next/dynamic";
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-
 interface IAudioPlayerProps {
   width: number;
   padding: number;
 }
 
-export const AudioPlayer: FC<IAudioPlayerProps> = (
-  { width, padding },
-) => {
-
+export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
   return (
     <MotionDiv
-      className={"flex h-[calc(50%+72px)] justify-center w-full fixed bottom-[8px] pt-[72px] overflow-hidden"}
+      className={
+        "fixed bottom-[8px] flex h-[calc(50%+72px)] w-full justify-center overflow-hidden pt-[72px]"
+      }
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
@@ -29,9 +27,10 @@ export const AudioPlayer: FC<IAudioPlayerProps> = (
 
       <ShareAndPracticeBtns padding={padding} />
       {/*<Image className={"w-[calc(100%-128px)] h-full object-cover rounded-t-full"}*/}
-      <Image className={"w-[57.34vw] h-[43.71vh] object-cover rounded-t-full"}
-             src={ImagePractice}
-             alt={"img-practice"}
+      <Image
+        className={"h-[43.71vh] w-[57.34vw] rounded-t-full object-cover"}
+        src={ImagePractice}
+        alt={"img-practice"}
       />
     </MotionDiv>
   );
