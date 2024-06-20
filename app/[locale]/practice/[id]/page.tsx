@@ -15,6 +15,7 @@ import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { AnimatePresence, motion } from "framer-motion";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 
 interface IPracticePageProps {}
 
