@@ -14,20 +14,13 @@ import { useState } from "react";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 
-interface IPracticePageProps {
-}
+interface IPracticePageProps {}
 
 const PracticePage: NextPage<IPracticePageProps> = () => {
   const locale = useLocale();
   const [isShowText, setIsShowText] = useState(false);
 
-  const {
-    width,
-    svgGRef,
-    svgRef,
-    padding,
-    svgHeight
-  } = useSizes();
+  const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
     const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
@@ -47,16 +40,16 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
   };
 
   return (
-    <View className={"flex flex-col relative"}
-          backgroundEffect={"gradient"}
-    >
-      <div className={twMerge( "flex flex-col", isShowText && "justify-between")}
-           style={{height: isShowText ? `calc(100% - ${svgHeight}px)` : ""}}
+    <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
+      <div
+        className={twMerge("flex flex-col", isShowText && "justify-between")}
+        style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
       >
-        <div className={"px-8 pt-[35px] flex flex-col gap-[13px]"}>
-          <Typography tag={"h1"}
-                      className={"text-center text-gold !text-shadow-gold"}
-                      variant={"title"}
+        <div className={"flex flex-col gap-[13px] px-8 pt-[35px]"}>
+          <Typography
+            tag={"h1"}
+            className={"text-center text-gold !text-shadow-gold"}
+            variant={"title"}
           >
             #1. Рождение
           </Typography>
@@ -64,24 +57,12 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
           <PracticeDescription onShow={onShow} isShowText={isShowText} />
         </div>
 
-        {isShowText &&
-          <Icons className={"justify-between"}
-                 padding={padding}
-          />
-        }
+        {isShowText && <Icons className={"justify-between"} padding={padding} />}
       </div>
 
+      {!isShowText && <AudioPlayer width={width} padding={padding} />}
 
-      {!isShowText && <AudioPlayer width={width}
-                                   padding={padding}
-      />}
-
-      <Navbar width={width}
-              svgRef={svgRef}
-              svgGRef={svgGRef}
-              isBack={isShowText}
-              onHide={onHide}
-      />
+      <Navbar width={width} svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
     </View>
   );
 };

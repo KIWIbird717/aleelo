@@ -9,7 +9,6 @@ export const serverApi = axios.create({
 // локализация и медиа
 export const mediaApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_MEDIA_BASE_URL,
-  withCredentials: true
 });
 
 serverApi.interceptors.request.use((config) => {
