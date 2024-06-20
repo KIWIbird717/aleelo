@@ -49,7 +49,7 @@ export const Icons: FC<IIconsProps> = (
       style={{ padding: `0 ${padding}px` }}
       initial="hidden"
       animate="visible"
-      transition={{ staggerChildren: 0.2 }}
+      transition={{ staggerChildren: 0.1 }}
     >
       {items.map((item) => {
         const classNameIcon = twMerge(
