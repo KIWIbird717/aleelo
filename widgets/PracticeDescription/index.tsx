@@ -26,7 +26,7 @@ export const PracticeDescription: FC<IPracticeDescriptionProps> = (
           initial={{ height: "31.79vh" }}
           animate={{ height: isShowText ? "auto" : "31.79vh" }}
           exit={{ height: "31.79vh" }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
         >
           <Typography tag={"p"}
                       className={twMerge("font-normal text-[15px] leading-[21px] overflow-hidden",
