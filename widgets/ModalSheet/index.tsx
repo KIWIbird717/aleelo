@@ -17,8 +17,8 @@ interface IModalSheetProps {
 
 export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding, height }) => {
   usePreventOnSwipeWindowClose(true);
-  const [currentIndex, setCurrentIndex] = useState(95);
-  const [isOpen, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(3);
+  const [isOpen, setOpen] = useState(true);
 
   // useEffect(() => {
   //   (async () => {
@@ -51,19 +51,17 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
 
   return (
     <>
-      <Sheet
-        isOpen={true}
-        onClose={() => setOpen(false)}
-        snapPoints={snapPoints}
-        initialSnap={3}
-        className={"absolute !z-[2] !flex !justify-center !rounded-t-[20px] !shadow-none"}
-        onSnap={(snapIndex) => onChangeIndex(snapIndex)}
-        // style={{ margin: `0 ${200}px`}}
-        style={{ margin: `0 ${padding}px`, bottom: `${bottom}px` }}
+      <Sheet isOpen={isOpen}
+             onClose={() => setCurrentIndex(3)}
+             snapPoints={snapPoints}
+             initialSnap={currentIndex}
+             onSnap={(snapIndex) => onChangeIndex(snapIndex)}
+             className={"absolute !z-[2] !flex !justify-center !rounded-t-[20px] !shadow-none"}
+             style={{ margin: `0 ${padding}px`, bottom: `${bottom}px` }}
+
       >
-        <Sheet.Container
-          className={"!rounded-t-[20px] bg-gradient-modal-sheet !shadow-none"}
-          style={{ width: `${svgWidth}px` }}
+        <Sheet.Container className={"!rounded-t-[20px] bg-gradient-modal-sheet !shadow-none"}
+                         style={{ width: `${svgWidth}px` }}
         >
           <Sheet.Header className={"flex flex-col items-center gap-[2px] pb-[11px] pt-1.5"}>
             <div
@@ -73,7 +71,8 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
               className={"h-[2px] w-[24px] rounded-[10px] bg-mint-900 opacity-50 shadow-white"}
             />
           </Sheet.Header>
-          <Sheet.Content className={twMerge("flex flex-col")}>
+
+          <Sheet.Content disableDrag={true} className={twMerge("flex flex-col")}>
             <SheetContentHeader currentIndex={currentIndex} />
             <Calendar />
             {[...new Array(2)].map((obj, i) => {
