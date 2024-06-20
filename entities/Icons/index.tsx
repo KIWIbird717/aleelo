@@ -8,8 +8,8 @@ import { Element } from "@/widgets/ModalSheet/entities/CellInfo/shared/ui/elemen
 import { motion } from "framer-motion";
 
 interface IIconsProps {
-  className?: string
-  padding?: number
+  className?: string;
+  padding?: number;
 }
 
 const items = [
@@ -40,9 +40,7 @@ const iconVariants = {
   visible: { opacity: 1, scale: 1 },
 };
 
-export const Icons: FC<IIconsProps> = (
-  {className, padding}
-) => {
+export const Icons: FC<IIconsProps> = ({ className, padding }) => {
   return (
     <motion.div
       className={twMerge("flex", className)}
@@ -67,16 +65,14 @@ export const Icons: FC<IIconsProps> = (
         );
 
         return (
-          <motion.div key={item.id}
-                      variants={iconVariants}
-          >
-          <Element
-            key={item.id}
-            title={item.title}
-            icon={item.icon}
-            classNameIcon={classNameIcon}
-            classNameText={classNameText}
-          />
+          <motion.div key={item.id} variants={iconVariants}>
+            <Element
+              key={item.id}
+              title={item.title}
+              icon={item.icon}
+              classNameIcon={classNameIcon}
+              classNameText={classNameText}
+            />
           </motion.div>
         );
       })}

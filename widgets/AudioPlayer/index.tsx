@@ -10,13 +10,12 @@ interface IAudioPlayerProps {
   padding: number;
 }
 
-export const AudioPlayer: FC<IAudioPlayerProps> = (
-  { width, padding },
-) => {
-
+export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
   return (
     <motion.div
-      className={"flex h-[calc(50%+72px)] justify-center w-full fixed bottom-[8px] pt-[72px] overflow-hidden"}
+      className={
+        "fixed bottom-[8px] flex h-[calc(50%+72px)] w-full justify-center overflow-hidden pt-[72px]"
+      }
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
@@ -27,9 +26,10 @@ export const AudioPlayer: FC<IAudioPlayerProps> = (
 
       <ShareAndPracticeBtns padding={padding} />
       {/*<Image className={"w-[calc(100%-128px)] h-full object-cover rounded-t-full"}*/}
-      <Image className={"w-[57.34vw] h-[43.71vh] object-cover rounded-t-full"}
-             src={ImagePractice}
-             alt={"img-practice"}
+      <Image
+        className={"h-[43.71vh] w-[57.34vw] rounded-t-full object-cover"}
+        src={ImagePractice}
+        alt={"img-practice"}
       />
     </motion.div>
   );
