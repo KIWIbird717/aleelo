@@ -6,7 +6,6 @@ import { useDimensions } from "@/shared/lib/hooks/useDimensions";
   Он предоставляет ссылки на два SVG-элемента, текущие ширину и высоту окна, а также вычисленные
   ширину и высоту SVG-элементов и внутренний отступ.
 */
-
 export const useSizes = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const svgGRef = useRef<SVGSVGElement | null>(null);
@@ -25,6 +24,12 @@ export const useSizes = () => {
   }, [width, height]);
 
   return {
-    svgGRef, svgRef, width, height, svgWidth, svgHeight, padding
-  }
-}
+    svgGRef,
+    svgRef,
+    width,
+    height,
+    svgWidth,
+    svgHeight,
+    padding,
+  };
+};

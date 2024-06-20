@@ -4,7 +4,7 @@ const withNextIntl = createNextIntlPlugin("./shared/lib/localization/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  // output: "standalone",
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

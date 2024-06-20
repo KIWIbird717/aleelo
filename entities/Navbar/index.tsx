@@ -11,7 +11,7 @@ import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
 import BackIcon from "@/public/images/svg/navbar/back.svg";
 import { cn } from "../../shared/lib/utils/cn";
 import { usePathname } from "next/navigation";
-
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 
 const X_MARGINS = 20; // px
 const DEVIDE = 0.96279;
@@ -24,9 +24,7 @@ interface INavbarProps {
   svgRef?: MutableRefObject<SVGSVGElement | null>;
 }
 
-export const Navbar: FC<INavbarProps> = (
-  { svgGRef, svgRef, width, isBack, onHide },
-) => {
+export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width, isBack, onHide }) => {
   const path = usePathname() || "";
 
   const pathName = path.split("/")[path.split("/").length - 1];
@@ -70,7 +68,6 @@ export const Navbar: FC<INavbarProps> = (
     [centerIcon, centerTitle, pathName],
   );
 
-
   return (
     <div className="fixed bottom-[-13px] z-[999]">
       <div className="relative">
@@ -80,7 +77,7 @@ export const Navbar: FC<INavbarProps> = (
 
             const onClickHandler = () => {
               if (thirdEl && onHide) {
-                  onHide();
+                onHide();
               }
             };
 
@@ -97,9 +94,9 @@ export const Navbar: FC<INavbarProps> = (
                   className={cn(
                     "flex h-[36px] w-[36px] items-center justify-center",
                     thirdEl &&
-                    "relative flex h-[58px] w-[58px] items-center justify-center rounded-full bg-gradient-throw shadow-throw",
+                      "relative flex h-[58px] w-[58px] items-center justify-center rounded-full bg-gradient-throw shadow-throw",
                     pathName === el.link && "",
-                    thirdEl && isBack && "bg-button-gradient-turquoise shadow-shadowGreen"
+                    thirdEl && isBack && "bg-button-gradient-turquoise shadow-shadowGreen",
                   )}
                 >
                   {el.icon}

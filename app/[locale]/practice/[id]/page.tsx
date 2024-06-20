@@ -14,19 +14,23 @@ import { useState } from "react";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence, motion } from "framer-motion";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 
-interface IPracticePageProps {
-}
+interface IPracticePageProps {}
 
 const PracticePage: NextPage<IPracticePageProps> = () => {
+  const logger = new Logger(PracticePage.name);
   const locale = useLocale();
   const [isShowText, setIsShowText] = useState(false);
 
   const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
-    const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
-    console.log({ data });
+    try {
+      const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
+    } catch (error) {
+      logger.error(error);
+    }
   }, []);
 
   const onShow = () => {
@@ -43,9 +47,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
 
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
-      <AnimatePresence initial={true}
-                       mode={"sync"}
-      >
+      <AnimatePresence initial={true} mode={"sync"}>
         <motion.div
           className={twMerge("flex flex-col", isShowText && "justify-between")}
           style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
@@ -67,11 +69,8 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {!isShowText && (
-          <AudioPlayer width={width} padding={padding} />
-        )}
+        {!isShowText && <AudioPlayer width={width} padding={padding} />}
       </AnimatePresence>
-
 
       <Navbar width={width} svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
     </View>

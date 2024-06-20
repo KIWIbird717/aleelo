@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "tg": "npm run build && npm run start",
+    "cert": "node server.js",
     "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
+    "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.2.6",
     "js-cookie": "^3.0.5",
