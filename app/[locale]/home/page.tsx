@@ -10,25 +10,21 @@ import useRequest from "@/shared/lib/hooks/useRequest";
 import { useBackground } from "@/shared/lib/hooks/useBackground";
 import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 
 export default function HomePage() {
+  const logger = new Logger(HomePage.name);
   useBackground("gradient");
   usePreventOnSwipeWindowClose(true);
 
-  const {
-    width,
-    svgGRef,
-    svgWidth,
-    svgRef,
-    height,
-    padding,
-    svgHeight,
-  } = useSizes();
+  const { width, svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
     const { data } = await serverApi.get("/game/steps");
     console.log({ data });
   }, []);
+
+  logger.debug(width, height);
 
   return (
     <View>

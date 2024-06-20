@@ -1,14 +1,18 @@
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 import React, { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 
 type Props = {
   width: number;
-  svgGRef?: MutableRefObject<SVGSVGElement | null>
-  svgRef?: MutableRefObject<SVGSVGElement | null>
+  svgGRef?: MutableRefObject<SVGSVGElement | null>;
+  svgRef?: MutableRefObject<SVGSVGElement | null>;
 } & React.SVGProps<SVGSVGElement>;
 
 export const NavbarCardWrapper: FC<Props> = (props) => {
+  const logger = new Logger(NavbarCardWrapper.name);
   const { width, svgGRef, svgRef, ...restProps } = props;
   const height = (137 / 383) * width;
+
+  logger.debug(width, height);
 
   return (
     <svg

@@ -13,18 +13,23 @@ import { AudioPlayer } from "@/widgets/AudioPlayer";
 import { useState } from "react";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
+import { Logger } from "@/shared/lib/utils/logger/Logger";
 
 interface IPracticePageProps {}
 
 const PracticePage: NextPage<IPracticePageProps> = () => {
+  const logger = new Logger(PracticePage.name);
   const locale = useLocale();
   const [isShowText, setIsShowText] = useState(false);
 
   const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
-    const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
-    console.log({ data });
+    try {
+      const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
+    } catch (error) {
+      logger.error(error);
+    }
   }, []);
 
   const onShow = () => {
