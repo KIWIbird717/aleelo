@@ -13,8 +13,10 @@ import { AudioPlayer } from "@/widgets/AudioPlayer";
 import { useState } from "react";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
+import { AnimatePresence, motion } from "framer-motion";
 
-interface IPracticePageProps {}
+interface IPracticePageProps {
+}
 
 const PracticePage: NextPage<IPracticePageProps> = () => {
   const locale = useLocale();
@@ -41,26 +43,35 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
 
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
-      <div
-        className={twMerge("flex flex-col", isShowText && "justify-between")}
-        style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
+      <AnimatePresence initial={true}
+                       mode={"sync"}
       >
-        <div className={"flex flex-col gap-[13px] px-8 pt-[35px]"}>
-          <Typography
-            tag={"h1"}
-            className={"text-center text-gold !text-shadow-gold"}
-            variant={"title"}
-          >
-            #1. Рождение
-          </Typography>
+        <motion.div
+          className={twMerge("flex flex-col", isShowText && "justify-between")}
+          style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
+        >
+          <div className={"flex flex-col gap-[13px] px-8 pt-[35px]"}>
+            <Typography
+              tag={"h1"}
+              className={"text-center text-gold !text-shadow-gold"}
+              variant={"title"}
+            >
+              #1. Рождение
+            </Typography>
 
-          <PracticeDescription onShow={onShow} isShowText={isShowText} />
-        </div>
+            <PracticeDescription onShow={onShow} isShowText={isShowText} />
+          </div>
 
-        {isShowText && <Icons className={"justify-between"} padding={padding} />}
-      </div>
+          {isShowText && <Icons className={"justify-between"} padding={padding} />}
+        </motion.div>
+      </AnimatePresence>
 
-      {!isShowText && <AudioPlayer width={width} padding={padding} />}
+      <AnimatePresence>
+        {!isShowText && (
+          <AudioPlayer width={width} padding={padding} />
+        )}
+      </AnimatePresence>
+
 
       <Navbar width={width} svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
     </View>
