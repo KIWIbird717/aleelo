@@ -7,15 +7,19 @@ import { Cell, CellProps } from "./shared/ui/CellInfoType";
 import { ManWomanOverlay } from "./shared/ui/Overlays/ManWomanOverlay";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { ArrowsAndSnakes } from "./shared/ui/Overlays/ArrowsAndSnakes";
+import { useLocale } from "next-intl";
 
 type Props = {
   onCellClick?: CellProps["onClick"];
 };
 export const Map: FC<Props> = (props) => {
   const logger = new Logger("Map");
+  const locale = useLocale();
+
   const handleCellClick = () => {
     logger.debug("handle click");
   };
+
   return (
     <div className="relative mx-[30px] mt-[20px]">
       {/** Overlays */}
@@ -26,6 +30,7 @@ export const Map: FC<Props> = (props) => {
       <div className="grid grid-flow-col grid-cols-5 grid-rows-8">
         {sortCells(MapCells.cells).map((cell) => (
           <Cell
+            href={`/${locale}/practice/${cell.id}`}
             key={cell.id}
             id={cell.id}
             className={cell.className}
