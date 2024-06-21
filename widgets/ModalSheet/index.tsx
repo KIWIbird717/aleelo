@@ -51,17 +51,18 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
 
   return (
     <>
-      <Sheet isOpen={isOpen}
-             onClose={() => setCurrentIndex(3)}
-             snapPoints={snapPoints}
-             initialSnap={currentIndex}
-             onSnap={(snapIndex) => onChangeIndex(snapIndex)}
-             className={"absolute !z-[2] !flex !justify-center !rounded-t-[20px] !shadow-none"}
-             style={{ margin: `0 ${padding}px`, bottom: `${bottom}px` }}
-
+      <Sheet
+        isOpen={isOpen}
+        onClose={() => setCurrentIndex(3)}
+        snapPoints={snapPoints}
+        initialSnap={currentIndex}
+        onSnap={(snapIndex) => onChangeIndex(snapIndex)}
+        className={"absolute !z-[998] !flex !justify-center !rounded-t-[20px] !shadow-none"}
+        style={{ margin: `0 ${padding}px`, bottom: `${bottom}px` }}
       >
-        <Sheet.Container className={"!rounded-t-[20px] bg-gradient-modal-sheet !shadow-none"}
-                         style={{ width: `${svgWidth}px` }}
+        <Sheet.Container
+          className={"!rounded-t-[20px] bg-gradient-modal-sheet !shadow-none"}
+          style={{ width: `${svgWidth}px` }}
         >
           <Sheet.Header className={"flex flex-col items-center gap-[2px] pb-[11px] pt-1.5"}>
             <div
