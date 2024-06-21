@@ -76,9 +76,14 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
           <Sheet.Content disableDrag={true} className={twMerge("flex flex-col")}>
             <SheetContentHeader currentIndex={currentIndex} />
             <Calendar />
-            {[...new Array(2)].map((obj, i) => {
-              return <CellInfo key={i} currentIndex={currentIndex} index={i} />;
-            })}
+            <div className={twMerge("overflow-y-hidden",
+              height <= 780 && "overflow-y-scroll pb-16",
+            )}
+            >
+              {[...new Array(2)].map((obj, i) => {
+                return <CellInfo key={i} currentIndex={currentIndex} index={i} />;
+              })}
+            </div>
           </Sheet.Content>
         </Sheet.Container>
         <Sheet.Backdrop />
