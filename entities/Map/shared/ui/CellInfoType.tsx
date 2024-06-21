@@ -7,6 +7,8 @@ import { ButtonNS } from "@/shared/ui/Button/Button";
 import { cn } from "@/shared/lib/utils/cn";
 import dynamic from "next/dynamic";
 import Fishka from "@/public/images/svg/map/Fishka.svg";
+import Link from "next/link";
+import { Url } from "next/dist/shared/lib/router/router";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -18,8 +20,9 @@ export type CellProps = {
   className: string;
   style?: CSSProperties;
   isActive: boolean;
+  href: Url;
   icon: JSXElementConstructor<Partial<SVGElement>>;
-  onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
 export const Cell: FC<CellProps> = (props) => {
@@ -27,15 +30,7 @@ export const Cell: FC<CellProps> = (props) => {
   const t = useTranslations();
   const title = t(`cells_${props.id}_title`);
 
-  const locale = useLocale();
-  const router = useRouter();
-  const redirectLink = `/${locale}/practice/${props.id}`;
-
-  useEffect(() => {
-    router.prefetch(redirectLink);
-  }, [redirectLink, router]);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     const cellInfo: CellInfoType = {
       title,
       id: props.id,
@@ -51,7 +46,9 @@ export const Cell: FC<CellProps> = (props) => {
   };
 
   return (
-    <button
+    <Link
+      href={props.href}
+      prefetch={props.isActive}
       ref={scope}
       style={props.style}
       onClick={handleClick}
@@ -89,6 +86,6 @@ export const Cell: FC<CellProps> = (props) => {
       >
         {title}
       </h6>
-    </button>
+    </Link>
   );
 };

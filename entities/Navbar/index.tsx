@@ -30,7 +30,8 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, width, isBack, onHid
   const pathName = path.split("/")[path.split("/").length - 1];
   const pageName = path.split("/")[2];
   const centerTitle = isBack ? "Вернуться" : "Бросок";
-  const centerIcon = isBack ? <BackIcon /> : <ThrowIcon />;
+
+  const centerIcon = useMemo(() => (isBack ? <BackIcon /> : <ThrowIcon />), [isBack]);
 
   const navElements = useMemo(
     () => [
