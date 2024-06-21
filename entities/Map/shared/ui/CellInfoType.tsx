@@ -1,13 +1,14 @@
 import { CSSProperties, FC, JSXElementConstructor, useEffect } from "react";
 import { Map } from "../func/cells";
-import { useAnimate } from "framer-motion";
+import { AnimatePresence, useAnimate } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ButtonNS } from "@/shared/ui/Button/Button";
 import { cn } from "@/shared/lib/utils/cn";
 import dynamic from "next/dynamic";
+import Fishka from "@/public/images/svg/map/Fishka.svg";
 
-const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 type CellInfoType = {
   title: string;
@@ -16,6 +17,7 @@ export type CellProps = {
   id: number;
   className: string;
   style?: CSSProperties;
+  isActive: boolean;
   icon: JSXElementConstructor<Partial<SVGElement>>;
   onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
@@ -55,10 +57,24 @@ export const Cell: FC<CellProps> = (props) => {
       onClick={handleClick}
       onTouchStart={handleTouch}
       className={cn(
-        "relative box-border flex aspect-square w-full items-center justify-center overflow-hidden rounded-[10px] border-[1px] border-[#295962] pb-[8px]",
+        "relative box-border flex aspect-square w-full items-center justify-center rounded-[10px] border-[1px] border-[#295962] pb-[8px]",
+        props.isActive && "border-[2px] border-[#F6E6B2]",
         props.className,
       )}
     >
+      <AnimatePresence>
+        {props.isActive && (
+          <MotionDiv
+            className="absolute top-[-30%]"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+          >
+            <Fishka />
+          </MotionDiv>
+        )}
+      </AnimatePresence>
+
       <props.icon />
 
       <h6
