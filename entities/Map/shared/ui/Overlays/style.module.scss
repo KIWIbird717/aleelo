@@ -1,0 +1,17 @@
+.man-and-woman {
+  background-image: url("/images/svg/map/overlap/man-woman.svg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.arrows-and-snakes {
+  background-image: url("/images/svg/map/overlap/arrows-and-snakes.svg");
+  width: 89%;
+  height: 100%;
+  background-size: cover;
+  pointer-events: none;
+  transform-origin: center;
+  transform: scale(0.85);
+}

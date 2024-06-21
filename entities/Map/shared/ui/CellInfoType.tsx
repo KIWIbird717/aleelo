@@ -1,24 +1,26 @@
 import { CSSProperties, FC, JSXElementConstructor, useEffect } from "react";
 import { Map } from "../func/cells";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useAnimate } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ButtonNS } from "@/shared/ui/Button/Button";
 import { cn } from "@/shared/lib/utils/cn";
+import dynamic from "next/dynamic";
+
+const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
 
 type CellInfoType = {
   title: string;
 } & Omit<Map.CellType, "icon" | "className">;
-type CellProps = {
+export type CellProps = {
   id: number;
   className: string;
   style?: CSSProperties;
   icon: JSXElementConstructor<Partial<SVGElement>>;
   onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
+
 export const Cell: FC<CellProps> = (props) => {
-  const logger = new Logger(Cell.name);
   const [scope, animate] = useAnimate();
   const t = useTranslations();
   const title = t(`cells_${props.id}_title`);
@@ -32,18 +34,18 @@ export const Cell: FC<CellProps> = (props) => {
   }, [redirectLink, router]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    animate([
-      [scope.current, { scale: 0.8 }, { duration: ButtonNS.halfAnimDuration }],
-      [scope.current, { scale: 1 }, { duration: ButtonNS.halfAnimDuration }],
-    ]);
-
     const cellInfo: CellInfoType = {
       title,
       id: props.id,
     };
     props.onClick && props.onClick(cellInfo, event);
+  };
 
-    router.push(redirectLink);
+  const handleTouch = () => {
+    animate([
+      [scope.current, { scale: 0.8 }, { duration: ButtonNS.halfAnimDuration }],
+      [scope.current, { scale: 1 }, { duration: ButtonNS.halfAnimDuration }],
+    ]);
   };
 
   return (
@@ -51,8 +53,9 @@ export const Cell: FC<CellProps> = (props) => {
       ref={scope}
       style={props.style}
       onClick={handleClick}
+      onTouchStart={handleTouch}
       className={cn(
-        "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-[10px] border-[1px] border-[#295962] pb-[8px]",
+        "relative box-border flex aspect-square w-full items-center justify-center overflow-hidden rounded-[10px] border-[1px] border-[#295962] pb-[8px]",
         props.className,
       )}
     >
