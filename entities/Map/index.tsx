@@ -9,7 +9,7 @@ import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { ArrowsAndSnakes } from "./shared/ui/Overlays/ArrowsAndSnakes";
 
 type Props = {
-  onCellClick: CellProps["onClick"];
+  onCellClick?: CellProps["onClick"];
 };
 export const Map: FC<Props> = (props) => {
   const logger = new Logger("Map");
