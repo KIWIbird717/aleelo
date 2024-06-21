@@ -23,6 +23,7 @@ const config: Config = {
         "button-gradient-deep-blue": "linear-gradient(180deg, #65AFFF 0%, #335C81 100%)",
         "button-gradient-red": "linear-gradient(180deg, #FF896F 0%, #E84855 100%)",
         "button-selected": "linear-gradient(90deg, #A1C6CC 0%, #387682 100%)",
+        "avatar": "linear-gradient(180deg, #A1C6CC 0%, #387682 100%)",
         "gradient-borders": "linear-gradient(180deg, #b0cbcf 0%, #e3f1f0 100%)",
         "gradient-border-active": "linear-gradient(180deg, #a1c6cc 0%, #387682 100%)",
         "gradient-border-error": "linear-gradient(180deg, #FF896F 0%, #E84855 100%)",
