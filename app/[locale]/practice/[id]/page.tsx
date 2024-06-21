@@ -15,7 +15,9 @@ import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { AnimatePresence, motion } from "framer-motion";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
+import dynamic from "next/dynamic";
+
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 interface IPracticePageProps {}
 
@@ -49,7 +51,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
       <AnimatePresence initial={true} mode={"sync"}>
-        <motion.div
+        <MotionDiv
           className={twMerge("flex flex-col", isShowText && "justify-between")}
           style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
         >
@@ -66,7 +68,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
           </div>
 
           {isShowText && <Icons className={"justify-between"} padding={padding} />}
-        </motion.div>
+        </MotionDiv>
       </AnimatePresence>
 
       <AnimatePresence>

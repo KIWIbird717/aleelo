@@ -1,7 +1,10 @@
 import { FC } from "react";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 interface IPracticeDescriptionProps {
   onShow: () => void;
@@ -11,8 +14,8 @@ interface IPracticeDescriptionProps {
 export const PracticeDescription: FC<IPracticeDescriptionProps> = ({ onShow, isShowText }) => {
   return (
     <div className="relative max-w-lg">
-      <motion.button className={"text-left"} onClick={onShow} whileTap={{ scale: 0.95 }}>
-        <motion.div
+      <MotionButton className={"text-left"} onClick={onShow} whileTap={{ scale: 0.95 }}>
+        <MotionDiv
           className="bg-gray-900 relative z-10 overflow-hidden text-mint-700"
           style={{
             maskImage: !isShowText ? "linear-gradient(to bottom, black 60%, transparent 100%)" : "",
@@ -41,8 +44,8 @@ export const PracticeDescription: FC<IPracticeDescriptionProps> = ({ onShow, isS
             Этот мир отражает то, что мы собой представляем. Мы можем отслеживать наши состояния,
             выбирать наши действия, чтобы иметь ту жизнь, которую хотим.
           </Typography>
-        </motion.div>
-      </motion.button>
+        </MotionDiv>
+      </MotionButton>
     </div>
   );
 };

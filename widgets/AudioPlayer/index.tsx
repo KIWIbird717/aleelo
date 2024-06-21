@@ -3,7 +3,8 @@ import { Player } from "@/widgets/AudioPlayer/entities/Player";
 import { ShareAndPracticeBtns } from "@/widgets/AudioPlayer/entities/ShareAndPracticeBtns";
 import Image from "next/image";
 import ImagePractice from "@/public/images/backgrounds/img-practice.png";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 interface IAudioPlayerProps {
   width: number;
@@ -12,7 +13,7 @@ interface IAudioPlayerProps {
 
 export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
   return (
-    <motion.div
+    <MotionDiv
       className={
         "fixed bottom-[8px] flex h-[calc(50%+72px)] w-full justify-center overflow-hidden pt-[72px]"
       }
@@ -31,6 +32,6 @@ export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
         src={ImagePractice}
         alt={"img-practice"}
       />
-    </motion.div>
+    </MotionDiv>
   );
 };
