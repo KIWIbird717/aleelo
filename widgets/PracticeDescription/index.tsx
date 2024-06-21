@@ -1,7 +1,11 @@
 import { FC } from "react";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
+
 
 interface IPracticeDescriptionProps {
   onShow: () => void;
@@ -13,11 +17,11 @@ export const PracticeDescription: FC<IPracticeDescriptionProps> = (
 ) => {
   return (
     <div className="relative max-w-lg">
-      <motion.button className={"text-left"}
+      <MotionButton className={"text-left"}
                      onClick={onShow}
                      whileTap={{ scale: 0.95 }}
       >
-        <motion.div
+        <MotionDiv
           className="relative z-10 bg-gray-900 text-mint-700 overflow-hidden"
           style={{
             maskImage: !isShowText ? "linear-gradient(to bottom, black 60%, transparent 100%)" : "",
@@ -43,8 +47,8 @@ export const PracticeDescription: FC<IPracticeDescriptionProps> = (
             чтобы иметь ту жизнь, которую хотим.
 
           </Typography>
-        </motion.div>
-      </motion.button>
+        </MotionDiv>
+      </MotionButton>
     </div>
   );
 };
