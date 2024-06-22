@@ -26,12 +26,9 @@ export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
       <Player width={width} />
 
       <ShareAndPracticeBtns padding={padding} />
-      {/*<Image className={"w-[calc(100%-128px)] h-full object-cover rounded-t-full"}*/}
-      <Image
-        className="h-[43.71vh] w-[57.34vw] rounded-t-full object-cover shadow-[inset_0px_4px_24px_#000]"
-        src={ImagePractice}
-        alt={"img-practice"}
-      />
+      <div className="relative h-[43.71vh] w-[57.34vw] overflow-hidden rounded-t-full object-cover after:absolute after:top-0 after:block after:h-[43.71vh] after:w-[57.34vw] after:rounded-t-full after:shadow-[inset_0px_4px_24px_rgba(0,0,0,0.7)] after:content-['']">
+        <Image className="z-[-1]" src={ImagePractice} alt={"img-practice"} />
+      </div>
     </MotionDiv>
   );
 };

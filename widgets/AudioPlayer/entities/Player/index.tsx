@@ -8,9 +8,7 @@ interface IPlayerProps {
 }
 
 export const Player: FC<IPlayerProps> = ({ width }) => {
-  const [pointers, setPointers] = useState<ISettingsPointer[]>([
-    { value: 0 },
-  ]);
+  const [pointers, setPointers] = useState<ISettingsPointer[]>([{ value: 0 }]);
   const [pathRadius, setPathRadius] = useState(135);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -44,8 +42,10 @@ export const Player: FC<IPlayerProps> = ({ width }) => {
 
   const calculateRadius = (width: number) => {
     // Применяем линейную интерполяцию для расчета радиуса
-    const x1 = 344, y1 = 135;
-    const x2 = 430, y2 = 160;
+    const x1 = 344,
+      y1 = 135;
+    const x2 = 430,
+      y2 = 160;
     const slope = (y2 - y1) / (x2 - x1);
     return y1 + slope * (width - x1);
   };
@@ -55,7 +55,7 @@ export const Player: FC<IPlayerProps> = ({ width }) => {
   }, [width]);
 
   return (
-    <div className="flex items-center justify-center absolute -top-3">
+    <div className="absolute -top-3 z-[3] flex items-center justify-center">
       <RoundSlider
         pathRadius={pathRadius}
         pathStartAngle={180}
@@ -69,14 +69,8 @@ export const Player: FC<IPlayerProps> = ({ width }) => {
         pointerSVG={<PointerIcon />}
       />
 
-      <PlayAndPause togglePlayPause={togglePlayPause}
-                    isPlaying={isPlaying}
-      />
-      <audio
-        ref={audioRef}
-        onTimeUpdate={handleTimeUpdate}
-        src="/audio/1.mp3"
-      />
+      <PlayAndPause togglePlayPause={togglePlayPause} isPlaying={isPlaying} />
+      <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} src="/audio/1.mp3" />
     </div>
   );
 };
