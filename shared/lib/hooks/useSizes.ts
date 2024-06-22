@@ -21,7 +21,8 @@ export const useSizes = () => {
     if (svgRef.current) {
       setSvgHeight(svgRef.current.getBoundingClientRect().height);
     }
-  }, [width, height]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height, svgGRef.current, svgRef.current]);
 
   return {
     svgGRef,

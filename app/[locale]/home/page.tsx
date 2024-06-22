@@ -31,7 +31,7 @@ export default function HomePage() {
       <div style={{ paddingBottom: 200 }}>
         <Map />
         <ModalSheet svgWidth={svgWidth} padding={padding} svgHeight={svgHeight} height={height} />
-        <Navbar svgGRef={svgGRef} svgRef={svgRef} width={width} />
+        <Navbar svgGRef={svgGRef} svgRef={svgRef} />
       </div>
     </View>
   );

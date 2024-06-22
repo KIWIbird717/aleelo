@@ -31,7 +31,7 @@ export const View: FC<Props> = (props) => {
   return (
     <main
       className={cn(
-        `relative h-[calc(100vh+1px)]`,
+        `relative h-[calc(100svh+1px)]`,
         props.className,
         props.backgroundEffect && variants[props.backgroundEffect],
       )}
