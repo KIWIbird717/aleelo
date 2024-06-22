@@ -30,7 +30,7 @@ export const Map: FC<Props> = (props) => {
       <div className="grid grid-flow-col grid-cols-5 grid-rows-8">
         {sortCells(MapCells.cells).map((cell) => (
           <Cell
-            href={`/${locale}/practice/${cell.id}`}
+            href={`/${locale}/cell/${cell.id}`}
             key={cell.id}
             id={cell.id}
             className={cell.className}

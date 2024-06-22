@@ -28,7 +28,7 @@ export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
       <ShareAndPracticeBtns padding={padding} />
       {/*<Image className={"w-[calc(100%-128px)] h-full object-cover rounded-t-full"}*/}
       <Image
-        className={"h-[43.71vh] w-[57.34vw] rounded-t-full object-cover"}
+        className="h-[43.71vh] w-[57.34vw] rounded-t-full object-cover shadow-[inset_0px_4px_24px_#000]"
         src={ImagePractice}
         alt={"img-practice"}
       />

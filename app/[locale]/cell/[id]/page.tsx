@@ -75,7 +75,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
         {!isShowText && <AudioPlayer width={width} padding={padding} />}
       </AnimatePresence>
 
-      <Navbar width={width} svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
+      <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
     </View>
   );
 };
