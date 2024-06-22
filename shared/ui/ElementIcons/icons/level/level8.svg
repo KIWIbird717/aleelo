@@ -1,20 +1,20 @@
 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="50" fill="url(#paint0_linear_1862_31174)"/>
-    <g filter="url(#filter0_d_1862_31174)">
+    <circle cx="50" cy="50" r="50" fill="url(#paint0_linear_1862_32119)"/>
+    <g filter="url(#filter0_d_1862_32119)">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M42.5 37.5C42.5 33.3579 45.8579 30 50 30C54.1421 30 57.5 33.3579 57.5 37.5C57.5 41.6421 54.1421 45 50 45C45.8579 45 42.5 41.6421 42.5 37.5ZM57.8589 47.2211C60.69 44.9294 62.5 41.4261 62.5 37.5C62.5 30.5964 56.9036 25 50 25C43.0964 25 37.5 30.5964 37.5 37.5C37.5 41.4261 39.31 44.9294 42.1411 47.2211C37.8563 49.8618 35 54.5973 35 60C35 68.2843 41.7157 75 50 75C58.2843 75 65 68.2843 65 60C65 54.5973 62.1437 49.8618 57.8589 47.2211ZM50 50C44.4772 50 40 54.4772 40 60C40 65.5228 44.4772 70 50 70C55.5228 70 60 65.5228 60 60C60 54.4772 55.5228 50 50 50Z" fill="white"/>
     </g>
     <defs>
-        <filter id="filter0_d_1862_31174" x="30" y="22.5" width="40" height="60" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <filter id="filter0_d_1862_32119" x="30" y="22.5" width="40" height="60" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
             <feFlood flood-opacity="0" result="BackgroundImageFix"/>
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
             <feOffset dy="2.5"/>
             <feGaussianBlur stdDeviation="2.5"/>
             <feComposite in2="hardAlpha" operator="out"/>
             <feColorMatrix type="matrix" values="0 0 0 0 0.0666667 0 0 0 0 0.239216 0 0 0 0 0.372549 0 0 0 1 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1862_31174"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1862_31174" result="shape"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1862_32119"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1862_32119" result="shape"/>
         </filter>
-        <linearGradient id="paint0_linear_1862_31174" x1="52.5822" y1="1.14508e-07" x2="52.5822" y2="100" gradientUnits="userSpaceOnUse">
+        <linearGradient id="paint0_linear_1862_32119" x1="52.5822" y1="1.14508e-07" x2="52.5822" y2="100" gradientUnits="userSpaceOnUse">
             <stop stop-color="#5DB2AC"/>
             <stop offset="1" stop-color="#336069"/>
         </linearGradient>

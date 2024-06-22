@@ -1,6 +1,5 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { twMerge } from "tailwind-merge";
-import { Typography } from "../../../../../../../shared/ui/Typography/Typography";
 import { IElement } from "@/shared/lib/redux-store/slices/modal-slice/type";
 import { useModal } from "@/shared/lib/hooks/useModal";
 import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";

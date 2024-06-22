@@ -1,13 +1,6 @@
 import { FC } from "react";
-import { cn } from "../../../../shared/lib/utils/cn";
 import { twMerge } from "tailwind-merge";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../../../shared/ui/Carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../../../shared/ui/Carousel";
 
 interface ICalendarProps {}
 

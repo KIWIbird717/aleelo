@@ -1,18 +1,14 @@
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
-import ManIcon from "@/public/images/svg/icons/man.svg";
-import EarthIcon from "@/public/images/svg/icons/earth.svg";
+import ManIcon from "@/public/images/svg/icons/energies/man.svg";
+import EarthIcon from "@/public/images/svg/icons/elements/earth.svg";
 import Level2Icon from "@/public/images/svg/icons/level/level2.svg";
-import HappyIcon from "@/public/images/svg/icons/happy.svg";
+import HappyIcon from "@/public/images/svg/icons/emotions/happy.svg";
 import { Element } from "@/widgets/ModalSheet/entities/CellInfo/shared/ui/element";
-import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
-import { IElement, IModalData } from "@/shared/lib/redux-store/slices/modal-slice/type";
-import { ModalSlice } from "@/shared/lib/redux-store/slices/modal-slice/modalSlice";
+import { IElement } from "@/shared/lib/redux-store/slices/modal-slice/type";
 import dynamic from "next/dynamic";
-import { useModal } from "@/shared/lib/hooks/useModal";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
-const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
 
 interface IIconsProps {
   className?: string;
@@ -67,11 +63,6 @@ const items: IElement[] = [
       ".",
   },
 ];
-
-const iconVariants = {
-  hidden: { scale: 0.8 },
-  visible: { scale: 1 },
-};
 
 export const Icons: FC<IIconsProps> = ({ className, padding }) => {
 
