@@ -15,6 +15,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-green": "linear-gradient(180deg, #264F58 0%, #67B6B3 100%)",
         "button-gradient-yellow": "linear-gradient(180deg, #FEF5C9 0%, #FCC400 100%)",
         "button-gradient-orange": "linear-gradient(180deg, #ffd866 0%, #cb6b39 100%)",
         "button-gradient-orange-reverse": "linear-gradient(180deg, #cb6b39 0, #ffd866 100%)",
@@ -81,7 +82,8 @@ const config: Config = {
           "0px 8px 14px -3px rgba(33, 78, 86, 0.3), 0px 1px 4px 0px rgba(241, 170, 19, 1) inset, 0px -5px 10px 0px rgba(207, 47, 47, 0.4) inset",
         audioBtn: "0px 8px 14px -3px rgba(17, 76, 95, 0.45), 2px 2px 8px 0px rgba(86, 145, 163, 0.5) inset, -8px -8px 10px 0px rgba(53, 121, 131, 0.3) inset",
         audioImage: "0px 4px 24px 0px rgba(0, 0, 0, 0.6) inset",
-        shadowGreen: "0px 8px 14px -3px rgba(17, 61, 95, 0.4), 2px 2px 8px 0px rgba(59, 109, 147, 1) inset, -8px -8px 13px 0px rgba(37, 95, 139, 1) inset"
+        shadowGreen: "0px 8px 14px -3px rgba(17, 61, 95, 0.4), 2px 2px 8px 0px rgba(59, 109, 147, 1) inset, -8px -8px 13px 0px rgba(37, 95, 139, 1) inset",
+        modalWindow: "8px 8px 20px 0px rgba(40, 84, 94, 0.5), -6px -6px 17px 0px rgba(168, 205, 207, 1) inset, 3px 2px 8px 0px rgba(214, 235, 236, 1) inset, -3px -2px 4px 0px rgba(255, 255, 255, 0.25) inset"
       },
       dropShadow: {
         input: "0px 3px 8px 0px #3F829280 inset",

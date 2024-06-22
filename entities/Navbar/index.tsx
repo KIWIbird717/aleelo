@@ -80,7 +80,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
   );
 
   return (
-    <div className="fixed bottom-[-13px] z-[999]">
+    <div className="fixed bottom-[-13px] z-[33]">
       <div className="relative">
         <div className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
           {navElements.map((item) => (

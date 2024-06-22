@@ -1,11 +1,6 @@
 import { FC } from "react";
 import { Button } from "../../../../shared/ui/Button/Button";
 import { CellInfoHeading } from "./shared/ui/heading";
-import { Element } from "./shared/ui/element";
-import ManIcon from "@/public/images/svg/icons/man.svg";
-import EarthIcon from "@/public/images/svg/icons/earth.svg";
-import HappyIcon from "@/public/images/svg/icons/happy.svg";
-import Level2Icon from "@/public/images/svg/icons/level/level2.svg";
 import { twMerge } from "tailwind-merge";
 import { Icons } from "@/entities/Icons";
 

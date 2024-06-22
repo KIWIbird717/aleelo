@@ -57,7 +57,7 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
         snapPoints={snapPoints}
         initialSnap={currentIndex}
         onSnap={(snapIndex) => onChangeIndex(snapIndex)}
-        className={"absolute !z-[998] !flex !justify-center !rounded-t-[20px] !shadow-none"}
+        className={"absolute !z-[30] !flex !justify-center !rounded-t-[20px] !shadow-none"}
         style={{ margin: `0 ${padding}px`, bottom: `${bottom}px` }}
       >
         <Sheet.Container

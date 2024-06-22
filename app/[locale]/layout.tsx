@@ -4,6 +4,7 @@ import StoreProvider from "../../shared/lib/redux-store/StoreProvider";
 import { BootstrapTgWindow } from "../../shared/providers/BootstrapTgWindow";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { ModalProvider } from "@/shared/providers/ModalProvider";
 
 export default async function RootLayout({
   children,
@@ -22,7 +23,10 @@ export default async function RootLayout({
       <body>
         <StoreProvider>
           <NextIntlClientProvider messages={messages}>
-            <BootstrapTgWindow>{children}</BootstrapTgWindow>
+            <BootstrapTgWindow>
+              <ModalProvider />
+              {children}
+            </BootstrapTgWindow>
           </NextIntlClientProvider>
         </StoreProvider>
       </body>
