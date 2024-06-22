@@ -12,7 +12,12 @@ export const useSizes = () => {
   const { width, height } = useDimensions();
   const [svgWidth, setSvgWidth] = useState<number | null>(null);
   const [svgHeight, setSvgHeight] = useState<number | null>(null);
-  const padding = (width - Number(svgWidth)) / 2;
+  const [padding, setPadding] = useState((width - Number(svgWidth)) / 2);
+
+  useEffect(() => {
+    console.log({ width, svgWidth, padding: (width - Number(svgWidth)) / 2, svgGRef });
+    setPadding((width - Number(svgWidth)) / 2);
+  }, [svgWidth, width, svgGRef]);
 
   useEffect(() => {
     if (svgGRef.current) {
@@ -21,7 +26,8 @@ export const useSizes = () => {
     if (svgRef.current) {
       setSvgHeight(svgRef.current.getBoundingClientRect().height);
     }
-  }, [width, height]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height, svgGRef.current, svgRef.current]);
 
   return {
     svgGRef,
