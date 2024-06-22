@@ -12,12 +12,7 @@ export const useSizes = () => {
   const { width, height } = useDimensions();
   const [svgWidth, setSvgWidth] = useState<number | null>(null);
   const [svgHeight, setSvgHeight] = useState<number | null>(null);
-  const [padding, setPadding] = useState((width - Number(svgWidth)) / 2);
-
-  useEffect(() => {
-    console.log({ width, svgWidth, padding: (width - Number(svgWidth)) / 2, svgGRef });
-    setPadding((width - Number(svgWidth)) / 2);
-  }, [svgWidth, width, svgGRef]);
+  const padding = (width - Number(svgWidth)) / 2;
 
   useEffect(() => {
     if (svgGRef.current) {
