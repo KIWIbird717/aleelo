@@ -1,13 +1,17 @@
 "use client";
 
-import { FC } from "react";
+import { CSSProperties, FC, JSXElementConstructor } from "react";
 import { Map as MapCells } from "./shared/func/cells";
 import { sortCells } from "./shared/func/sortCells";
-import { Cell, CellProps } from "./shared/ui/CellInfoType";
+
 import { ManWomanOverlay } from "./shared/ui/Overlays/ManWomanOverlay";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { ArrowsAndSnakes } from "./shared/ui/Overlays/ArrowsAndSnakes";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useAnimate } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { ButtonNS } from "@/shared/ui/Button/Button";
+import { cn } from "@/shared/lib/utils/cn";
 
 type Props = {
   onCellClick?: CellProps["onClick"];
@@ -55,7 +59,9 @@ type CellInfoType = {
 type CellProps = {
   id: number;
   className: string;
+  href: string
   style?: CSSProperties;
+  isActive?: boolean
   icon: JSXElementConstructor<Partial<SVGElement>>;
   onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
@@ -80,7 +86,7 @@ const Cell: FC<CellProps> = (props) => {
     };
     props.onClick && props.onClick(cellInfo, event);
 
-    push(`/${locale}/practice/${props.id}`)
+    push(props.href)
   };
 
   return (

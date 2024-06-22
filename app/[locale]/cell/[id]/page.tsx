@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));

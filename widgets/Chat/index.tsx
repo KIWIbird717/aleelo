@@ -48,7 +48,7 @@ export const Chat: FC<IChatProps> = (
 
   return (
     <div
-      className={twMerge("relative flex flex-col justify-between px-4 pt-[11px] gap-5 overflow-y-scroll",
+      className={twMerge("relative flex flex-col justify-between px-4 pt-[11px] gap-5 overflow-y-scroll pb-[65px]",
         isFocused && "overflow-hidden"
         )}
       style={{ height: `calc(100% - ${svgHeight}px + 15px)` }}
@@ -89,7 +89,8 @@ export const Chat: FC<IChatProps> = (
       </MotionDiv>
 
       <MotionDiv
-        className={twMerge("w-full left-0 blur-none")}
+        className={twMerge("w-full left-0 blur-none fixed px-4")}
+        style={{bottom: `${svgHeight - 17}px`}}
         animate={{ y: isFocused ? -bottomInput : 0 }}
         transition={{ duration: 0.3 }}
         initial={false}

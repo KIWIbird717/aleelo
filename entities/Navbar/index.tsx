@@ -9,12 +9,10 @@ import ThrowIcon from "@/public/images/svg/navbar/throw.svg";
 import FlowIcon from "@/public/images/svg/navbar/flow.svg";
 import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
 import BackIcon from "@/public/images/svg/navbar/back.svg";
-import { cn } from "../../shared/lib/utils/cn";
+import { cn } from "@/shared/lib/utils/cn";
 import { usePathname } from "next/navigation";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import { useSizes } from "@/shared/lib/hooks/useSizes";
 import { useDimensions } from "@/shared/lib/hooks/useDimensions";
 
 const X_MARGINS = 20; // px
@@ -29,7 +27,7 @@ type NavItemType = {
 interface INavbarProps {
   isBack?: boolean;
   onHide?: () => void;
-  width: number;
+  width?: number;
   svgGRef?: MutableRefObject<SVGSVGElement | null>;
   svgRef?: MutableRefObject<SVGSVGElement | null>;
 }
