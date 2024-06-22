@@ -30,7 +30,13 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
 
   useRequest(async () => {
     try {
-      const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`);
+      const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
     } catch (error) {
       logger.error(error);
     }

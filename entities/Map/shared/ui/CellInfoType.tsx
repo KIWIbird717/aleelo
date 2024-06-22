@@ -57,6 +57,7 @@ export const Cell: FC<CellProps> = (props) => {
         "relative box-border flex aspect-square w-full items-center justify-center rounded-[10px] border-[1px] border-[#295962] pb-[8px]",
         props.isActive && "border-[2px] border-[#F6E6B2]",
         props.className,
+        !props.isActive && "pointer-events-none",
       )}
     >
       <AnimatePresence>

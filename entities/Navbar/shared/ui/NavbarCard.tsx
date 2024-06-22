@@ -7,12 +7,22 @@ type Props = {
   svgRef?: MutableRefObject<SVGSVGElement | null>;
 } & React.SVGProps<SVGSVGElement>;
 
-export const NavbarCardWrapper: FC<Props> = (props) => {
-  const logger = new Logger(NavbarCardWrapper.name);
-  const { width, svgGRef, svgRef, ...restProps } = props;
-  const height = (137 / 383) * width;
+export const NavbarCard: FC<Props> = (props) => {
+  const { width: calculatedWidth, svgGRef, svgRef, ...restProps } = props;
 
-  logger.debug(width, height);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  /**
+   * Необходимо для правильной инициализации компонента.
+   * Без изменения состояния ширины и высоты, компонент
+   * остается с нулевыми значениями ширины и высоты
+   */
+  useEffect(() => {
+    const calculatedHeight = (137 / 383) * calculatedWidth;
+    setWidth(calculatedWidth);
+    setHeight(calculatedHeight);
+  }, [calculatedWidth]);
 
   return (
     <svg
@@ -22,7 +32,6 @@ export const NavbarCardWrapper: FC<Props> = (props) => {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <g ref={svgGRef} filter="url(#filter0_diii_6_20851)">
         <path

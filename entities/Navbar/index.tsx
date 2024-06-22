@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, MutableRefObject, ReactNode, useMemo } from "react";
-import { NavbarCardWrapper } from "./shared/ui/NavbarCardWrapper";
+import { NavbarCard } from "./shared/ui/NavbarCard";
 import GameIcon from "@/public/images/svg/navbar/game.svg";
 import GameActiveIcon from "@/public/images/svg/navbar/game-active.svg";
 import PracticeIcon from "@/public/images/svg/navbar/practice.svg";
@@ -89,12 +89,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
           ))}
         </div>
 
-        <NavbarCardWrapper
-          svgGRef={svgGRef}
-          svgRef={svgRef}
-          className="z-[-1]"
-          width={width / DEVIDE}
-        />
+        <NavbarCard svgGRef={svgGRef} svgRef={svgRef} className="z-[-1]" width={width / DEVIDE} />
       </div>
     </div>
   );
