@@ -15,7 +15,7 @@ export const ShareAndPracticeBtns: FC<IShareAndPracticeBtnsProps> = ({ padding }
 
   return (
     <div
-      className={`absolute bottom-[20.1324vh] flex w-full justify-between`}
+      className={`absolute bottom-[20.1324vh] z-[4] flex w-full justify-between`}
       style={{ padding: `0 ${padding}px` }}
     >
       <ButtonIcon variant={"icon"} onClick={redirect}>
