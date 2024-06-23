@@ -15,7 +15,7 @@ export const ModalContent: FC<IModalContentProps> = (
 ) => {
   return (
     <MotionDiv
-      className={"relative w-full flex flex-col gap-[26px] px-5 pb-8 pt-[46px] rounded-3xl bg-white shadow-modalWindow"}
+      className={"relative w-full h-full flex flex-col gap-[26px] px-5 pb-8 pt-[46px] rounded-3xl bg-white shadow-modalWindow"}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}

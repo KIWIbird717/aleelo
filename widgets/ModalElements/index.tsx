@@ -11,9 +11,7 @@ import { AnimatePresence } from "framer-motion";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-
-interface IModalElementsProps {
-}
+interface IModalElementsProps {}
 
 export const ModalElements: FC<IModalElementsProps> = () => {
   const { onClose, modalData } = useModal();
@@ -31,12 +29,11 @@ export const ModalElements: FC<IModalElementsProps> = () => {
   const icon = cardElementsAssets[typeIcon].icon;
 
   return (
-    <AnimatePresence mode={"wait"}>
+    <AnimatePresence mode={"wait"} presenceAffectsLayout={false}>
       {isModalOpen && (
         <MotionDiv
           className={twMerge(
-            "hidden fixed top-0 left-0 w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-4",
-            isModalOpen && "flex",
+            "flex fixed top-0 left-0 justify-center items-center w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-4",
           )}
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -44,7 +41,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
           transition={{ duration: 0.3 }}
         >
           <ModalContent onClose={onClose}>
-            <div className={"w-full h-[calc(100%-74px)] flex flex-col gap-[33px]"}>
+            <div className={"relative w-full h-[calc(100%-74px)] flex flex-col gap-[33px]"}>
               <div className={"w-full flex flex-col gap-4"}>
                 <Typography
                   tag={"h2"}
@@ -56,14 +53,15 @@ export const ModalElements: FC<IModalElementsProps> = () => {
                   {icon}
                 </div>
               </div>
-              <div className={"w-full px-3 overflow-y-scroll"}>
+              <div className={"w-full px-3 overflow-y-scroll pb-[46px]"}>
                 <Typography
                   tag={"p"}
-                  className={"font-normal text-[13px] h-[calc(100%-74px)] leading-5 text-mint !text-shadow-light"}
+                  className={"font-normal text-[13px] leading-5 text-mint !text-shadow-light"}
                 >
                   {description}
                 </Typography>
               </div>
+              <div className={"absolute bottom-0 w-full h-[46px] bg-gradient-white"} />
             </div>
           </ModalContent>
         </MotionDiv>

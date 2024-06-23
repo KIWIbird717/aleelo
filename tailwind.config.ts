@@ -16,6 +16,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "gradient-green": "linear-gradient(180deg, rgba(38, 79, 88, 0.50) 0%, rgba(103, 182, 179, 0.50) 100%)",
+        "gradient-white": "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)",
         "button-gradient-yellow": "linear-gradient(180deg, #FEF5C9 0%, #FCC400 100%)",
         "button-gradient-orange": "linear-gradient(180deg, #ffd866 0%, #cb6b39 100%)",
         "button-gradient-orange-reverse": "linear-gradient(180deg, #cb6b39 0, #ffd866 100%)",
