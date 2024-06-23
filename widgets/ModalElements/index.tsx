@@ -21,15 +21,10 @@ export const ModalElements: FC<IModalElementsProps> = () => {
 
   const isModalOpen = isOpen && type === "elements";
 
-  if (!element) {
-    return null;
-  }
-
-  const { heading, typeIcon, description } = element;
-  const icon = cardElementsAssets[typeIcon].icon;
+  const icon = cardElementsAssets[element?.typeIcon!]?.icon;
 
   return (
-    <AnimatePresence mode={"wait"} presenceAffectsLayout={false}>
+    <AnimatePresence mode={"wait"}>
       {isModalOpen && (
         <MotionDiv
           className={twMerge(
@@ -47,7 +42,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
                   tag={"h2"}
                   className={"font-semibold text-[21px] leading-[30px] text-center text-mint-900"}
                 >
-                  {heading}
+                  {element?.heading}
                 </Typography>
                 <div className={"flex justify-center w-full"}>
                   {icon}
@@ -58,7 +53,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
                   tag={"p"}
                   className={"font-normal text-[13px] leading-5 text-mint !text-shadow-light"}
                 >
-                  {description}
+                  {element?.description}
                 </Typography>
               </div>
               <div className={"absolute bottom-0 w-full h-[46px] bg-gradient-white"} />

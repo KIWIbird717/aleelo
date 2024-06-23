@@ -11,7 +11,7 @@ interface IElementProps {
 }
 
 export const Element: FC<IElementProps> = ({ item, classNameText, classNameIcon }) => {
-  const { onOpenModal } = useModal();
+  const { onOpenModal } = useModal('elements');
 
   return (
     <div className={"relative flex h-[83px] w-[74px] items-end"}>

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type ModelType = "elements"
+export type ModelType = "elements"
 
 type typeIcon =  "man" | "earth" | "level2" | "happy"
 
@@ -20,5 +20,5 @@ export interface IModalData {
 export interface IModelSlice {
   type: ModelType | null;
   isOpen: boolean;
-  data: IModalData
+  data?: IModalData
 }
