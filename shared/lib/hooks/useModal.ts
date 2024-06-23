@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
 import { ModalSlice } from "@/shared/lib/redux-store/slices/modal-slice/modalSlice";
 import { IModalData, ModelType } from "@/shared/lib/redux-store/slices/modal-slice/type";
 
-export const useModal = (type?: ModelType) => {
+export const useModal = () => {
   const modalData = useAppSelector((state) => state.modal);
 
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const useModal = (type?: ModelType) => {
     }, 200);
   };
 
-  const onOpenModal = (data: IModalData) => {
+  const onOpenModal = (type: ModelType, data: IModalData) => {
     dispatch(ModalSlice.setOpenModal(
         {
           isOpen: true,

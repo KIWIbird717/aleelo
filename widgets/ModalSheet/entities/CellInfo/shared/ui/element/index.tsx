@@ -11,7 +11,7 @@ interface IElementProps {
 }
 
 export const Element: FC<IElementProps> = ({ item, classNameText, classNameIcon }) => {
-  const { onOpenModal } = useModal('elements');
+  const { onOpenModal } = useModal();
 
   return (
     <div className={"relative flex h-[83px] w-[74px] items-end"}>
@@ -20,7 +20,7 @@ export const Element: FC<IElementProps> = ({ item, classNameText, classNameIcon 
           "absolute left-3 top-0 flex h-[48px] w-[48px] items-center justify-center rounded-full shadow-element",
           classNameIcon,
         )}
-        onClick={() => onOpenModal({ element: item })}
+        onClick={() => onOpenModal("elements", {element: item})}
       >
         {item.icon}
       </ButtonIcon>
