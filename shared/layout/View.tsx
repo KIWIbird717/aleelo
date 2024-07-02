@@ -1,7 +1,5 @@
 import { CSSProperties, FC, ReactNode } from "react";
 import { cn } from "../lib/utils/cn";
-import GradiendBg from "@/public/images/backgrounds/gradient.jpg";
-import Image from "next/image";
 
 const variants = {
   gradient: "bg-gradient-to-b to-[#67B6B3]/70 from-[#264F58]/70 w-screen h-screen",

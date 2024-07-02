@@ -48,6 +48,18 @@ export const LetsMeetWidget = () => {
       // авторизуем пользователя
       const authRes = await authorize();
       localStorage.setItem("jwt", authRes.jwt);
+
+      // заносим в настройки пользователя дефолтные данные для юзера
+      await serverApi.post("/settings", {
+        name: "игрок",
+        gender: "human",
+        reportNotificationHour: 0,
+        reportNotificationMinutes: 0,
+      });
+
+      // создание игры
+      await serverApi.post("/game-chat/create-game");
+
       // получаем и устанавливаем пользователя
       const myProfile = await serverApi.get("/auth/profile");
       dispatch(UserSlice.setProfile(myProfile.data));
@@ -55,7 +67,7 @@ export const LetsMeetWidget = () => {
   }, [isServer]);
 
   return (
-    <div className="fade-in flex h-screen flex-col justify-between overflow-hidden">
+    <div className="flex h-screen flex-col justify-between overflow-hidden">
       <ParalaxBackground stage={stage} />
       <LetsMeetDescription className="w-fit" stage={stage} />
       <section className="p-5">

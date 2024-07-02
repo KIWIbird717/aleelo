@@ -8,6 +8,8 @@ type ResponseType = {
 };
 
 export const authorize = async () => {
+  // создание анонимного пользователя
   const authorizationRes = await serverApi.post<ResponseType>("/auth/anonymous");
+
   return authorizationRes.data;
 };
