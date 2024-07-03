@@ -17,7 +17,7 @@ interface IModalSheetProps {
 }
 
 export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding, height }) => {
-  const setIsTurnOn  = usePreventOnSwipeWindowClose(true);
+  const setIsTurnOn = usePreventOnSwipeWindowClose(true);
 
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isOpen, setOpen] = useState(true);
@@ -86,11 +86,13 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
           <Sheet.Content disableDrag={true} className={twMerge("flex flex-col")}>
             <SheetContentHeader currentIndex={currentIndex} />
             <Calendar />
-            <div className={twMerge("overflow-hidden w-full h-full",
-              // height <= 780 && "overflow-y-scroll pb-16",
-            )}
+            <div
+              className={twMerge(
+                "h-full w-full overflow-hidden",
+                // height <= 780 && "overflow-y-scroll pb-16",
+              )}
             >
-              <div className={"flex flex-col pb-16 h-full overflow-scroll"}>
+              <div className={"flex h-full flex-col overflow-scroll pb-16"}>
                 {[...new Array(3)].map((obj, i) => {
                   return <CellInfo key={i} currentIndex={currentIndex} index={i} />;
                 })}

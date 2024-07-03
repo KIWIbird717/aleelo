@@ -12,8 +12,8 @@ interface ICellInfoProps {
 }
 
 export const CellInfo: FC<ICellInfoProps> = ({ currentIndex, index }) => {
-  const currentGameId = 1 //TODO: Изменить на реальный ID текущей игры
-  const link = `cell/${currentGameId}`
+  const currentGameId = 1; //TODO: Изменить на реальный ID текущей игры
+  const link = `cell/${currentGameId}`;
 
   return (
     <div
@@ -25,10 +25,15 @@ export const CellInfo: FC<ICellInfoProps> = ({ currentIndex, index }) => {
     >
       <CellInfoHeading title={"#1. Рождение"} />
 
-      <Icons className={"mb-4 mt-[9px] gap-1.5"}/>
+      <Icons className={"mb-4 mt-[9px] gap-1.5"} />
 
       <div className={"flex w-full gap-4"}>
-        <ButtonLink href={link} variant={"orange"} size={"small"} className={"w-[calc(50%-8px)] text-[15px]"}>
+        <ButtonLink
+          href={link}
+          variant={"orange"}
+          size={"small"}
+          className={"w-[calc(50%-8px)] text-[15px]"}
+        >
           Описание
         </ButtonLink>
         <Button variant={"blue"} size={"small"} className={"w-[calc(50%-8px)]"}>

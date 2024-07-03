@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 
-export type ModelType = "elements"
+export type ModelType = "elements";
 
-type typeIcon =  "man" | "earth" | "level2" | "happy"
+type typeIcon = "man" | "earth" | "level2" | "happy";
 
 export interface IElement {
-  id: number
-  title: string,
-  heading: string
-  icon: ReactNode
-  description: string
-  typeIcon:typeIcon
+  id: number;
+  title: string;
+  heading: string;
+  icon: ReactNode;
+  description: string;
+  typeIcon: typeIcon;
 }
 
 export interface IModalData {
@@ -20,5 +20,5 @@ export interface IModalData {
 export interface IModelSlice {
   type: ModelType | null;
   isOpen: boolean;
-  data?: IModalData
+  data?: IModalData;
 }

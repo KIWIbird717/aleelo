@@ -78,7 +78,10 @@ export const ButtonIcon: FC<ButtonIconNS.Props> = ({ onClick, ...props }) => {
   if (props.variant === "icon") {
     return (
       <div
-        className={twMerge("w-[48px] h-[48px] flex justify-center items-center bg-gradient-border-edit rounded-full")}>
+        className={twMerge(
+          "flex h-[48px] w-[48px] items-center justify-center rounded-full bg-gradient-border-edit",
+        )}
+      >
         <button
           {...props}
           ref={scope}
@@ -88,13 +91,13 @@ export const ButtonIcon: FC<ButtonIconNS.Props> = ({ onClick, ...props }) => {
             ButtonIconNS.DEFAULT_CLASSES,
             disabledClassName,
             props.className,
-            "w-[44px] h-[44px]"
+            "h-[44px] w-[44px]",
           )}
         >
           {props.children}
         </button>
       </div>
-    )
+    );
   } else {
     return (
       <button

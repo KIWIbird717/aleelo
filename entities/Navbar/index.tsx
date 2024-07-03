@@ -89,7 +89,12 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         </div>
 
         {/* // нужен для того, чтобы не отображался navbar при открытом modal window*/}
-        <NavbarCard svgGRef={svgGRef} svgRef={svgRef} className="z-[-1] pl-[4px] pr-[2px]" width={width / DEVIDE} />
+        <NavbarCard
+          svgGRef={svgGRef}
+          svgRef={svgRef}
+          className="z-[-1] pl-[4px] pr-[2px]"
+          width={width / DEVIDE}
+        />
         {/*<NavbarCard svgGRef={svgGRef} svgRef={svgRef} className="z-[-1]" width={width / DEVIDE} />*/}
       </div>
     </div>

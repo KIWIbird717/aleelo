@@ -11,10 +11,7 @@ interface IAudioPlayerProps {
   padding: number;
 }
 
-export const AudioPlayer: FC<IAudioPlayerProps> = (
-  { width, padding },
-) => {
-
+export const AudioPlayer: FC<IAudioPlayerProps> = ({ width, padding }) => {
   return (
     <MotionDiv
       className={

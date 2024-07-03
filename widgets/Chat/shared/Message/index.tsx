@@ -10,31 +10,34 @@ interface IMessageProps {
   type: "user" | "eft";
 }
 
-export const Message: FC<IMessageProps> = (
-  { index, message, type },
-) => {
+export const Message: FC<IMessageProps> = ({ index, message, type }) => {
   return (
     <div
-      className={twMerge("relative py-2.5 px-4 bg-mint-700 rounded-[20px] w-fit mr-[43px] ml-0 shadow-dialogOnBoarding",
+      className={twMerge(
+        "relative ml-0 mr-[43px] w-fit rounded-[20px] bg-mint-700 px-4 py-2.5 shadow-dialogOnBoarding",
         index === 0 && type === "eft" && "rounded-tl-none",
         index === 0 && type === "user" && "rounded-tr-none",
         type === "user" && "ml-[43px] mr-0 bg-gold",
       )}
     >
-      <Typography tag={"p"}
-                  className={twMerge("text-[15px] font-normal leading-[21px]",
-                    type === "user" && "!text-brown text-shadow-light",
-                    type === "eft" && "!text-mint text-shadow-light",
-                  )}
+      <Typography
+        tag={"p"}
+        className={twMerge(
+          "text-[15px] font-normal leading-[21px]",
+          type === "user" && "!text-brown text-shadow-light",
+          type === "eft" && "!text-mint text-shadow-light",
+        )}
       >
         {message}
       </Typography>
 
-      <div className={twMerge("hidden absolute top-0",
-        index === 0 && "block",
-        type === "eft" && "-left-[11px]",
-        type === "user" && "-right-[10px]",
-      )}
+      <div
+        className={twMerge(
+          "absolute top-0 hidden",
+          index === 0 && "block",
+          type === "eft" && "-left-[11px]",
+          type === "user" && "-right-[10px]",
+        )}
       >
         <ChatEftSvg className={twMerge("hidden", type === "eft" && "block")} />
         <ChatUserSvg className={twMerge("hidden", type === "user" && "block")} />

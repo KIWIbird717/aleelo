@@ -19,7 +19,6 @@ import {
   AngryIcon,
 } from "@/shared/ui/ElementIcons";
 
-
 export const cardElementsAssets = {
   //elements
   earth: {

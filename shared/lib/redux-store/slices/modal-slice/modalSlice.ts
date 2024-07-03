@@ -6,7 +6,7 @@ export namespace ModalSlice {
   const initialState: IModelSlice = {
     type: null,
     isOpen: false,
-    data: {}
+    data: {},
   };
 
   export const modalSlice = createSlice({
@@ -14,13 +14,13 @@ export namespace ModalSlice {
     initialState,
     reducers: {
       setOpenModal: (state, action: PayloadAction<IModelSlice>) => {
-        state.isOpen = true
-        state.type = action.payload.type
-        state.data = action.payload.data
+        state.isOpen = true;
+        state.type = action.payload.type;
+        state.data = action.payload.data;
       },
       setCloseModal: (state) => {
-        state.isOpen = false
-        state.type = null
+        state.isOpen = false;
+        state.type = null;
         state.data = {};
       },
     },

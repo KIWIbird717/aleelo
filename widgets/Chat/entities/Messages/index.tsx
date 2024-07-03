@@ -9,26 +9,14 @@ interface IMessagesProps {
   messages: string[];
 }
 
-export const Messages: FC<IMessagesProps> = (
-  {
-    type, photoUrl, messages,
-  }) => {
+export const Messages: FC<IMessagesProps> = ({ type, photoUrl, messages }) => {
   return (
-    <div className={twMerge("w-full flex gap-[11px]",
-        type === "user" && "justify-end",
-      )}
-    >
-      <Avatar type={type}
-              photoUrl={photoUrl}
-      />
+    <div className={twMerge("flex w-full gap-[11px]", type === "user" && "justify-end")}>
+      <Avatar type={type} photoUrl={photoUrl} />
 
       <div className={"flex flex-col gap-[5px]"}>
         {messages.map((obj, index) => {
-          return <Message key={index}
-                          index={index}
-                          message={obj}
-                          type={type}
-          />;
+          return <Message key={index} index={index} message={obj} type={type} />;
         })}
       </div>
     </div>

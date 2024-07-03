@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { UserSlice } from "./slices/user-slice/userSlice";
 import { ModalSlice } from "@/shared/lib/redux-store/slices/modal-slice/modalSlice";
 
-
 export const store = () => {
   return configureStore({
     reducer: {

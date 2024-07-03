@@ -59,9 +59,9 @@ type CellInfoType = {
 type CellProps = {
   id: number;
   className: string;
-  href: string
+  href: string;
   style?: CSSProperties;
-  isActive?: boolean
+  isActive?: boolean;
   icon: JSXElementConstructor<Partial<SVGElement>>;
   onClick?: (cell: CellInfoType, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
@@ -71,8 +71,8 @@ const Cell: FC<CellProps> = (props) => {
   const t = useTranslations();
   const title = t(`cells_${props.id}_title`);
 
-  const locale = useLocale()
-  const {push} = useRouter()
+  const locale = useLocale();
+  const { push } = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     animate([
@@ -86,7 +86,7 @@ const Cell: FC<CellProps> = (props) => {
     };
     props.onClick && props.onClick(cellInfo, event);
 
-    push(props.href)
+    push(props.href);
   };
 
   return (

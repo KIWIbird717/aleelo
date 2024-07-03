@@ -68,15 +68,23 @@ export const ButtonLink: FC<ButtonProps> = ({ children, href, ...props }) => {
 
   if (props.variant === "snow" && props.size === "icon") {
     return (
-      <div className={twMerge("flex justify-center items-center bg-gradient-border-edit rounded-full",
-        props.size && sizes[props.size].className,
-      )}
+      <div
+        className={twMerge(
+          "flex items-center justify-center rounded-full bg-gradient-border-edit",
+          props.size && sizes[props.size].className,
+        )}
       >
         <Link
           {...props}
           href={href}
           prefetch={true}
-          className={twMerge(variantClassName, sizeClassName, DEFAULT_CLASSES, props.className, "w-[44px] h-[44px] p-0")}
+          className={twMerge(
+            variantClassName,
+            sizeClassName,
+            DEFAULT_CLASSES,
+            props.className,
+            "h-[44px] w-[44px] p-0",
+          )}
         >
           {children}
         </Link>

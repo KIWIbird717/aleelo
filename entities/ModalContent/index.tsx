@@ -6,23 +6,23 @@ import dynamic from "next/dynamic";
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 interface IModalContentProps {
-  onClose: () => void
-  children: ReactNode
+  onClose: () => void;
+  children: ReactNode;
 }
 
-export const ModalContent: FC<IModalContentProps> = (
-  {onClose, children}
-) => {
+export const ModalContent: FC<IModalContentProps> = ({ onClose, children }) => {
   return (
     <MotionDiv
-      className={"relative w-full h-full flex flex-col gap-[26px] px-5 pb-8 pt-[46px] rounded-3xl bg-white shadow-modalWindow"}
+      className={
+        "relative flex h-full w-full flex-col gap-[26px] rounded-3xl bg-white px-5 pb-8 pt-[46px] shadow-modalWindow"
+      }
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
       <Button
-        className={"bg-none absolute top-4 right-4 shadow-none !p-0 w-[24px] h-[24px]"}
+        className={"absolute right-4 top-4 h-[24px] w-[24px] bg-none !p-0 shadow-none"}
         size={"small"}
         onClick={onClose}
       >

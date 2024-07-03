@@ -30,7 +30,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
           className={twMerge(
             // нужен для того, чтобы не отображался navbar при открытом modal window
             // "flex fixed top-0 left-0 justify-center items-center w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-3",
-            "flex fixed top-0 left-0 justify-center items-center w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-4",
+            "fixed left-0 top-0 z-[35] flex h-full w-full items-center justify-center bg-gradient-green px-4 pb-4 pt-[54px]",
           )}
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,27 +38,25 @@ export const ModalElements: FC<IModalElementsProps> = () => {
           transition={{ duration: 0.3 }}
         >
           <ModalContent onClose={onClose}>
-            <div className={"relative w-full h-[calc(100%-74px)] flex flex-col gap-[33px]"}>
-              <div className={"w-full flex flex-col gap-4"}>
+            <div className={"relative flex h-[calc(100%-74px)] w-full flex-col gap-[33px]"}>
+              <div className={"flex w-full flex-col gap-4"}>
                 <Typography
                   tag={"h2"}
-                  className={"font-semibold text-[21px] leading-[30px] text-center text-mint-900"}
+                  className={"text-center text-[21px] font-semibold leading-[30px] text-mint-900"}
                 >
                   {element?.heading}
                 </Typography>
-                <div className={"flex justify-center w-full"}>
-                  {icon}
-                </div>
+                <div className={"flex w-full justify-center"}>{icon}</div>
               </div>
-              <div className={"w-full px-3 overflow-y-scroll pb-[46px]"}>
+              <div className={"w-full overflow-y-scroll px-3 pb-[46px]"}>
                 <Typography
                   tag={"p"}
-                  className={"font-normal text-[13px] leading-5 text-mint !text-shadow-light"}
+                  className={"text-[13px] font-normal leading-5 text-mint !text-shadow-light"}
                 >
                   {element?.description}
                 </Typography>
               </div>
-              <div className={"absolute bottom-0 w-full h-[46px] bg-gradient-white"} />
+              <div className={"absolute bottom-0 h-[46px] w-full bg-gradient-white"} />
             </div>
           </ModalContent>
         </MotionDiv>

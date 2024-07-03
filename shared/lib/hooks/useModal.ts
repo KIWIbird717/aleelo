@@ -14,15 +14,14 @@ export const useModal = () => {
   };
 
   const onOpenModal = (type: ModelType, data: IModalData) => {
-    dispatch(ModalSlice.setOpenModal(
-        {
-          isOpen: true,
-          type: type!,
-          data: data,
-        },
-      ),
+    dispatch(
+      ModalSlice.setOpenModal({
+        isOpen: true,
+        type: type!,
+        data: data,
+      }),
     );
   };
 
-  return {modalData, onClose, onOpenModal}
-}
+  return { modalData, onClose, onOpenModal };
+};

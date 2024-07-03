@@ -1,10 +1,9 @@
-"use client"
+"use client";
 
 import { FC, useEffect, useState } from "react";
 import { ModalElements } from "@/widgets/ModalElements";
 
-interface IModalProviderProps {
-}
+interface IModalProviderProps {}
 
 export const ModalProvider: FC<IModalProviderProps> = () => {
   const [isMounted, setIsMounted] = useState(false);

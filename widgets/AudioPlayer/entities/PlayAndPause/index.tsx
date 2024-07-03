@@ -7,21 +7,18 @@ interface IPlayAndPauseProps {
   isPlaying: boolean;
 }
 
-export const PlayAndPause: FC<IPlayAndPauseProps> = (
-  { togglePlayPause, isPlaying },
-) => {
+export const PlayAndPause: FC<IPlayAndPauseProps> = ({ togglePlayPause, isPlaying }) => {
   return (
     <button
       onClick={togglePlayPause}
-      className="absolute flex items-center justify-center w-[96px] h-[96px] bg-white rounded-full shadow-lg bg-gradient-border-edit"
+      className="absolute flex h-[96px] w-[96px] items-center justify-center rounded-full bg-white bg-gradient-border-edit shadow-lg"
     >
       <div
-        className={"flex items-center justify-center rounded-full w-[calc(100%-6px)] h-[calc(100%-6px)] bg-white shadow-audioBtn"}>
-        {isPlaying ? (
-          <PauseIcon />
-        ) : (
-          <PlayIcon />
-        )}
+        className={
+          "flex h-[calc(100%-6px)] w-[calc(100%-6px)] items-center justify-center rounded-full bg-white shadow-audioBtn"
+        }
+      >
+        {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </div>
     </button>
   );
