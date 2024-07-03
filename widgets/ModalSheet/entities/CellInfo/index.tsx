@@ -1,8 +1,10 @@
 import { FC } from "react";
-import { Button } from "../../../../shared/ui/Button/Button";
+
 import { CellInfoHeading } from "./shared/ui/heading";
 import { twMerge } from "tailwind-merge";
 import { Icons } from "@/entities/Icons";
+import { ButtonLink } from "@/shared/ui/ButtonLink";
+import { Button } from "@/shared/ui/Button/Button";
 
 interface ICellInfoProps {
   currentIndex: number;
@@ -10,6 +12,9 @@ interface ICellInfoProps {
 }
 
 export const CellInfo: FC<ICellInfoProps> = ({ currentIndex, index }) => {
+  const currentGameId = 1 //TODO: Изменить на реальный ID текущей игры
+  const link = `cell/${currentGameId}`
+
   return (
     <div
       className={twMerge(
@@ -23,9 +28,9 @@ export const CellInfo: FC<ICellInfoProps> = ({ currentIndex, index }) => {
       <Icons className={"mb-4 mt-[9px] gap-1.5"}/>
 
       <div className={"flex w-full gap-4"}>
-        <Button variant={"orange"} size={"small"} className={"w-[calc(50%-8px)]"}>
+        <ButtonLink href={link} variant={"orange"} size={"small"} className={"w-[calc(50%-8px)] text-[15px]"}>
           Описание
-        </Button>
+        </ButtonLink>
         <Button variant={"blue"} size={"small"} className={"w-[calc(50%-8px)]"}>
           Мои мысли
         </Button>
