@@ -15,7 +15,7 @@ import { Logger } from "@/shared/lib/utils/logger/Logger";
 export default function HomePage() {
   const logger = new Logger(HomePage.name);
   useBackground("gradient");
-  usePreventOnSwipeWindowClose(true);
+  // usePreventOnSwipeWindowClose(true);
 
   const { width, svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
 

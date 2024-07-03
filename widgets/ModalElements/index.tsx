@@ -28,6 +28,8 @@ export const ModalElements: FC<IModalElementsProps> = () => {
       {isModalOpen && (
         <MotionDiv
           className={twMerge(
+            // нужен для того, чтобы не отображался navbar при открытом modal window
+            // "flex fixed top-0 left-0 justify-center items-center w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-3",
             "flex fixed top-0 left-0 justify-center items-center w-full h-full z-[35] bg-gradient-green pt-[54px] pb-4 px-4",
           )}
           initial={{ opacity: 0, y: -50 }}

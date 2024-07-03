@@ -7,6 +7,7 @@ import { Calendar } from "./entities/Calendar";
 import { CellInfo } from "./entities/CellInfo";
 import { twMerge } from "tailwind-merge";
 import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
+import { ScrollArea } from "@/shared/ui/ScrollArea";
 
 interface IModalSheetProps {
   svgWidth: number | null;
@@ -16,7 +17,8 @@ interface IModalSheetProps {
 }
 
 export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding, height }) => {
-  usePreventOnSwipeWindowClose(true);
+  const setIsTurnOn  = usePreventOnSwipeWindowClose(true);
+
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isOpen, setOpen] = useState(true);
 
@@ -30,6 +32,14 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
   const onChangeIndex = (index: number) => setCurrentIndex(index);
   const [snapPoints, setSnapPoints] = useState<number[]>([695, 475, 200, 125]);
   const [bottom, setBottom] = useState(svgHeight! - 100);
+
+  useEffect(() => {
+    if (svgHeight! <= 125) {
+      setIsTurnOn(true);
+    } else {
+      setIsTurnOn(false);
+    }
+  }, [setIsTurnOn, svgHeight]);
 
   useEffect(() => {
     if (height < 780) {
@@ -76,13 +86,15 @@ export const ModalSheet: FC<IModalSheetProps> = ({ svgWidth, svgHeight, padding,
           <Sheet.Content disableDrag={true} className={twMerge("flex flex-col")}>
             <SheetContentHeader currentIndex={currentIndex} />
             <Calendar />
-            <div className={twMerge("overflow-y-hidden",
-              height <= 780 && "overflow-y-scroll pb-16",
+            <div className={twMerge("overflow-hidden w-full h-full",
+              // height <= 780 && "overflow-y-scroll pb-16",
             )}
             >
-              {[...new Array(2)].map((obj, i) => {
-                return <CellInfo key={i} currentIndex={currentIndex} index={i} />;
-              })}
+              <div className={"flex flex-col pb-16 h-full overflow-scroll"}>
+                {[...new Array(3)].map((obj, i) => {
+                  return <CellInfo key={i} currentIndex={currentIndex} index={i} />;
+                })}
+              </div>
             </div>
           </Sheet.Content>
         </Sheet.Container>
