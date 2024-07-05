@@ -13,12 +13,12 @@ import { useAppDispatch } from "../../shared/lib/redux-store/hooks";
 import { UserSlice } from "../../shared/lib/redux-store/slices/user-slice/userSlice";
 import { serverApi } from "../../shared/lib/axios";
 import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 const isServer = typeof window === "undefined";
 
 export const LetsMeetWidget = () => {
   usePreventOnSwipeWindowClose(true);
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [stage, setStage] = useState(0);
@@ -47,7 +47,9 @@ export const LetsMeetWidget = () => {
     if (!isServer) {
       // авторизуем пользователя
       const authRes = await authorize();
+
       localStorage.setItem("jwt", authRes.jwt);
+      setCookie("jwt", authRes.jwt);
 
       // заносим в настройки пользователя дефолтные данные для юзера
       await serverApi.post("/settings", {
@@ -56,13 +58,6 @@ export const LetsMeetWidget = () => {
         reportNotificationHour: 0,
         reportNotificationMinutes: 0,
       });
-
-      // создание игры
-      await serverApi.post("/game-chat/create-game");
-
-      // получаем и устанавливаем пользователя
-      const myProfile = await serverApi.get("/auth/profile");
-      dispatch(UserSlice.setProfile(myProfile.data));
     }
   }, [isServer]);
 

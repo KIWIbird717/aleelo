@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const isServer = typeof window === "undefined";
 
@@ -12,9 +13,17 @@ export const mediaApi = axios.create({
   withCredentials: true,
 });
 
-serverApi.interceptors.request.use((config) => {
+serverApi.interceptors.request.use(async (config) => {
   if (!isServer) {
-    const jwtToken = localStorage.getItem("jwt");
+    let jwtToken = getCookie("jwt");
+    if (!jwtToken && isServer) {
+      const { cookies } = await import("next/headers");
+      jwtToken = cookies().get("jwt")?.value;
+    }
+    if (!jwtToken && !isServer) {
+      jwtToken = localStorage.getItem("jwt") as string;
+    }
+
     config.headers.Authorization = `Bearer ${jwtToken}`;
   }
   return config;

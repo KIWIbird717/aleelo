@@ -2,24 +2,19 @@
 
 import React, { FC, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Typography } from "../../shared/ui/Typography/Typography";
-import LeftArrow from "@/public/images/svg/signin/left-arrow.svg";
-import Dialog from "@/public/images/svg/signin/dialog.svg";
-import { cn } from "../../shared/lib/utils/cn";
-import Image from "next/image";
 import EftFirst from "@/public/images/signin/eft-first.png";
 import EftSecond from "@/public/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { serverSideRedirect } from "../../shared/lib/utils/serverSideRedirect";
 import { Logger } from "../../shared/lib/utils/logger/Logger";
 import { serverApi } from "../../shared/lib/axios";
+import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
+import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
+import { EftOnboardingMessage } from "@/shared/ui/EftOnboardingMessage/EftOnboardingMessage";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
 }
-
-const MotionButton = dynamic(() => import("framer-motion").then((mod) => mod.motion.button));
 
 const items = [
   {
@@ -43,13 +38,22 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
   const logger = new Logger(GettingToKnowWithGame.name);
   const [stage, setStage] = useState(0);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const homeRoute = `/${locale}/home`;
+  const chatPageRoute = `/${locale}/cell/1`;
 
   const finishOnboarding = async () => {
     try {
       await serverApi.put("game/onboarding/finish");
-      return serverSideRedirect(homeRoute);
+
+      // создание игры
+      await serverApi.post("/game-chat/create-game");
+
+      // получаем и устанавливаем пользователя
+      const myProfile = await serverApi.get("/auth/profile");
+      dispatch(UserSlice.setProfile(myProfile.data));
+
+      return serverSideRedirect(chatPageRoute);
     } catch (error) {
       logger.error(`Error in [${finishOnboarding.name}]`, error);
     }
@@ -68,55 +72,32 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
 
   // подгрузка страницы на которую будет редирект
   useEffect(() => {
-    router.prefetch(homeRoute);
-  }, [router, homeRoute]);
+    router.prefetch(chatPageRoute);
+  }, [router, chatPageRoute]);
 
   return (
     <div className="fixed bottom-0 h-[284px] w-full">
       {items.map((item, i) => {
         const isShown = stage === item.id;
+        const isLastItem = item.id == items[items.length - 1].id;
         return (
           <AnimatePresence key={item.id}>
-            {isShown && (
-              <MotionButton
-                key={i}
-                initial={{ opacity: 0, y: 20, scaleY: 0.9 }}
-                animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                className={"relative flex h-full w-full justify-end"}
-                onClick={handleClick}
-              >
-                <div
-                  className={`absolute right-[146px] top-[131px] flex max-w-[57%] items-center 
-                          rounded-[20px] rounded-tr-none bg-mint-700 py-2.5 pl-4 pr-1.5 shadow-dialogOnBoarding`}
-                >
-                  <Typography
-                    tag={"div"}
-                    className={"text-[13px] font-normal leading-5 !text-mint !text-shadow-light"}
-                  >
-                    {item.text}
-                  </Typography>
-                  <button>
-                    <LeftArrow />
-                  </button>
-
-                  <div className={"absolute -right-[11px] top-0"}>
-                    <Dialog />
-                  </div>
-                </div>
-                <div
-                  className={cn(
-                    "absolute -right-[23px] z-[-1]",
-                    item.id !== 0 && "-right-[10px] top-[26px]",
-                  )}
-                >
-                  <Image
-                    src={item.image}
-                    alt={`eft-${i}`}
-                    className={cn("h-[321px] w-[315px]", item.id !== 0 && "h-[331px] w-[189px]")}
-                  />
-                </div>
-              </MotionButton>
-            )}
+            {isShown &&
+              (isLastItem ? (
+                <EftOnboardingMessage
+                  text={item.text}
+                  image={item.image}
+                  isLinkButton={true}
+                  href={chatPageRoute}
+                />
+              ) : (
+                <EftOnboardingMessage
+                  text={item.text}
+                  image={item.image}
+                  isLinkButton={false}
+                  onClick={handleClick}
+                />
+              ))}
           </AnimatePresence>
         );
       })}
