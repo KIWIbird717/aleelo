@@ -7,60 +7,150 @@ import {
   FearIcon,
   FireIcon,
   HappyIcon,
+  Level1Icon,
   Level2Icon,
+  Level3Icon,
   Level4Icon,
+  Level5Icon,
+  Level6Icon,
+  Level7Icon,
+  Level8Icon,
   ManIcon,
   SadIcon,
   WaterIcon,
   WomanIcon,
 } from "@/shared/ui/Icon/constants";
 
+import {
+  AirIcon100,
+  AngryIcon100, EarthIcon100,
+  FearIcon100, FireIcon100,
+  HappyIcon100,
+  Level1Icon100,
+  Level2Icon100,
+  Level3Icon100,
+  Level4Icon100,
+  Level5Icon100,
+  Level6Icon100,
+  Level7Icon100,
+  Level8Icon100,
+  ManIcon100, SadIcon100, WaterIcon100,
+  WomanIcon100,
+
+} from "@/shared/ui/ElementIcons";
+
 
 export namespace IconNS {
+  export const size = {
+    small: {
+      className: "",
+    },
+    medium: {
+      className: "w-[48px] h-[48px]",
+    },
+    large: {
+      className: "w-[100px] h-[100px]",
+    },
+  };
+
   //варианты иконок
   export const variants = {
     //energies
     man: {
-      icon: <ManIcon />,
+      iconLarge: <ManIcon100 />,
+      iconMedium: <ManIcon />,
+      iconSmall: "",
     },
     woman: {
-      icon: <WomanIcon />,
+      iconMedium: <WomanIcon />,
+      iconLarge: <WomanIcon100 />,
+      iconSmall: "",
     },
 
     //levels
+    level1: {
+      iconLarge: <Level1Icon100 />,
+      iconMedium: <Level1Icon />,
+      iconSmall: "",
+    },
     level2: {
-      icon: <Level2Icon />,
+      iconLarge: <Level2Icon100 />,
+      iconMedium: <Level2Icon />,
+      iconSmall: "",
+    },
+    level3: {
+      iconLarge: <Level3Icon100 />,
+      iconMedium: <Level3Icon />,
+      iconSmall: "",
     },
     level4: {
-      icon: <Level4Icon />,
+      iconLarge: <Level4Icon100 />,
+      iconMedium: <Level4Icon />,
+      iconSmall: "",
+    },
+    level5: {
+      iconLarge: <Level5Icon100 />,
+      iconMedium: <Level5Icon />,
+      iconSmall: "",
+    },
+    level6: {
+      iconLarge: <Level6Icon100 />,
+      iconMedium: <Level6Icon />,
+      iconSmall: "",
+    },
+    level7: {
+      iconLarge: <Level7Icon100 />,
+      iconMedium: <Level7Icon />,
+      iconSmall: "",
+    },
+    level8: {
+      iconLarge: <Level8Icon100 />,
+      iconMedium: <Level8Icon />,
+      iconSmall: "",
     },
 
     //emotions
     happy: {
-      icon: <HappyIcon />,
+      iconLarge: <HappyIcon100 />,
+      iconMedium: <HappyIcon />,
+      iconSmall: "",
     },
     fear: {
-      icon: <FearIcon />,
+      iconLarge: <FearIcon100 />,
+      iconMedium: <FearIcon />,
+      iconSmall: "",
     },
     sad: {
-      icon: <SadIcon />,
+      iconLarge: <SadIcon100 />,
+      iconMedium: <SadIcon />,
+      iconSmall: "",
     },
     angry: {
-      icon: <AngryIcon />,
+      iconLarge: <AngryIcon100 />,
+      iconMedium: <AngryIcon />,
+      iconSmall: "",
     },
 
     //elements
     earth: {
-      icon: <EarthIcon />,
+      iconLarge: <EarthIcon100 />,
+      iconMedium: <EarthIcon />,
+      iconSmall: "",
     },
     air: {
-      icon: <AirIcon />,
+      iconLarge: <AirIcon100 />,
+      iconMedium: <AirIcon />,
+      iconSmall: "",
     },
     fire: {
-      icon: <FireIcon />,
+      iconLarge: <FireIcon100 />,
+      iconMedium: <FireIcon />,
+      iconSmall: "",
     },
     water: {
-      icon: <WaterIcon />,
+      iconLarge: <WaterIcon100 />,
+      iconMedium: <WaterIcon />,
+      iconSmall: "",
     },
   } as const;
 
@@ -91,12 +181,13 @@ export namespace IconNS {
 
   // классы, которые используются всеми вариантами кнопок
   export const DEFAULT_CLASSES =
-    "flex flex-col items-center justify-center w-[48px] h-[48px] rounded-full";
+    "flex flex-col items-center justify-center rounded-full";
 
 
   export type IIconProps = {
     variant?: keyof typeof variants;
     color?: keyof typeof color;
+    size?: keyof typeof size;
     className?: string;
   } & ComponentProps<"button">;
 }
@@ -104,20 +195,29 @@ export namespace IconNS {
 export const Icon: FC<IconNS.IIconProps> = (
   {
     variant = "man",
-    color = "deepBlue",
+    color = undefined,
+    size = "medium",
   },
 ) => {
 
-  const CLASSNAME_VARIANTS = IconNS.variants[variant].icon;
-  const CLASSNAME_COLOR = IconNS.color[color].className;
+  const ICON_VARIANTS = size === "medium"
+    ? IconNS.variants[variant].iconMedium
+    : size === "large"
+      ? IconNS.variants[variant].iconLarge
+      : IconNS.variants[variant].iconSmall;
+  const CLASSNAME_SIZE = IconNS.size[size].className;
+  const CLASSNAME_COLOR = color
+    ? IconNS.color[color].className
+    : undefined;
 
   return (
     <div className={cn(
       IconNS.DEFAULT_CLASSES,
-      CLASSNAME_COLOR
+      CLASSNAME_COLOR,
+      CLASSNAME_SIZE,
     )
     }>
-      {CLASSNAME_VARIANTS}
+      {ICON_VARIANTS}
     </div>
   );
 };

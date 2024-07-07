@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Typography } from "../../../../../../../shared/ui/Typography/Typography";
 import SnakeIcon from "@/public/images/svg/icons/snake.svg";
+import { Typography } from "@/shared/ui/Typography/Typography";
 
 interface ICellInfoHeadingProps {
   title: string;

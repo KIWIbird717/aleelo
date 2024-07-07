@@ -1,23 +1,22 @@
 import { FC } from "react";
 import { Block } from "@/shared/ui/Block";
-import ManIcon from "@/public/images/svg/icons/energies/man.svg";
-import EarthIcon from "@/public/images/svg/icons/elements/earth.svg";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { twMerge } from "tailwind-merge";
 import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 import SubtractIcon from "@/public/images/svg/profile/subtract.svg";
 import { useModal } from "@/shared/lib/hooks/useModal";
+import { Icon } from "@/shared/ui/Icon";
 
 interface IProfileBlockProps {
 }
 
 const items = [
   {
-    icon: <ManIcon />,
+    icon: <Icon variant={"man"} size={"medium"} color={"deepBlue"} />,
     title: "Энергия",
   },
   {
-    icon: <EarthIcon />,
+    icon: <Icon variant={"air"} size={"medium"} color={"grey"} />,
     title: "Стихия",
   },
 ];

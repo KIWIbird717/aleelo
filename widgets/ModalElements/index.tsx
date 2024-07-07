@@ -3,11 +3,11 @@
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 import { Typography } from "@/shared/ui/Typography/Typography";
-import { cardElementsAssets } from "@/widgets/ModalElements/constants/assets";
 import { ModalContent } from "@/entities/ModalContent";
 import { useModal } from "@/shared/lib/hooks/useModal";
 import dynamic from "next/dynamic";
 import { AnimatePresence } from "framer-motion";
+import { Icon } from "@/shared/ui/Icon";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -21,7 +21,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
 
   const isModalOpen = isOpen && type === "elements";
 
-  const icon = cardElementsAssets[element?.typeIcon!]?.icon;
+  const icon = element?.typeIcon!
 
   return (
     <AnimatePresence mode={"wait"}>
@@ -46,7 +46,11 @@ export const ModalElements: FC<IModalElementsProps> = () => {
                 >
                   {element?.heading}
                 </Typography>
-                <div className={"flex w-full justify-center"}>{icon}</div>
+                <div className={"flex w-full justify-center"}>
+                  <Icon variant={icon}
+                        size={"large"}
+                  />
+                </div>
               </div>
               <div className={"w-full overflow-y-scroll px-3 pb-[46px]"}>
                 <Typography

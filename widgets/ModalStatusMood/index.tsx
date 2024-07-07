@@ -3,12 +3,10 @@
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 import { Typography } from "@/shared/ui/Typography/Typography";
-import { cardElementsAssets } from "@/widgets/ModalElements/constants/assets";
 import { ModalContent } from "@/entities/ModalContent";
 import { useModal } from "@/shared/lib/hooks/useModal";
 import dynamic from "next/dynamic";
 import { AnimatePresence } from "framer-motion";
-import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 

@@ -18,7 +18,6 @@ const Profile: NextPage<IProfileProps> = async () => {
     <View backgroundEffect="gradient">
       <div style={{ paddingBottom: 200 }}>
         <ProfileContent  avatarUrl={url}/>
-
         <ProfileBottom />
       </div>
     </View>
