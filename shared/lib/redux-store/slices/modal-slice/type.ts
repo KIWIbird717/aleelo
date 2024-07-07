@@ -7,10 +7,10 @@ type typeIcon = "man" | "earth" | "level2" | "happy";
 export interface IElement {
   id: number;
   title: string;
-  heading: string;
+  heading?: string;
   icon: ReactNode;
-  description: string;
-  typeIcon: typeIcon;
+  description?: string;
+  typeIcon?: typeIcon;
 }
 
 export interface IModalData {

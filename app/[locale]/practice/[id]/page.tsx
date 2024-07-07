@@ -16,6 +16,7 @@ import { twMerge } from "tailwind-merge";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { items } from "@/widgets/ModalSheet/entities/CellInfo";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -67,7 +68,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
             <PracticeDescription onShow={onShow} isShowText={isShowText} />
           </div>
 
-          {isShowText && <Icons className={"justify-between"} padding={padding} />}
+          {isShowText && <Icons className={"justify-between"} padding={padding} items={items} />}
         </MotionDiv>
       </AnimatePresence>
 

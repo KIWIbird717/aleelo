@@ -112,6 +112,7 @@ const config: Config = {
         750: "var(--mint-750)",
         700: "var(--mint-700)",
         600: "var(--mint-600)",
+        650: "var(--mint-650)",
       },
       brown: {
         DEFAULT: "var(--brown-default)",
