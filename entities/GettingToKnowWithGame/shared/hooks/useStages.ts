@@ -1,15 +1,13 @@
 import { serverApi } from "@/shared/lib/axios";
+import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
 import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useCallback, useState } from "react";
 
-const saveGameDataToLocalStorage = () => {
-  // TODO: реализовать сохранение данных об игре в localStorage
-};
-
 export const useStages = (chatPageRoute: string) => {
   const dispatch = useAppDispatch();
+  const currentGame = useCurrentGame();
   const [stage, setStage] = useState(0);
 
   const finishOnboarding = useCallback(async () => {
@@ -18,7 +16,10 @@ export const useStages = (chatPageRoute: string) => {
       await serverApi.put("game/onboarding/finish");
 
       // создание игры
-      await serverApi.post("/game-chat/create-game");
+      const createdGame = await serverApi.post("/game-chat/create-game");
+      currentGame.set({
+        id: createdGame.data.id,
+      });
 
       // получаем и устанавливаем пользователя
       const myProfile = await serverApi.get("/auth/profile");
