@@ -1,10 +1,8 @@
-"use client"
+"use client";
 
 import React, { FC } from "react";
-import { ModalSheet } from "@/widgets/ModalSheet";
 import { Navbar } from "@/entities/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import { useBackground } from "@/shared/lib/hooks/useBackground";
 import { ModalSheetProfile } from "@/widgets/ModalSheetProfile";
 
 interface IProfileBottomProps {
