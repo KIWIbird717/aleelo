@@ -27,7 +27,7 @@ const config: Config = {
         "button-gradient-deep-blue": "linear-gradient(180deg, #65AFFF 0%, #335C81 100%)",
         "button-gradient-red": "linear-gradient(180deg, #FF896F 0%, #E84855 100%)",
         "button-selected": "linear-gradient(90deg, #A1C6CC 0%, #387682 100%)",
-        avatar: "linear-gradient(180deg, #A1C6CC 0%, #387682 100%)",
+        "avatar": "linear-gradient(180deg, #A1C6CC 0%, #387682 100%)",
         "gradient-borders": "linear-gradient(180deg, #b0cbcf 0%, #e3f1f0 100%)",
         "gradient-border-active": "linear-gradient(180deg, #a1c6cc 0%, #387682 100%)",
         "gradient-border-error": "linear-gradient(180deg, #FF896F 0%, #E84855 100%)",
@@ -90,6 +90,7 @@ const config: Config = {
           "0px 8px 14px -3px rgba(17, 61, 95, 0.4), 2px 2px 8px 0px rgba(59, 109, 147, 1) inset, -8px -8px 13px 0px rgba(37, 95, 139, 1) inset",
         modalWindow:
           "8px 8px 20px 0px rgba(40, 84, 94, 0.5), -6px -6px 17px 0px rgba(168, 205, 207, 1) inset, 3px 2px 8px 0px rgba(214, 235, 236, 1) inset, -3px -2px 4px 0px rgba(255, 255, 255, 0.25) inset",
+        avatar: "0px 8px 20px 0px rgba(0, 54, 64, 0.5)"
       },
       dropShadow: {
         input: "0px 3px 8px 0px #3F829280 inset",
@@ -213,6 +214,12 @@ const config: Config = {
         ".text-shadow-red-two": {
           textShadow: "0px 1px 2px rgba(165, 54, 30, 1)",
         },
+        ".text-shadow-static": {
+          textShadow: "0px 5px 8px rgba(28, 55, 61, 0.4), 0px 1px 2px rgba(17, 61, 95, 1)"
+        },
+        ".text-shadow-satisfied": {
+          textShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)"
+        }
       };
 
       addUtilities(newUtilities);

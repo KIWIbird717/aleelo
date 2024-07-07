@@ -36,6 +36,9 @@ export namespace ButtonIconNS {
       className:
         "bg-button-gradient-red text-white shadow-[inset_-8px_-8px_13px_0px_rgba(191,26,47,1),inset_2px_2px_8px_0px_rgba(227,61,61,1),0_8px_14px_-3px_rgba(56,127,130,0.47)]",
     },
+    default: {
+      className: ""
+    }
   } as const;
 
   // дефолтный вариант кнопки (если в пропсах не был указан параметр variant)

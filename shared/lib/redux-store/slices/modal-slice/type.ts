@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type ModelType = "elements";
+export type ModelType = "elements" | "moodStatus";
 
 type typeIcon = "man" | "earth" | "level2" | "happy";
 
@@ -15,6 +15,7 @@ export interface IElement {
 
 export interface IModalData {
   element?: IElement;
+  text?: string
 }
 
 export interface IModelSlice {
