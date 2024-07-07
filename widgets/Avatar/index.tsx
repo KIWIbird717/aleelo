@@ -5,9 +5,10 @@ import MedalIcon from "@/public/images/profile/medal.png";
 import { Button } from "@/shared/ui/Button/Button";
 
 interface IAvatarProps {
+  avatarUrl:string
 }
 
-export const Avatar: FC<IAvatarProps> = () => {
+export const Avatar: FC<IAvatarProps> = ({avatarUrl}) => {
 
   return (
     <div className={"w-full flex flex-col justify-center items-center gap-2.5"}>
@@ -15,7 +16,7 @@ export const Avatar: FC<IAvatarProps> = () => {
 
         <div className={"w-[124px] h-[124px] flex justify-center items-center rounded-full bg-gradient-to-b from-[#264F58]/70 to-[#67B6B3]/70"}>
           <div className={"flex flex-col justify-center items-center w-[118px] h-[118px]"}>
-            <Image src={"https://ui-avatars.com/api/size=1118"}
+            <Image src={avatarUrl}
                    alt={"avatar"}
                    className={"rounded-full shadow-avatar"}
                    width={118}

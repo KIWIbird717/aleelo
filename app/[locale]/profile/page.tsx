@@ -7,11 +7,17 @@ import { ProfileContent } from "@/widgets/ProfileContent";
 
 interface IProfileProps {}
 
-const Profile: NextPage<IProfileProps> = () => {
+const getData = async () => {
+  return "https://ui-avatars.com/api/size=128";
+}
+
+const Profile: NextPage<IProfileProps> = async () => {
+  const url = await getData()
+
   return (
     <View backgroundEffect="gradient">
       <div style={{ paddingBottom: 200 }}>
-        <ProfileContent />
+        <ProfileContent  avatarUrl={url}/>
 
         <ProfileBottom />
       </div>
