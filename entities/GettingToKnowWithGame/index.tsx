@@ -1,22 +1,24 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import React, { FC, useEffect } from "react";
 import EftFirst from "@/public/images/signin/eft-first.png";
 import EftSecond from "@/public/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
-import { serverSideRedirect } from "../../shared/lib/utils/serverSideRedirect";
-import { Logger } from "../../shared/lib/utils/logger/Logger";
-import { serverApi } from "../../shared/lib/axios";
-import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
-import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
-import { EftOnboardingMessage } from "@/shared/ui/EftOnboardingMessage/EftOnboardingMessage";
+import { StaticImageData } from "next/image";
+import { useStages } from "./shared/hooks/useStages";
+import { OnboardingEftMessages } from "./shared/components/OnboardingEftMessages";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
 }
 
-const items = [
+export type SpeechItemType = {
+  id: number;
+  image: StaticImageData;
+  text: string | undefined;
+};
+
+const speechItems: SpeechItemType[] = [
   {
     id: 0,
     image: EftFirst,
@@ -35,40 +37,9 @@ const items = [
 ];
 
 export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale }) => {
-  const logger = new Logger(GettingToKnowWithGame.name);
-  const [stage, setStage] = useState(0);
   const router = useRouter();
-  const dispatch = useAppDispatch();
-
   const chatPageRoute = `/${locale}/cell/1`;
-
-  const finishOnboarding = async () => {
-    try {
-      await serverApi.put("game/onboarding/finish");
-
-      // создание игры
-      await serverApi.post("/game-chat/create-game");
-
-      // получаем и устанавливаем пользователя
-      const myProfile = await serverApi.get("/auth/profile");
-      dispatch(UserSlice.setProfile(myProfile.data));
-
-      return serverSideRedirect(chatPageRoute);
-    } catch (error) {
-      logger.error(`Error in [${finishOnboarding.name}]`, error);
-    }
-  };
-
-  const handleClick = () => {
-    if (stage === 2) {
-      return finishOnboarding();
-    }
-
-    setStage((state) => {
-      if (state > 1) return state;
-      return (state += 1);
-    });
-  };
+  const { stage, handleStageChange } = useStages(chatPageRoute);
 
   // подгрузка страницы на которую будет редирект
   useEffect(() => {
@@ -77,28 +48,18 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
 
   return (
     <div className="fixed bottom-0 h-[284px] w-full">
-      {items.map((item, i) => {
-        const isShown = stage === item.id;
-        const isLastItem = item.id == items[items.length - 1].id;
+      {speechItems.map((item) => {
+        const lastSpeechItemId = speechItems[speechItems.length - 1].id;
+
         return (
-          <AnimatePresence key={item.id}>
-            {isShown &&
-              (isLastItem ? (
-                <EftOnboardingMessage
-                  text={item.text}
-                  image={item.image}
-                  isLinkButton={true}
-                  href={chatPageRoute}
-                />
-              ) : (
-                <EftOnboardingMessage
-                  text={item.text}
-                  image={item.image}
-                  isLinkButton={false}
-                  onClick={handleClick}
-                />
-              ))}
-          </AnimatePresence>
+          <OnboardingEftMessages
+            key={item.id}
+            stage={stage}
+            item={item}
+            lastSpeechItemId={lastSpeechItemId}
+            chatPageRoute={chatPageRoute}
+            handleStageChange={handleStageChange}
+          />
         );
       })}
     </div>

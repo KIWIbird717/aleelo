@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
@@ -8,11 +8,10 @@ import { ProfileBottom } from "@/widgets/ProfileBottom";
 import { ProfileContent } from "@/widgets/ProfileContent";
 import { useBackground } from "@/shared/lib/hooks/useBackground";
 
-interface IProfileProps {
-}
+interface IProfileProps {}
 
 const Profile: NextPage<IProfileProps> = () => {
-// useBackground("none")
+  // useBackground("none")
   return (
     <View>
       <div style={{ paddingBottom: 200 }}>

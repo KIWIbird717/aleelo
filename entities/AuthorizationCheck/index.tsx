@@ -4,7 +4,6 @@ import { serverSideRedirect } from "../../shared/lib/utils/serverSideRedirect";
 import useRequest from "../../shared/lib/hooks/useRequest";
 import { usePathname } from "next/navigation";
 import { serverApi } from "../../shared/lib/axios";
-import { AxiosError } from "axios";
 
 export const AuthorizationCheck = () => {
   const path = usePathname();
