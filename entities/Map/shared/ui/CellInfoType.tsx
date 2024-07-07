@@ -48,7 +48,7 @@ export const Cell: FC<CellProps> = (props) => {
   return (
     <Link
       href={props.href}
-      prefetch={props.isActive}
+      // prefetch={props.isActive}
       ref={scope}
       style={props.style}
       onClick={handleClick}

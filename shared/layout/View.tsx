@@ -12,7 +12,7 @@ type Props = {
   style?: CSSProperties;
   className?: string;
   /**
-   * акладывает на bg
+   * накладывает на bg
    * приложения один из эффектов из {@link variants}
    */
   backgroundEffect?: keyof typeof variants;
