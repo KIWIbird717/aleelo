@@ -2,15 +2,18 @@ import { serverApi } from "@/shared/lib/axios";
 import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { serverSideRedirect } from "@/shared/lib/utils/serverSideRedirect";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+
+const saveGameDataToLocalStorage = () => {
+  // TODO: реализовать сохранение данных об игре в localStorage
+};
 
 export const useStages = (chatPageRoute: string) => {
-  const logger = new Logger("useStages");
   const dispatch = useAppDispatch();
   const [stage, setStage] = useState(0);
 
-  const finishOnboarding = async () => {
+  const finishOnboarding = useCallback(async () => {
+    const logger = new Logger("useStages");
     try {
       await serverApi.put("game/onboarding/finish");
 
@@ -21,15 +24,15 @@ export const useStages = (chatPageRoute: string) => {
       const myProfile = await serverApi.get("/auth/profile");
       dispatch(UserSlice.setProfile(myProfile.data));
 
-      return serverSideRedirect(chatPageRoute);
+      // return serverSideRedirect(chatPageRoute);
     } catch (error) {
-      logger.error(`Error in [${finishOnboarding.name}]`, error);
+      logger.error(`Error in ["finishOnboarding"]`, error);
     }
-  };
+  }, [chatPageRoute, dispatch]);
 
   const handleStageChange = () => {
-    if (stage === 2) {
-      return finishOnboarding();
+    if (stage === 1) {
+      finishOnboarding();
     }
 
     setStage((state) => {

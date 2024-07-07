@@ -1,5 +1,5 @@
 import useRequest from "@/shared/lib/hooks/useRequest";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { authorize } from "../../actions/authorize";
 import { setCookie } from "cookies-next";
 import { serverApi } from "@/shared/lib/axios";
