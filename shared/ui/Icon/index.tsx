@@ -19,7 +19,7 @@ import {
   SadIcon,
   WaterIcon,
   WomanIcon,
-} from "@/shared/ui/Icon/constants";
+} from "@/shared/ui/Icon/icons48/constants";
 
 import {
   AirIcon100,
@@ -36,14 +36,21 @@ import {
   Level8Icon100,
   ManIcon100, SadIcon100, WaterIcon100,
   WomanIcon100,
-
-} from "@/shared/ui/ElementIcons";
+} from "@/shared/ui/ElementIcons/icons/constants";
+import {
+  AirIcon32,
+  EarthIcon32,
+  FireIcon32,
+  ManIcon32,
+  WaterIcon32,
+  WomanIcon32,
+} from "@/shared/ui/Icon/icons32/constants";
 
 
 export namespace IconNS {
   export const size = {
     small: {
-      className: "",
+      className: "w-[32px] h-[32px]",
     },
     medium: {
       className: "w-[48px] h-[48px]",
@@ -59,12 +66,12 @@ export namespace IconNS {
     man: {
       iconLarge: <ManIcon100 />,
       iconMedium: <ManIcon />,
-      iconSmall: "",
+      iconSmall: <ManIcon32 />,
     },
     woman: {
       iconMedium: <WomanIcon />,
       iconLarge: <WomanIcon100 />,
-      iconSmall: "",
+      iconSmall: <WomanIcon32 />,
     },
 
     //levels
@@ -135,47 +142,54 @@ export namespace IconNS {
     earth: {
       iconLarge: <EarthIcon100 />,
       iconMedium: <EarthIcon />,
-      iconSmall: "",
+      iconSmall: <EarthIcon32 />,
     },
     air: {
       iconLarge: <AirIcon100 />,
       iconMedium: <AirIcon />,
-      iconSmall: "",
+      iconSmall: <AirIcon32 />,
     },
     fire: {
       iconLarge: <FireIcon100 />,
       iconMedium: <FireIcon />,
-      iconSmall: "",
+      iconSmall: <FireIcon32 />,
     },
     water: {
       iconLarge: <WaterIcon100 />,
       iconMedium: <WaterIcon />,
-      iconSmall: "",
+      iconSmall: <WaterIcon32 />,
     },
   } as const;
 
   // цвета иконок
   export const color = {
     blue: {
-      className: "bg-button-gradient-blue shadow-elementBlue",
+      className48: "bg-button-gradient-blue shadow-elementBlue",
+      className32: "bg-button-gradient-blue shadow-element32",
     },
     deepBlue: {
-      className: "bg-button-gradient-deep-blue shadow-element",
+      className48: "bg-button-gradient-deep-blue shadow-element",
+      className32: "bg-button-gradient-deep-blue shadow-element32",
     },
     red: {
-      className: "bg-button-gradient-red shadow-elementRed",
+      className48: "bg-button-gradient-red shadow-elementRed",
+      className32: "bg-button-gradient-red shadow-element32",
     },
     orange: {
-      className: "bg-button-gradient-orange shadow-elementOrange",
+      className48: "bg-button-gradient-orange shadow-elementOrange",
+      className32: "bg-button-gradient-orange shadow-element32",
     },
     turquoise: {
-      className: "bg-button-gradient-turquoise shadow-shadowGreen",
+      className48: "bg-button-gradient-turquoise shadow-shadowGreen",
+      className32: "bg-button-gradient-turquoise shadow-element32",
     },
     grey: {
-      className: "bg-gradient-throw shadow-throw",
+      className48: "bg-gradient-throw shadow-throw",
+      className32: "bg-gradient-throw shadow-element32",
     },
     yellow: {
-      className: "bg-button-gradient-yellow shadow-elementHappy",
+      className48: "bg-button-gradient-yellow shadow-elementHappy",
+      className32: "bg-button-gradient-yellow shadow-element32",
     },
   } as const;
 
@@ -206,9 +220,11 @@ export const Icon: FC<IconNS.IIconProps> = (
       ? IconNS.variants[variant].iconLarge
       : IconNS.variants[variant].iconSmall;
   const CLASSNAME_SIZE = IconNS.size[size].className;
-  const CLASSNAME_COLOR = color
-    ? IconNS.color[color].className
-    : undefined;
+  const CLASSNAME_COLOR = color && size === "medium"
+    ? IconNS.color[color].className48
+    : color && size === "small"
+      ? IconNS.color[color].className32
+      : undefined;
 
   return (
     <div className={cn(

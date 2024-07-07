@@ -73,6 +73,7 @@ const config: Config = {
         slider:
           "0px 2px 4px 0px rgba(59, 109, 147, 0.4), 0px 0px 6px 0px rgba(200, 223, 238, 1) inset, -2px -2px 4px 0px rgba(197, 215, 226, 1) inset",
         sliderText: "0px 1px 2px 0px rgba(28, 55, 61, 0.8) inset",
+        element32: "0px 1px 2px 0px rgba(28, 55, 61, 0.8)",
         dialogOnBoarding: "0px 8px 14px 0px rgba(4, 53, 69, 0.45)",
         white: "0px 1px 1px 0px rgba(255, 255, 255, 0.85)",
         throw:
