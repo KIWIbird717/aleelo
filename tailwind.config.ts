@@ -81,6 +81,12 @@ const config: Config = {
           "0px 7px 13px -2px rgba(17, 76, 95, 0.3), 1px 1px 7px 0px rgba(86, 145, 163, 0.5) inset, -7px -7px 9px 0px rgba(53, 121, 131, 0.3) inset",
         element:
           "0px 8px 14px -3px rgba(56, 117, 130, 0.47), 2px 2px 8px 0px rgba(39, 95, 146, 1) inset, -8px -8px 13px 0px rgba(33, 49, 80, 0.5) inset",
+        elementRed:
+          "2px 2px 8px 0px rgba(227, 61, 61, 1) inset, -8px -8px 13px 0px rgba(191, 26, 47, 1) inset, 0px 8px 14px -3px rgba(17, 61, 95, 0.4)",
+        elementBlue:
+          "0px 8px 14px -3px rgba(56, 117, 130, 0.47), 2px 2px 8px 0px #2080A9 inset, -8px -8px 13px 0px rgba(43, 63, 103, 0.5) inset",
+        elementOrange:
+          "2px 2px 8px 0px rgba(203, 107, 57, 1) inset, -8px -8px 13px 0px rgba(203, 107, 57, 1) inset, 0px 8px 14px -3px rgba(17, 61, 95, 0.4)",
         elementHappy:
           "0px 8px 14px -3px rgba(33, 78, 86, 0.3), 0px 1px 4px 0px rgba(241, 170, 19, 1) inset, 0px -5px 10px 0px rgba(207, 47, 47, 0.4) inset",
         audioBtn:

@@ -30,13 +30,6 @@ export const Icons: FC<IIconsProps> = (
       transition={{ staggerChildren: 0.1 }}
     >
       {items.map((item) => {
-        const classNameIcon = twMerge(
-          item.id === 0 && "bg-button-gradient-deep-blue",
-          item.id === 1 && "bg-button-gradient-turquoise",
-          item.id === 2 && "bg-button-gradient-blue",
-          item.id === 3 && "bg-button-gradient-yellow shadow-elementHappy",
-        );
-
         const classNameText = twMerge(
           item.id === 0 && "text-brown",
           item.id === 1 && "text-mint",
@@ -46,7 +39,7 @@ export const Icons: FC<IIconsProps> = (
 
         return (
           <div key={item.id}>
-            <Element item={item} classNameIcon={classNameIcon} classNameText={classNameText} variants={variant} />
+            <Element item={item}  classNameText={classNameText} variants={variant} />
           </div>
         );
       })}

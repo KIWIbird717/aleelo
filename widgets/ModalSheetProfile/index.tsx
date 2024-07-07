@@ -4,16 +4,12 @@ import { FC, useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import { twMerge } from "tailwind-merge";
 import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipeClose";
-import { Typography } from "@/shared/ui/Typography/Typography";
 import { SheetContentHeader } from "@/widgets/ModalSheetProfile/entities/SheetContentHeader";
 import { ElementInfo } from "@/widgets/ModalSheetProfile/shared/ui/ElementInfo";
 import { Icons } from "@/entities/Icons";
 import { ElementBlock } from "@/widgets/ModalSheetProfile/entities/ElementBlock";
 import { IElement } from "@/shared/lib/redux-store/slices/modal-slice/type";
-import ManIcon from "@/public/images/svg/icons/energies/man.svg";
-import EarthIcon from "@/public/images/svg/icons/elements/earth.svg";
-import Level2Icon from "@/public/images/svg/icons/level/level2.svg";
-import HappyIcon from "@/public/images/svg/icons/emotions/happy.svg";
+import { Icon } from "@/shared/ui/Icon";
 
 interface IModalSheetProfileProps {
   svgWidth: number | null;
@@ -26,22 +22,22 @@ export const items: IElement[] = [
   {
     id: 0,
     title: "15%",
-    icon: <ManIcon />,
+    icon: <Icon variant={"fear"} color={"yellow"} />,
   },
   {
     id: 1,
     title: "20%",
-    icon: <EarthIcon />,
+    icon: <Icon variant={"angry"} color={"yellow"} />,
   },
   {
     id: 2,
     title: "59%",
-    icon: <Level2Icon />,
+    icon: <Icon variant={"happy"} color={"yellow"} />,
   },
   {
     id: 3,
     title: "6%",
-    icon: <HappyIcon />,
+    icon: <Icon variant={"sad"} color={"yellow"} />
   },
 ];
 
@@ -116,15 +112,15 @@ export const ModalSheetProfile: FC<IModalSheetProfileProps> = ({ svgWidth, svgHe
             >
               <div className={"flex h-full flex-col overflow-scroll gap-[11px] pb-16 px-4"}>
                 <ElementBlock title={"Энергии"}>
-                  <ElementInfo info={"54%"} />
-                  <ElementInfo info={"46%"} />
+                  <ElementInfo info={"54%"} icon={<Icon variant={"man"} color={"deepBlue"} />} />
+                  <ElementInfo info={"46%"} icon={<Icon variant={"woman"} color={"red"} />} />
                 </ElementBlock>
 
                 <ElementBlock title={"Cтихии"}>
-                  <ElementInfo info={"54%"} />
-                  <ElementInfo info={"46%"} />
-                  <ElementInfo info={"54%"} />
-                  <ElementInfo info={"46%"} />
+                  <ElementInfo info={"54%"} icon={<Icon variant={"air"} color={"grey"} />} />
+                  <ElementInfo info={"46%"} icon={<Icon variant={"earth"} color={"turquoise"} />}/>
+                  <ElementInfo info={"54%"} icon={<Icon variant={"water"} color={"blue"} />}/>
+                  <ElementInfo info={"46%"} icon={<Icon variant={"fire"} color={"orange"} />}/>
                 </ElementBlock>
 
                 <ElementBlock title={"Эмоции"}
@@ -136,8 +132,8 @@ export const ModalSheetProfile: FC<IModalSheetProfileProps> = ({ svgWidth, svgHe
                 <ElementBlock title={"Эмоции"}
                               isLast
                 >
-                  <ElementInfo info={"54%"} />
-                  <ElementInfo info={"46%"} />
+                  <ElementInfo info={"мин"} icon={<Icon variant={"level2"} color={"turquoise"} />}/>
+                  <ElementInfo info={"макс"} icon={<Icon variant={"level4"} color={"turquoise"} />}/>
                 </ElementBlock>
               </div>
             </div>

@@ -6,10 +6,7 @@ import { Icons } from "@/entities/Icons";
 import { ButtonLink } from "@/shared/ui/ButtonLink";
 import { Button } from "@/shared/ui/Button/Button";
 import { IElement } from "@/shared/lib/redux-store/slices/modal-slice/type";
-import ManIcon from "@/public/images/svg/icons/energies/man.svg";
-import EarthIcon from "@/public/images/svg/icons/elements/earth.svg";
-import Level2Icon from "@/public/images/svg/icons/level/level2.svg";
-import HappyIcon from "@/public/images/svg/icons/emotions/happy.svg";
+import { Icon } from "@/shared/ui/Icon";
 
 interface ICellInfoProps {
   currentIndex: number;
@@ -21,7 +18,7 @@ export const items: IElement[] = [
     id: 0,
     heading: "Мужская энергия",
     title: "Энергия",
-    icon: <ManIcon />,
+    icon: <Icon variant={"man"} color={"deepBlue"} />,
     typeIcon: "man",
     description:
       "Чувствовать энергии и уметь ими пользоваться – основа внутренней силы. Мужская и женская энергии существуют внутри нас, независимо от пола. В идеале они образуют целостность и гармонично взаимодополняются. Для поддержания здоровых отношений с собой, окружением и миром важно управлять этими энергиями и находить между ними баланс, а также чувствовать моменты и ситуации, когда важно активизировать и использовать именно мужскую или женскую энергию.\n" +
@@ -35,7 +32,7 @@ export const items: IElement[] = [
     id: 1,
     heading: "Стихия земли",
     title: "Стихия",
-    icon: <EarthIcon />,
+    icon:  <Icon variant={"earth"} color={"turquoise"} />,
     typeIcon: "earth",
     description:
       "Энергии Земли отвечают за стабильность, практичность, стойкость, логичность, гостеприимство и хозяйственность, заботу, чувство безопасности.\n" +
@@ -48,7 +45,7 @@ export const items: IElement[] = [
     id: 2,
     heading: "Уровень 2",
     title: "Уровень",
-    icon: <Level2Icon />,
+    icon: <Icon variant={"level2"} color={"blue"} />,
     typeIcon: "level2",
     description:
       "Второй логический уровень — уровень поведения. На этом уровне твои повседневные действия, реакции и привычки. Что я чаще всего делаю по жизни, каковы мои планы? Согласуются ли мои действия с моими планами и целями? Какими способами я достигаю результата? На что я чаще всего трачу свои время, деньги, энергию? Есть ли среди моих регулярных действий такие, которые мешают моему развитию? На чем чаще всего сосредоточены мои мысли и внимание? Какое поведение приведет меня к желаемому результату?",
@@ -57,7 +54,7 @@ export const items: IElement[] = [
     id: 3,
     heading: "Радость",
     title: "Эмоция",
-    icon: <HappyIcon />,
+    icon: <Icon variant={"happy"} color={"yellow"} />,
     typeIcon: "happy",
     description:
       "Стихия воды — это про эмоции, творчество, интеллект, эмпатию, интуицию и глубину бессознательного. Это чувствительность и чувственность, текучесть, переменчивость и поток.\n" +

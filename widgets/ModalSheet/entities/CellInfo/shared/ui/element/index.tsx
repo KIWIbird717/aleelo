@@ -26,7 +26,6 @@ export namespace ElementNS {
     variants?: keyof typeof variants;
     item: IElement;
     classNameText?: string;
-    classNameIcon?: string;
   }
 }
 
@@ -34,7 +33,6 @@ export const Element: FC<IElementProps> = (
   {
     item,
     classNameText,
-    classNameIcon,
     variants = "first",
   }) => {
   const { onOpenModal } = useModal();
@@ -56,7 +54,6 @@ export const Element: FC<IElementProps> = (
         ? <ButtonIcon
           className={twMerge(
             "absolute left-3 top-0 flex h-[48px] w-[48px] items-center justify-center rounded-full shadow-element",
-            classNameIcon,
           )}
           onClick={onClickHandler}
         >
@@ -64,7 +61,6 @@ export const Element: FC<IElementProps> = (
         </ButtonIcon>
         : <div className={twMerge(
           "absolute left-3 top-0 flex h-[48px] w-[48px] items-center justify-center rounded-full shadow-element",
-          classNameIcon,
         )}
         >
           {item.icon}
@@ -74,7 +70,6 @@ export const Element: FC<IElementProps> = (
         className={twMerge(
           ElementNS.DEFAULT_CLASSES,
           TEXT_CLASSNAME,
-          // "flex h-[60px] w-full text-[13px] font-normal leading-5 items-end justify-center rounded-[12px] bg-[rgba(227,241,240,0.50)] px-2 py-[5px]",
         )}
       >
         <p
