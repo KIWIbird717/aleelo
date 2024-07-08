@@ -16,16 +16,18 @@ type EftOnboardingMessageProps = {
   image?: string | StaticImport;
   // стили для картинки
   imageClassName?: string;
-} & ({ isLinkButton: false; onClick: () => void } | { isLinkButton: true; href: Url });
+  onClick: () => void;
+};
 
 export const EftOnboardingMessage: FC<EftOnboardingMessageProps> = (props) => {
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 20, scaleY: 0.9 }}
       animate={{ opacity: 1, y: 0, scaleY: 1 }}
-      className={"relative z-50 flex h-full w-full justify-end"}
+      className="relative z-50 flex h-screen min-h-[284px] w-full items-end"
+      onClick={props.onClick}
     >
-      <div className="absolute right-[146px] top-[131px] flex max-w-[57%] items-center rounded-[20px] rounded-tr-none bg-mint-700 py-2.5 pl-4 pr-1.5 shadow-dialogOnBoarding">
+      {/* <div className="absolute bottom-[131px] right-[146px] flex max-w-[57%] items-center rounded-[20px] rounded-tr-none bg-mint-700 py-2.5 pl-4 pr-1.5 shadow-dialogOnBoarding">
         <Typography
           tag={"div"}
           className={"text-[13px] font-normal leading-5 !text-mint !text-shadow-light"}
@@ -33,20 +35,19 @@ export const EftOnboardingMessage: FC<EftOnboardingMessageProps> = (props) => {
           {props.text}
         </Typography>
 
-        {props.isLinkButton ? (
-          <Link href={props.href}>
-            <LeftArrow />
-          </Link>
-        ) : (
-          <button className="h-full" onClick={props.onClick}>
-            <LeftArrow />
-          </button>
-        )}
+        <div className="h-full">
+          <LeftArrow />
+        </div>
 
         <div className={"absolute -right-[11px] top-0"}>
           <Dialog />
         </div>
+      </div> */}
+
+      <div className="flex h-[244px] max-h-[244px] w-[60%] items-start px-[16px]">
+        <MessageBlock text={props.text} />
       </div>
+
       <div
         className={cn(
           "absolute -right-[23px] z-[-1]",
@@ -63,5 +64,29 @@ export const EftOnboardingMessage: FC<EftOnboardingMessageProps> = (props) => {
         )}
       </div>
     </MotionDiv>
+  );
+};
+
+type MessageBlockPropsType = {
+  text?: string;
+};
+const MessageBlock: FC<MessageBlockPropsType> = (props) => {
+  return (
+    <div className="relative flex w-full items-center justify-start rounded-[20px] rounded-tr-none bg-mint-700 px-[16px] py-2.5 pl-4 pr-1.5 shadow-dialogOnBoarding">
+      <Typography
+        tag={"div"}
+        className={"text-[13px] font-normal leading-5 !text-mint !text-shadow-light"}
+      >
+        {props.text}
+      </Typography>
+
+      <div className="h-full">
+        <LeftArrow />
+      </div>
+
+      <div className={"absolute -right-[11px] top-0"}>
+        <Dialog />
+      </div>
+    </div>
   );
 };

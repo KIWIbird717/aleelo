@@ -6,7 +6,8 @@ import EftSecond from "@/public/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
 import { StaticImageData } from "next/image";
 import { useStages } from "./shared/hooks/useStages";
-import { OnboardingEftMessages } from "./shared/components/OnboardingEftMessages";
+import { OnboardingEftMessage } from "./shared/components/OnboardingEftMessage";
+import { it } from "node:test";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
@@ -18,7 +19,7 @@ export type SpeechItemType = {
   text: string | undefined;
 };
 
-const speechItems: SpeechItemType[] = [
+const speechItems: (SpeechItemType | null)[] = [
   {
     id: 0,
     image: EftFirst,
@@ -34,6 +35,7 @@ const speechItems: SpeechItemType[] = [
     image: EftSecond,
     text: "Сейчас ты на клетке #1 - Рождение. Нажми на нее.",
   },
+  null,
 ];
 
 export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale }) => {
@@ -41,22 +43,24 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
   const chatPageRoute = `/${locale}/cell/1`;
   const { stage, handleStageChange } = useStages(chatPageRoute);
 
+  const handleLastMessage = () => {
+    router.push(chatPageRoute);
+  };
+
   // подгрузка страницы на которую будет редирект
   useEffect(() => {
     router.prefetch(chatPageRoute);
   }, [router, chatPageRoute]);
 
   return (
-    <div className="fixed bottom-0 h-[284px] w-full">
+    <div className="fixed bottom-0 w-full">
       {speechItems.map((item) => {
-        const lastSpeechItemId = speechItems[speechItems.length - 1].id;
-
+        if (!item) return null;
         return (
-          <OnboardingEftMessages
+          <OnboardingEftMessage
             key={item.id}
             stage={stage}
             item={item}
-            lastSpeechItemId={lastSpeechItemId}
             chatPageRoute={chatPageRoute}
             handleStageChange={handleStageChange}
           />

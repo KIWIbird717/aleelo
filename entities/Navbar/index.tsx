@@ -112,8 +112,9 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
 
   const pathName = path.split("/")[path.split("/").length - 1];
 
-  const onClickHandler = () => {
+  const onClickHandler: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     if (thirdEl && props.onHide) {
+      event.preventDefault();
       props.onHide();
     }
   };

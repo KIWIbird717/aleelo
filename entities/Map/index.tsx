@@ -10,15 +10,12 @@ import { useLocale } from "next-intl";
 import { Cell, CellProps } from "./shared/ui/CellInfoType";
 
 type Props = {
-  onCellClick?: CellProps["onClick"];
+  // ссылка, которой можно заменить все ссылки на кнопках
+  linkReplacer?: string;
 };
 export const Map: FC<Props> = (props) => {
   const logger = new Logger("Map");
   const locale = useLocale();
-
-  const handleCellClick = () => {
-    logger.debug("handle click");
-  };
 
   return (
     <div className="relative mx-[30px] mt-[20px]">
@@ -30,12 +27,11 @@ export const Map: FC<Props> = (props) => {
       <div className="grid grid-flow-col grid-cols-5 grid-rows-8">
         {sortCells(MapCells.cells).map((cell) => (
           <Cell
-            href={`/${locale}/cell/${cell.id}`}
+            href={props.linkReplacer || `/${locale}/cell/${cell.id}`}
             key={cell.id}
             id={cell.id}
             className={cell.className}
             icon={cell.icon}
-            onClick={handleCellClick}
             isActive={cell.id === 1}
           />
         ))}

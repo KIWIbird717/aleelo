@@ -37,7 +37,7 @@ export const useStages = (chatPageRoute: string) => {
     }
 
     setStage((state) => {
-      if (state > 1) return state;
+      if (state > 2) return state;
       return (state += 1);
     });
   };
