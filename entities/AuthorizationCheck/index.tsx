@@ -12,12 +12,12 @@ export const AuthorizationCheck = () => {
     try {
       const myProfile = await serverApi.get("auth/profile");
       if (!myProfile) {
-        return serverSideRedirect(`${path}/auth/onboarding`);
+        return serverSideRedirect(`${path}/onboarding`);
       }
       return serverSideRedirect(`${path}/home`);
     } catch (error) {
       // если ошибка 401 (Unauthorized)
-      return serverSideRedirect(`${path}/auth/onboarding`);
+      return serverSideRedirect(`${path}/onboarding`);
     }
   }, [path]);
 
