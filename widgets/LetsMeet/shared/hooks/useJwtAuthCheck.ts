@@ -3,8 +3,9 @@ import { useRouter } from "next/navigation";
 import { authorize } from "../../actions/authorize";
 import { setCookie } from "cookies-next";
 import { serverApi } from "@/shared/lib/axios";
+import Cookies from "js-cookie";
 
-const isServer = typeof window === "undefined";
+// const isServer = typeof window === "undefined";
 
 /**
  * Получаем jwt токен для идентификации пользователя
@@ -19,20 +20,18 @@ export const useJwtAuthCheck = () => {
   useRequest(async () => {
     router.prefetch("/signin"); // подгрузка бандла для страницы /signin
 
-    if (!isServer) {
-      // авторизуем пользователя
-      const authRes = await authorize();
+    // авторизуем пользователя
+    const authRes = await authorize();
 
-      localStorage.setItem("jwt", authRes.jwt);
-      setCookie("jwt", authRes.jwt);
+    localStorage.setItem("jwt", authRes.jwt);
+    Cookies.set("JWT", "jwt-test");
 
-      // заносим в настройки пользователя дефолтные данные для юзера
-      await serverApi.post("/settings", {
-        name: "игрок",
-        gender: "human",
-        reportNotificationHour: 0,
-        reportNotificationMinutes: 0,
-      });
-    }
-  }, [isServer]);
+    // заносим в настройки пользователя дефолтные данные для юзера
+    await serverApi.post("/settings", {
+      name: "игрок",
+      gender: "human",
+      reportNotificationHour: 0,
+      reportNotificationMinutes: 0,
+    });
+  }, []);
 };

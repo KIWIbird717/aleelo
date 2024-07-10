@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "tg": "npm run build && npm run start",
-    "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "prettify": "npx prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "cert": "node server.js"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.2",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-radio-group": "^1.1.3",
@@ -26,7 +28,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
-    "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.2.6",
     "js-cookie": "^3.0.5",
@@ -50,6 +51,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",

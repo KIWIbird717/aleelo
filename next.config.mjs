@@ -15,11 +15,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ui-avatars.com',
+        protocol: "https",
+        hostname: "ui-avatars.com",
       },
     ],
-  }
+  },
 };
 
 export default withNextIntl(nextConfig);
