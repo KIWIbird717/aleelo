@@ -10,7 +10,7 @@ import { items } from "@/widgets/ModalSheet/entities/CellInfo";
 import { FC } from "react";
 import dynamic from "next/dynamic";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import { useDescriptionShow } from "@/app/[locale]/onboarding/practice/page";
+import { useDescriptionShow } from "./shared/hooks/useDescriptionShow";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
