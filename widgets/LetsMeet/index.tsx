@@ -6,10 +6,10 @@ import { usePreventOnSwipeWindowClose } from "@/shared/lib/hooks/usePreventSwipe
 import { Button } from "@/shared/ui/Button/Button";
 import { ButtonLink } from "@/shared/ui/ButtonLink";
 import { useStages } from "./shared/hooks/useStages";
-import { useJwtAuthCheck } from "./shared/hooks/useJwtAuthCheck";
+import { useJwtAuth } from "./shared/hooks/useJwtAuth";
 
 export const LetsMeetWidget = () => {
-  useJwtAuthCheck();
+  useJwtAuth(); // автоматически авторизуем пользователя пока происходит онбординг
   usePreventOnSwipeWindowClose(true);
 
   const { stage, handleStageChange, isLastStage } = useStages();

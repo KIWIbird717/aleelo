@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { StaticImageData } from "next/image";
 import { useStages } from "./shared/hooks/useStages";
 import { OnboardingEftMessage } from "./shared/components/OnboardingEftMessage";
-import { it } from "node:test";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
@@ -42,10 +41,6 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
   const router = useRouter();
   const chatPageRoute = `/${locale}/cell/1`;
   const { stage, handleStageChange } = useStages(chatPageRoute);
-
-  const handleLastMessage = () => {
-    router.push(chatPageRoute);
-  };
 
   // подгрузка страницы на которую будет редирект
   useEffect(() => {
