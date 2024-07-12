@@ -16,7 +16,7 @@ type EftOnboardingMessageProps = {
   image?: string | StaticImport;
   // стили для картинки
   imageClassName?: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const EftOnboardingMessage: FC<EftOnboardingMessageProps> = (props) => {
@@ -27,42 +27,21 @@ export const EftOnboardingMessage: FC<EftOnboardingMessageProps> = (props) => {
       className="relative z-50 flex h-screen min-h-[284px] w-full items-end"
       onClick={props.onClick}
     >
-      {/* <div className="absolute bottom-[131px] right-[146px] flex max-w-[57%] items-center rounded-[20px] rounded-tr-none bg-mint-700 py-2.5 pl-4 pr-1.5 shadow-dialogOnBoarding">
-        <Typography
-          tag={"div"}
-          className={"text-[13px] font-normal leading-5 !text-mint !text-shadow-light"}
-        >
-          {props.text}
-        </Typography>
-
-        <div className="h-full">
-          <LeftArrow />
-        </div>
-
-        <div className={"absolute -right-[11px] top-0"}>
-          <Dialog />
-        </div>
-      </div> */}
-
       <div className="flex h-[244px] max-h-[244px] w-[60%] items-start px-[16px]">
         <MessageBlock text={props.text} />
       </div>
 
-      <div
-        className={cn(
-          "absolute -right-[23px] z-[-1]",
-          // item.id !== 0 && "-right-[10px] top-[26px]",
-        )}
-      >
+      <div className={cn("absolute -right-[23px] z-[-1]")}>
         {props.image && (
           <Image
             src={props.image}
             alt={`EftOnboardingMessage ${props.text}}`}
-            // className={cn("h-[321px] w-[315px]", item.id !== 0 && "h-[331px] w-[189px]")}
             className={cn("h-[321px] w-[315px] object-contain")}
           />
         )}
       </div>
+
+      <div className="absolute bottom-[-10%] right-[-20%] z-[-2] h-[300px] w-[350px] rounded-full bg-mint-950 blur-[50px]" />
     </MotionDiv>
   );
 };

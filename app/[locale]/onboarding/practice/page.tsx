@@ -16,15 +16,35 @@ import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { items } from "@/widgets/ModalSheet/entities/CellInfo";
 import { NextPage } from "next";
+import { PracticeOnboardingEftSpeeches } from "@/entities/onboarding/PracticeOnboardingEftSpeeches";
+import { useStages } from "@/entities/onboarding/PracticeOnboardingEftSpeeches/shared/hooks/useStages";
+import { PracticeDescriptionWidget } from "@/widgets/practice/PracticeDescriptionWidget";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 type OnboardingPracticePropsType = {};
 
+export const useDescriptionShow = () => {
+  const [isShowText, setIsShowText] = useState(false);
+  const onShow = () => {
+    if (!isShowText) {
+      setIsShowText(true);
+    }
+  };
+
+  const onHide = () => {
+    if (isShowText) {
+      setIsShowText(false);
+    }
+  };
+
+  return { isShowText, onShow, onHide };
+};
+
 const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
   const logger = new Logger("OnboardingPractice");
-  const [isShowText, setIsShowText] = useState(false);
-
+  const { stage, next } = useStages();
+  const { isShowText, onShow, onHide } = useDescriptionShow();
   const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
@@ -41,46 +61,34 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
     }
   }, []);
 
-  const onShow = () => {
-    if (!isShowText) {
-      setIsShowText(true);
-    }
+  const handleDescriptionShow = () => {
+    onShow();
+    next();
   };
 
-  const onHide = () => {
-    if (isShowText) {
-      setIsShowText(false);
-    }
+  const handleDescriptionHide = () => {
+    onHide();
+    next();
   };
 
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
-      <AnimatePresence initial={true} mode={"sync"}>
-        <MotionDiv
-          className={twMerge("flex flex-col", isShowText && "justify-between")}
-          style={{ height: isShowText ? `calc(100% - ${svgHeight}px)` : "" }}
-        >
-          <div className={"flex flex-col gap-[13px] px-8 pt-[35px]"}>
-            <Typography
-              tag={"h1"}
-              className={"text-center text-gold !text-shadow-gold"}
-              variant={"title"}
-            >
-              #1. Рождение
-            </Typography>
+      <PracticeOnboardingEftSpeeches stage={stage} next={next} className="fixed z-[35]" />
 
-            <PracticeDescription onShow={onShow} isShowText={isShowText} />
-          </div>
+      <PracticeDescriptionWidget
+        isShowText={isShowText}
+        onShow={handleDescriptionShow}
+        svgHeight={svgHeight}
+        padding={padding}
+        width={width}
+      />
 
-          {isShowText && <Icons className={"justify-between"} padding={padding} items={items} />}
-        </MotionDiv>
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {!isShowText && <AudioPlayer width={width} padding={padding} />}
-      </AnimatePresence>
-
-      <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />
+      <Navbar
+        svgRef={svgRef}
+        svgGRef={svgGRef}
+        isBack={isShowText}
+        onHide={handleDescriptionHide}
+      />
     </View>
   );
 };

@@ -1,13 +1,18 @@
 import { EftOnboardingMessage } from "@/shared/ui/EftOnboardingMessage/EftOnboardingMessage";
 import { AnimatePresence } from "framer-motion";
-import { SpeechItemType } from "../..";
 import { FC } from "react";
+import { StaticImageData } from "next/image";
 
-type OnboardingEftMessagesProps = {
+export type SpeechItemType = {
+  id: number;
+  image: StaticImageData;
+  text: string | undefined;
+};
+
+export type OnboardingEftMessagesProps = {
   item: SpeechItemType;
   stage: SpeechItemType["id"];
-  chatPageRoute: string;
-  handleStageChange: () => void;
+  handleStageChange?: () => void;
 };
 export const OnboardingEftMessage: FC<OnboardingEftMessagesProps> = (props) => {
   const isShown = props.stage === props.item.id;

@@ -6,7 +6,7 @@ import EftSecond from "@/public/images/signin/eft-second.png";
 import { useRouter } from "next/navigation";
 import { StaticImageData } from "next/image";
 import { useStages } from "./shared/hooks/useStages";
-import { OnboardingEftMessage } from "./shared/components/OnboardingEftMessage";
+import { OnboardingEftMessage } from "@/shared/ui/EftOnboardingMessage";
 
 interface IGettingToKnowWithGameProps {
   locale: string;
@@ -56,7 +56,6 @@ export const GettingToKnowWithGame: FC<IGettingToKnowWithGameProps> = ({ locale 
             key={item.id}
             stage={stage}
             item={item}
-            chatPageRoute={chatPageRoute}
             handleStageChange={handleStageChange}
           />
         );
