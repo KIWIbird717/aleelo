@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useCallback, useState } from "react";
+import { getCurrentGame } from "../func/game";
 
 export const useStages = (chatPageRoute: string) => {
   const dispatch = useAppDispatch();
@@ -18,10 +19,12 @@ export const useStages = (chatPageRoute: string) => {
       await serverApi.get("/game/status");
 
       // создание игры
-      const createdGame = await serverApi.post("/game-chat/create-game");
-      currentGame.set({
-        id: createdGame.data.id,
-      });
+      const createdGame = await getCurrentGame();
+      if (createdGame) {
+        currentGame.set({
+          id: createdGame.id,
+        });
+      }
 
       // получаем и устанавливаем пользователя
       const myProfile = await serverApi.get("/auth/profile");
