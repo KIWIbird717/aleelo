@@ -5,6 +5,7 @@ import { Input } from "@/shared/ui/Input";
 import SendIcon from "@/public/images/svg/chat/send.svg";
 import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
+import useRequest from "@/shared/lib/hooks/useRequest";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -40,6 +41,8 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [messages, setMessages] = useState(messagesData);
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
+
+  useRequest(() => {}, []);
 
   useEffect(() => {
     setBottomInput(height / 2 - svgHeight);

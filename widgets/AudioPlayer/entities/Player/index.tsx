@@ -3,11 +3,12 @@ import { ISettingsPointer, RoundSlider } from "mz-react-round-slider";
 import PointerIcon from "@/public/images/svg/audio-player/pointer.svg";
 import { PlayAndPause } from "@/widgets/AudioPlayer/entities/PlayAndPause";
 
-interface IPlayerProps {
+export interface IPlayerProps {
   width: number;
+  onPlayPause?: (isPlaying: boolean) => void;
 }
 
-export const Player: FC<IPlayerProps> = ({ width }) => {
+export const Player: FC<IPlayerProps> = ({ width, onPlayPause }) => {
   const [pointers, setPointers] = useState<ISettingsPointer[]>([{ value: 0 }]);
   const [pathRadius, setPathRadius] = useState(135);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -23,6 +24,8 @@ export const Player: FC<IPlayerProps> = ({ width }) => {
 
   const togglePlayPause = (): void => {
     setIsPlaying(!isPlaying);
+    onPlayPause && onPlayPause(isPlaying);
+
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();

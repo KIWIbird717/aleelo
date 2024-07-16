@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { serverApi } from "@/shared/lib/axios";
 import Cookies from "js-cookie";
 import { useTelegram } from "@/shared/lib/hooks/useTelegram";
-import { headers } from "next/headers";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 
 type ResponseType = {

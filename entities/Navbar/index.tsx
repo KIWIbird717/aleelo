@@ -55,7 +55,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         id: 1,
         name: "Практики",
         icon: <PracticeIcon />,
-        link: "practice",
+        link: "chat",
       },
       {
         id: 2,

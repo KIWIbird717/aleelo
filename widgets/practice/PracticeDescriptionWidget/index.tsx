@@ -2,7 +2,7 @@
 
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { PracticeDescription } from "@/widgets/PracticeDescription";
-import { AudioPlayer } from "@/widgets/AudioPlayer";
+import { AudioPlayer, IAudioPlayerProps } from "@/widgets/AudioPlayer";
 import { Icons } from "@/entities/Icons";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";
@@ -20,7 +20,7 @@ type PracticeDescriptionWidgetProps = {
   svgHeight: ReturnType<typeof useSizes>["svgHeight"];
   padding: ReturnType<typeof useSizes>["padding"];
   width: ReturnType<typeof useSizes>["width"];
-};
+} & Pick<IAudioPlayerProps, "onPlayPause">;
 
 export const PracticeDescriptionWidget: FC<PracticeDescriptionWidgetProps> = (props) => {
   return (
@@ -49,7 +49,13 @@ export const PracticeDescriptionWidget: FC<PracticeDescriptionWidgetProps> = (pr
       </AnimatePresence>
 
       <AnimatePresence>
-        {!props.isShowText && <AudioPlayer width={props.width} padding={props.padding} />}
+        {!props.isShowText && (
+          <AudioPlayer
+            width={props.width}
+            padding={props.padding}
+            onPlayPause={props.onPlayPause}
+          />
+        )}
       </AnimatePresence>
     </>
   );

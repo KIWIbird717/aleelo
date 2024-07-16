@@ -38,12 +38,12 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
 
   const handleDescriptionShow = () => {
     onShow();
-    next();
+    next(2);
   };
 
   const handleDescriptionHide = () => {
     onHide();
-    next();
+    next(4);
   };
 
   return (
@@ -56,6 +56,7 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
         svgHeight={svgHeight}
         padding={padding}
         width={width}
+        onPlayPause={() => next(6)}
       />
 
       <Navbar

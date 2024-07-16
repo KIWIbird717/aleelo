@@ -6,7 +6,7 @@ import { Map } from "@/entities/Map";
 export default function SignInPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <View backgroundEffect={"gradient"} className="relative">
-      <Map linkReplacer="practice" />
+      <Map linkReplacer="cell" />
       <GettingToKnowWithGame locale={locale} />
     </View>
   );
