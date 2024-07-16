@@ -15,9 +15,10 @@ export const useStages = (chatPageRoute: string) => {
     try {
       await serverApi.put("game/onboarding/finish");
 
+      await serverApi.get("/game/status");
+
       // создание игры
       const createdGame = await serverApi.post("/game-chat/create-game");
-      await serverApi.get("auth/profile");
       currentGame.set({
         id: createdGame.data.id,
       });

@@ -23,6 +23,7 @@ export const useJwtAuth = () => {
   const telegram = useTelegram();
 
   useRequest(async () => {
+    logger.debug(telegram?.initData);
     if (!telegram?.initData) {
       return logger.error("telegram init data is undefined");
     }
