@@ -1,14 +1,10 @@
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { useRouter } from "next/navigation";
 import { serverApi } from "@/shared/lib/axios";
-import Cookies from "js-cookie";
 import { useTelegram } from "@/shared/lib/hooks/useTelegram";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-
-type ResponseType = {
-  jwt: string;
-  refreshToken: string;
-};
+import { UserService } from "@/shared/lib/services/user";
+import { UserServiceTypes } from "@/shared/lib/services/user/types";
 
 /**
  * Получаем jwt токен для идентификации пользователя
@@ -23,7 +19,6 @@ export const useJwtAuth = () => {
   const telegram = useTelegram();
 
   useRequest(async () => {
-    logger.debug(telegram?.initData);
     if (!telegram?.initData) {
       return logger.error("telegram init data is undefined");
     }
@@ -31,19 +26,17 @@ export const useJwtAuth = () => {
     router.prefetch("/signin"); // подгрузка бандла для страницы /signin
 
     // авторизуем пользователя
-    const headers = {
+    const authTgRes = await UserService.authTelegram({
       accept: "*/*",
       "Authorization-tma": `tma ${telegram?.initData}`,
-    };
-    const authTgRes = await serverApi.post<ResponseType>("/auth/telegram", {}, { headers });
+    });
 
     localStorage.setItem("jwt", authTgRes.data.jwt);
-    Cookies.set("JWT", "jwt-test");
 
     // заносим в настройки пользователя дефолтные данные для юзера
-    await serverApi.post("/settings", {
+    await UserService.updateSettings({
       name: "игрок",
-      gender: "human",
+      gender: UserServiceTypes.Gender.human,
       reportNotificationHour: 0,
       reportNotificationMinutes: 0,
     });

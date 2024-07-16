@@ -1,3 +1,5 @@
+import { UserServiceTypes } from "@/shared/lib/services/user/types";
+
 type UserType = {
   accessLevel: null | string;
   anonymous: boolean;
@@ -10,7 +12,7 @@ type UserType = {
   spirit: null | number;
 };
 export interface IUserSlice {
-  profile: UserType | null;
+  profile: UserServiceTypes.UserResType | null;
   jwt: string | null;
   refreshToken: string | null;
 }

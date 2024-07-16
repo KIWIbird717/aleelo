@@ -3,14 +3,14 @@
 import { serverSideRedirect } from "../../shared/lib/utils/serverSideRedirect";
 import useRequest from "../../shared/lib/hooks/useRequest";
 import { usePathname } from "next/navigation";
-import { serverApi } from "../../shared/lib/axios";
+import { UserService } from "@/shared/lib/services/user";
 
 export const AuthorizationCheck = () => {
   const path = usePathname();
 
   useRequest(async () => {
     try {
-      const myProfile = await serverApi.get("auth/profile");
+      const myProfile = await UserService.profile();
       if (!myProfile) {
         return serverSideRedirect(`${path}/onboarding`);
       }

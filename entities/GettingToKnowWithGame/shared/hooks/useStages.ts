@@ -1,10 +1,11 @@
-import { serverApi } from "@/shared/lib/axios";
 import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
 import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useCallback, useState } from "react";
 import { getCurrentGame } from "../func/game";
+import { UserService } from "@/shared/lib/services/user";
+import { GameService } from "@/shared/lib/services/game";
 
 export const useStages = (chatPageRoute: string) => {
   const dispatch = useAppDispatch();
@@ -14,9 +15,7 @@ export const useStages = (chatPageRoute: string) => {
   const finishOnboarding = useCallback(async () => {
     const logger = new Logger("useStages");
     try {
-      await serverApi.put("game/onboarding/finish");
-
-      await serverApi.get("/game/status");
+      await GameService.finishOnboarding();
 
       // создание игры
       const createdGame = await getCurrentGame();
@@ -27,14 +26,14 @@ export const useStages = (chatPageRoute: string) => {
       }
 
       // получаем и устанавливаем пользователя
-      const myProfile = await serverApi.get("/auth/profile");
+      const myProfile = await UserService.profile();
       dispatch(UserSlice.setProfile(myProfile.data));
 
       // return serverSideRedirect(chatPageRoute);
     } catch (error) {
       logger.error(`Error in ["finishOnboarding"]`, error);
     }
-  }, [chatPageRoute, dispatch]);
+  }, [currentGame, dispatch]);
 
   const handleStageChange = () => {
     if (stage === 1) {
