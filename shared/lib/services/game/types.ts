@@ -8,7 +8,7 @@ export namespace GameServiceTypes {
    * Духовность
    * Самореализация
    * */
-  export enum GameSphere {
+  export enum GameSphereEnum {
     glory = "glory",
     family = "family",
     health = "health",
@@ -17,7 +17,7 @@ export namespace GameServiceTypes {
     spirituality = "spirituality",
     selfRealization = "selfRealization",
   }
-  export enum GameStatus {
+  export enum GameStatusEnum {
     inGame = "inGame",
     ended = "ended",
   }
@@ -27,8 +27,8 @@ export namespace GameServiceTypes {
     ended: null | Date;
     id: string;
     request: string | null;
-    sphere: null | GameSphere;
-    status: GameStatus;
+    sphere: null | GameSphereEnum;
+    status: GameStatusEnum;
     talisman: null;
   };
 

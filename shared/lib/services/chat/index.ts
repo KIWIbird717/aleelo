@@ -1,6 +1,8 @@
 import { serverApi } from "../../axios";
 import { errorHandler } from "../../utils/error-handler";
-import { Pagination, PostMessageOptions } from "@/shared/lib/types/chat";
+import { IPagination, PostMessageOptions, IPostMessageResult } from "@/shared/lib/types/chat";
+import { IChatMessage } from "@/shared/lib/types/chat-message";
+import { IGame } from "@/shared/lib/types/game";
 
 
 export namespace ChatService {
@@ -11,12 +13,12 @@ export namespace ChatService {
 
   //POST /game-chat/post-message
   export const postMessage = (options: PostMessageOptions) => {
-    return errorHandler(thisName("postMessage"), serverApi.post("/game-chat/post-message", options));
+    return errorHandler(thisName("postMessage"), serverApi.post<IPostMessageResult>("/game-chat/post-message", options));
   };
 
   //GET /game-chat/list/${chatId}
-  export const getMessages = (chatId: string, pagination: Pagination) => {
-    return errorHandler(thisName("getMessages"), serverApi.post(
+  export const getMessages = (chatId: string, pagination: IPagination) => {
+    return errorHandler(thisName("getMessages"), serverApi.get<Array<IChatMessage>>(
         `game-chat/list/${chatId}`,
         { params: pagination },
       ),
@@ -53,11 +55,11 @@ export namespace ChatService {
 
   //POST /game-chat/create-game
   export const createGame = () => {
-    return errorHandler(thisName("createGame"), serverApi.post("/game-chat/create-game"));
+    return errorHandler(thisName("createGame"), serverApi.post<IGame>("/game-chat/create-game"));
   };
 
   //POST /game-chat/reset-game
   export const resetGame = () => {
-    return errorHandler(thisName("resetGame"), serverApi.post("/game-chat/reset-game"));
+    return errorHandler(thisName("resetGame"), serverApi.post<IGame>("/game-chat/reset-game"));
   };
 }
