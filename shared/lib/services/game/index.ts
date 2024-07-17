@@ -24,7 +24,7 @@ export namespace GameService {
   export const finishOnboarding = () => {
     return errorHandler(
       thisName("finishOnboarding"),
-      serverApi.post<undefined>("/game/onboarding/finish"),
+      serverApi.put<undefined>("/game/onboarding/finish"),
     );
   };
 }
