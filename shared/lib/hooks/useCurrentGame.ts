@@ -8,6 +8,12 @@ export type CurrentGameType = {
 
 /**
  * Данные о текущей игре, хранящиеся в localStorage
+ *
+ * @example
+ *
+ * const currentGame = useCurrentGame()
+ *
+ * currentGame.get() //
  */
 export const useCurrentGame = () => {
   const logger = new Logger("useCurrentGame");
