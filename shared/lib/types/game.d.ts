@@ -113,4 +113,6 @@ export interface IGameStatistics {
 
   // Usefulness
   satisfaction: number
+
+  gamesCount: number
 }

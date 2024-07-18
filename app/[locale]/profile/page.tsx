@@ -1,9 +1,7 @@
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import React from "react";
-
-import { ProfileBottom } from "@/widgets/ProfileBottom";
-import { ProfileContent } from "@/widgets/ProfileContent";
+import { ProfilePage } from "@/widgets/ProfilePage";
 
 interface IProfileProps {}
 
@@ -16,10 +14,7 @@ const Profile: NextPage<IProfileProps> = async () => {
 
   return (
     <View backgroundEffect="gradient">
-      <div style={{ paddingBottom: 200 }}>
-        <ProfileContent  avatarUrl={url}/>
-        <ProfileBottom />
-      </div>
+      <ProfilePage url={url} />
     </View>
   );
 };

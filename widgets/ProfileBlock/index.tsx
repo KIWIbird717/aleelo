@@ -6,8 +6,11 @@ import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 import SubtractIcon from "@/public/images/svg/profile/subtract.svg";
 import { useModal } from "@/shared/lib/hooks/useModal";
 import { Icon } from "@/shared/ui/Icon";
+import { GameServiceTypes } from "@/shared/lib/services/game/types";
+import GameStatusResult = GameServiceTypes.GameStatusResult;
 
 interface IProfileBlockProps {
+  status: GameStatusResult
 }
 
 const items = [
@@ -21,7 +24,9 @@ const items = [
   },
 ];
 
-export const ProfileBlock: FC<IProfileBlockProps> = () => {
+export const ProfileBlock: FC<IProfileBlockProps> = (
+  {status}
+) => {
 
   const {onOpenModal} = useModal()
 
@@ -62,14 +67,14 @@ export const ProfileBlock: FC<IProfileBlockProps> = () => {
         <div className={"w-full flex justify-between px-4"}>
           <div className={"relative flex flex-col gap-[9px]"}>
             <Typography tag={"p"}
-                        className={twMerge("!absolute font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
+                        className={twMerge("!absolute w-full font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
             >
-              58
+              {status?.numberOfGames}
             </Typography>
             <Typography tag={"p"}
                         className={twMerge("relative font-semibold text-center text-[32px] leading-[42px] !text-shadow-static z-[0]")}
             >
-              58
+              {status?.numberOfGames}
             </Typography>
             <Typography tag={"p"}
                         className={"text-center text-mint-600 font-bold text-[13px] !text-shadow-gold"}
@@ -77,16 +82,16 @@ export const ProfileBlock: FC<IProfileBlockProps> = () => {
               Игр
             </Typography>
           </div>
-          <div className={"flex flex-col gap-[9px]"}>
+          <div className={"relative flex flex-col gap-[9px]"}>
             <Typography tag={"p"}
-                        className={twMerge("!absolute font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
+                        className={twMerge("!absolute w-full font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
             >
-              765
+              {status?.stepsCount}
             </Typography>
             <Typography tag={"p"}
                         className={twMerge("relative font-semibold text-center text-[32px] leading-[42px] !text-shadow-static z-[0]")}
             >
-              765
+              {status?.stepsCount}
             </Typography>
             <Typography tag={"p"}
                         className={"text-center text-mint-600 font-bold text-[13px] !text-shadow-gold"}

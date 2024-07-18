@@ -23,13 +23,13 @@ export namespace GameServiceTypes {
   }
 
   type GameModelSnapshotType = {
-    created: Date;
-    ended: null | Date;
     id: string;
     request: string | null;
     sphere: null | GameSphereEnum;
     status: GameStatusEnum;
     talisman: null;
+    created: Date;
+    ended: null | Date;
   };
 
   /** GET /game/status */

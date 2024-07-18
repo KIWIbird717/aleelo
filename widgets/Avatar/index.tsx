@@ -6,9 +6,10 @@ import { Button } from "@/shared/ui/Button/Button";
 
 interface IAvatarProps {
   avatarUrl:string
+  name: string
 }
 
-export const Avatar: FC<IAvatarProps> = ({avatarUrl}) => {
+export const Avatar: FC<IAvatarProps> = ({avatarUrl, name}) => {
 
   return (
     <div className={"w-full flex flex-col justify-center items-center gap-2.5"}>
@@ -41,7 +42,7 @@ export const Avatar: FC<IAvatarProps> = ({avatarUrl}) => {
         <Typography tag={"h3"}
                     className={"!text-mint-600 text-shadow-gold text-center"}
         >
-          Ivan Ivanov
+          {name}
         </Typography>
       </div>
     </div>

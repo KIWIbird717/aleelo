@@ -1,6 +1,7 @@
 import { errorHandler } from "@/shared/lib/utils/error-handler";
 import { serverApi } from "../../axios";
 import { GameServiceTypes } from "./types";
+import { IGameStatistics } from "@/shared/lib/types/game";
 
 export namespace GameService {
   const thisName = (serviceName: string) => {
@@ -15,6 +16,16 @@ export namespace GameService {
     return errorHandler(
       thisName("getGameStatus"),
       serverApi.get<GameServiceTypes.GameStatusResult>("/game/status"),
+    );
+  };
+
+  /**
+  * GET /game/general-statistics
+  */
+  export const getGeneralStatistics = () => {
+    return errorHandler(
+      thisName("getGeneralStatistics"),
+      serverApi.get<IGameStatistics>("/game/general-statistics"),
     );
   };
 
