@@ -30,15 +30,11 @@ interface IMessagesData {
 export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [input, setInput] = useState("");
   const { messages } = useAppSelector((state) => state.chat);
-
   const dispatch = useAppDispatch();
-
-  // const [messages, setMessages] = useState(messagesData);
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
-  const currentGame = useCurrentGame();
 
-  useRequest(() => {}, []);
+  const currentGame = useCurrentGame();
 
   const onBlur = () => setIsFocused(false);
   const onFocus = () => setIsFocused(true);
