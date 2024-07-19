@@ -9,7 +9,6 @@ import useRequest from "@/shared/lib/hooks/useRequest";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
-import { useTelegram } from "@/shared/lib/hooks/useTelegram";
 
 export default function HomePage() {
   const logger = new Logger("HomePage");

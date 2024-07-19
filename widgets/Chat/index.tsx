@@ -9,6 +9,9 @@ import { IMessage } from "@/shared/lib/redux-store/slices/chat-slice/type";
 import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
 import { ChatSlice } from "@/shared/lib/redux-store/slices/chat-slice/userSlice";
 import { AnimatePresence } from "framer-motion";
+import { GameService } from "@/shared/lib/services/game";
+import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
+import { serverApi } from "@/shared/lib/axios";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -37,6 +40,7 @@ const messagesData: IMessage[] = [
     text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
     options: ["Слава", "Семья", "Здоровье", "Деньги", "Любовь", "Духовность", "Самореализация"],
   },
+  {},
   {
     id: "7",
     type: "eft",
@@ -67,6 +71,7 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
 
+  useRequest(() => {}, []);
   useRequest(() => {}, []);
 
   const onBlur = () => setIsFocused(false);
@@ -126,7 +131,18 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
           {messages.map((message, index) => {
             const showAvatar = index === 0 || messages[index].type !== messages[index - 1].type;
             const isCurrentType = message.type === messages[index + 1]?.type;
+            const isCurrentType = message.type === messages[index + 1]?.type;
 
+            return (
+              <Messages
+                key={message.id}
+                type={message.type}
+                message={message.text}
+                photoUrl={message.imageUrl}
+                isFirstMessage={showAvatar}
+                isCurrentType={isCurrentType}
+              />
+            );
             return (
               <Messages
                 key={message.id}
