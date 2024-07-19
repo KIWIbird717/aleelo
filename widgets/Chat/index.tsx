@@ -40,7 +40,6 @@ const messagesData: IMessage[] = [
     text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
     options: ["Слава", "Семья", "Здоровье", "Деньги", "Любовь", "Духовность", "Самореализация"],
   },
-  {},
   {
     id: "7",
     type: "eft",
@@ -64,6 +63,7 @@ const messagesData: IMessage[] = [
 export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [input, setInput] = useState("");
   const { messages } = useAppSelector((state) => state.chat);
+  const currentGame = useCurrentGame();
 
   const dispatch = useAppDispatch();
 
@@ -131,18 +131,7 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
           {messages.map((message, index) => {
             const showAvatar = index === 0 || messages[index].type !== messages[index - 1].type;
             const isCurrentType = message.type === messages[index + 1]?.type;
-            const isCurrentType = message.type === messages[index + 1]?.type;
 
-            return (
-              <Messages
-                key={message.id}
-                type={message.type}
-                message={message.text}
-                photoUrl={message.imageUrl}
-                isFirstMessage={showAvatar}
-                isCurrentType={isCurrentType}
-              />
-            );
             return (
               <Messages
                 key={message.id}
@@ -155,18 +144,6 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
             );
           })}
         </AnimatePresence>
-
-        {/*<div className={"flex flex-col items-end gap-4"}>*/}
-        {/*  <div className={"flex flex-col items-end gap-4"}>*/}
-        {/*    {messagesData[0]?.options?.map((option, index) => {*/}
-        {/*      return (*/}
-        {/*        <Button key={index} variant={"yellow"} size={"small"}>*/}
-        {/*          {option}*/}
-        {/*        </Button>*/}
-        {/*      );*/}
-        {/*    })}*/}
-        {/*  </div>*/}
-        {/*</div>*/}
       </MotionDiv>
 
       <MotionDiv
