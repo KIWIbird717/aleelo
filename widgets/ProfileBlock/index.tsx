@@ -1,31 +1,26 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Block } from "@/shared/ui/Block";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { twMerge } from "tailwind-merge";
 import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 import SubtractIcon from "@/public/images/svg/profile/subtract.svg";
 import { useModal } from "@/shared/lib/hooks/useModal";
-import { Icon } from "@/shared/ui/Icon";
+import { Icon, IconNS } from "@/shared/ui/Icon";
 import { GameServiceTypes } from "@/shared/lib/services/game/types";
 import GameStatusResult = GameServiceTypes.GameStatusResult;
+import { UserServiceTypes } from "@/shared/lib/services/user/types";
+import UserResType = UserServiceTypes.UserResType;
+import IconVariant = IconNS.IconVariant;
 
 interface IProfileBlockProps {
   status: GameStatusResult
+  profile: UserResType
 }
 
-const items = [
-  {
-    icon: <Icon variant={"man"} size={"medium"} color={"deepBlue"} />,
-    title: "Энергия",
-  },
-  {
-    icon: <Icon variant={"air"} size={"medium"} color={"grey"} />,
-    title: "Стихия",
-  },
-];
+
 
 export const ProfileBlock: FC<IProfileBlockProps> = (
-  {status}
+  {status, profile}
 ) => {
 
   const {onOpenModal} = useModal()
@@ -35,6 +30,17 @@ export const ProfileBlock: FC<IProfileBlockProps> = (
   const onClickHandler = () => {
     onOpenModal("moodStatus", {text: mood})
   }
+
+  const items = useMemo(() => [
+    {
+      icon: <Icon variant={profile?.energy as unknown as IconVariant} size={"medium"} />,
+      title: "Энергия",
+    },
+    {
+      icon: <Icon variant={profile?.spirit as unknown as IconVariant} size={"medium"} />,
+      title: "Стихия",
+    },
+  ], [profile?.energy, profile?.spirit])
 
   return (
     <div className={"w-full h-full flex justify-between gap-4 pt-[17px]"}>
@@ -47,7 +53,7 @@ export const ProfileBlock: FC<IProfileBlockProps> = (
                         className={"flex flex-col gap-2.5"}
             >
               <div
-                className={"w-[48px] h-[48px] flex flex-col justify-center items-center rounded-full bg-button-gradient-deep-blue shadow-element"}>
+                className={"w-[48px] h-[48px] flex flex-col justify-center items-center rounded-full"}>
                 {item.icon}
               </div>
 

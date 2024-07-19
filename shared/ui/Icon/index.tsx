@@ -1,4 +1,4 @@
-import { type ComponentProps, FC } from "react";
+import { type ComponentProps, FC, useEffect, useState } from "react";
 import { cn } from "@/shared/lib/utils/cn";
 import {
   AirIcon,
@@ -45,6 +45,8 @@ import {
   WaterIcon32,
   WomanIcon32,
 } from "@/shared/ui/Icon/icons32/constants";
+import IconVariant = IconNS.IconVariant;
+import IconSize = IconNS.IconSize;
 
 
 export namespace IconNS {
@@ -62,6 +64,13 @@ export namespace IconNS {
 
   //варианты иконок
   export const variants = {
+    // null
+    null: {
+      iconMedium: "-",
+      iconLarge: "-",
+      iconSmall: "-",
+    },
+
     //energies
     man: {
       iconLarge: <ManIcon100 />,
@@ -117,7 +126,7 @@ export namespace IconNS {
     },
 
     //emotions
-    happy: {
+    joy: {
       iconLarge: <HappyIcon100 />,
       iconMedium: <HappyIcon />,
       iconSmall: "",
@@ -127,12 +136,12 @@ export namespace IconNS {
       iconMedium: <FearIcon />,
       iconSmall: "",
     },
-    sad: {
+    sadness: {
       iconLarge: <SadIcon100 />,
       iconMedium: <SadIcon />,
       iconSmall: "",
     },
-    angry: {
+    anger: {
       iconLarge: <AngryIcon100 />,
       iconMedium: <AngryIcon />,
       iconSmall: "",
@@ -144,12 +153,17 @@ export namespace IconNS {
       iconMedium: <EarthIcon />,
       iconSmall: <EarthIcon32 />,
     },
-    air: {
+    wind: {
       iconLarge: <AirIcon100 />,
       iconMedium: <AirIcon />,
       iconSmall: <AirIcon32 />,
     },
     fire: {
+      iconLarge: <FireIcon100 />,
+      iconMedium: <FireIcon />,
+      iconSmall: <FireIcon32 />,
+    },
+    flame: {
       iconLarge: <FireIcon100 />,
       iconMedium: <FireIcon />,
       iconSmall: <FireIcon32 />,
@@ -164,30 +178,37 @@ export namespace IconNS {
   // цвета иконок
   export const color = {
     blue: {
+      className100: "",
       className48: "bg-button-gradient-blue shadow-elementBlue",
       className32: "bg-button-gradient-blue shadow-element32",
     },
     deepBlue: {
+      className100: "",
       className48: "bg-button-gradient-deep-blue shadow-element",
       className32: "bg-button-gradient-deep-blue shadow-element32",
     },
     red: {
+      className100: "",
       className48: "bg-button-gradient-red shadow-elementRed",
       className32: "bg-button-gradient-red shadow-element32",
     },
     orange: {
+      className100: "",
       className48: "bg-button-gradient-orange shadow-elementOrange",
       className32: "bg-button-gradient-orange shadow-element32",
     },
     turquoise: {
+      className100: "",
       className48: "bg-button-gradient-turquoise shadow-shadowGreen",
       className32: "bg-button-gradient-turquoise shadow-element32",
     },
     grey: {
+      className100: "",
       className48: "bg-gradient-throw shadow-throw",
       className32: "bg-gradient-throw shadow-element32",
     },
     yellow: {
+      className100: "",
       className48: "bg-button-gradient-yellow shadow-elementHappy",
       className32: "bg-button-gradient-yellow shadow-element32",
     },
@@ -197,22 +218,26 @@ export namespace IconNS {
   export const DEFAULT_CLASSES =
     "flex flex-col items-center justify-center rounded-full";
 
+  export type IconVariant = keyof typeof variants
+  export type IconSize = keyof typeof size
+
 
   export type IIconProps = {
-    variant?: keyof typeof variants;
+    variant?: IconVariant;
     color?: keyof typeof color;
-    size?: keyof typeof size;
+    size?: IconSize;
     className?: string;
   } & ComponentProps<"button">;
 }
 
 export const Icon: FC<IconNS.IIconProps> = (
   {
-    variant = "man",
+    variant = "null",
     color = undefined,
     size = "medium",
   },
 ) => {
+  const [colorClass, setColorClass] = useState<string | null>(null)
 
   const ICON_VARIANTS = size === "medium"
     ? IconNS.variants[variant].iconMedium
@@ -226,10 +251,47 @@ export const Icon: FC<IconNS.IIconProps> = (
       ? IconNS.color[color].className32
       : undefined;
 
+  useEffect(() => {
+   if(variant && size) {
+     const colorMapping: { [key in IconNS.IconVariant]?: { small: keyof typeof IconNS.color; medium: keyof typeof IconNS.color, large?: keyof typeof IconNS.color } } = {
+       man: { small: "deepBlue", medium: "deepBlue", large: undefined },
+       woman: { small: "red", medium: "red", large: undefined },
+       water: { small: "blue", medium: "blue", large: undefined },
+       fire: { small: "orange", medium: "orange", large: undefined },
+       flame: { small: "orange", medium: "orange", large: undefined },
+       wind: { small: "grey", medium: "grey", large: undefined },
+       earth: { small: "turquoise", medium: "turquoise", large: undefined },
+       sadness: { small: "yellow", medium: "yellow", large: undefined },
+       fear: { small: "yellow", medium: "yellow", large: undefined },
+       joy: { small: "yellow", medium: "yellow", large: undefined },
+       anger: { small: "yellow", medium: "yellow", large: undefined },
+       level1: { small: "turquoise", medium: "turquoise", large: undefined },
+       level2: { small: "turquoise", medium: "turquoise", large: undefined },
+       level3: { small: "turquoise", medium: "turquoise", large: undefined },
+       level4: { small: "turquoise", medium: "turquoise", large: undefined },
+       level5: { small: "turquoise", medium: "turquoise", large: undefined },
+       level6: { small: "turquoise", medium: "turquoise", large: undefined },
+       level7: { small: "turquoise", medium: "turquoise", large: undefined },
+       level8: { small: "turquoise", medium: "turquoise", large: undefined },
+     };
+
+     const colorClassKey = colorMapping[variant]?.[size as IconSize]
+     if (colorClassKey) {
+       setColorClass(IconNS.color[colorClassKey][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue]);
+     } else {
+       setColorClass("bg-none");
+     }
+   }
+  }, [variant, size]);
+
+  // useEffect(() => {
+  //   colorFunc(variant)
+  // }, [colorFunc, variant]);
+
   return (
     <div className={cn(
       IconNS.DEFAULT_CLASSES,
-      CLASSNAME_COLOR,
+      colorClass ? colorClass : CLASSNAME_COLOR,
       CLASSNAME_SIZE,
     )
     }>
@@ -237,3 +299,7 @@ export const Icon: FC<IconNS.IIconProps> = (
     </div>
   );
 };
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

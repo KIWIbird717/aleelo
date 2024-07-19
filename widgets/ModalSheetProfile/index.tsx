@@ -73,17 +73,17 @@ export const ModalSheetProfile: FC<IModalSheetProfileProps> = (
     {
       id: 1,
       title: `${statistics?.anger}%`,
-      icon: <Icon variant={"angry"} color={"yellow"} />,
+      icon: <Icon variant={"anger"} color={"yellow"} />,
     },
     {
       id: 2,
       title: `${statistics?.anahata}%`,
-      icon: <Icon variant={"happy"} color={"yellow"} />,
+      icon: <Icon variant={"joy"} color={"yellow"} />,
     },
     {
       id: 3,
       title: `${statistics?.sadness}%`,
-      icon: <Icon variant={"sad"} color={"yellow"} />
+      icon: <Icon variant={"sadness"} color={"yellow"} />
     },
   ], [statistics?.anahata, statistics?.anger, statistics?.fear, statistics?.sadness])
 
@@ -127,7 +127,7 @@ export const ModalSheetProfile: FC<IModalSheetProfileProps> = (
                 </ElementBlock>
 
                 <ElementBlock title={"Cтихии"}>
-                  <ElementInfo info={`${statistics?.wind}%`} icon={<Icon variant={"air"} color={"grey"} />} />
+                  <ElementInfo info={`${statistics?.wind}%`} icon={<Icon variant={"wind"} color={"grey"} />} />
                   <ElementInfo info={`${statistics?.earth}%`} icon={<Icon variant={"earth"} color={"turquoise"} />}/>
                   <ElementInfo info={`${statistics?.water}%`} icon={<Icon variant={"water"} color={"blue"} />}/>
                   <ElementInfo info={`${statistics?.fire}%`} icon={<Icon variant={"fire"} color={"orange"} />}/>

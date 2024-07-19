@@ -1,3 +1,5 @@
+import { EnergyType, SpiritType } from "@/shared/lib/redux-store/slices/user-slice/type";
+
 export namespace UserServiceTypes {
   export enum UserOnboardingStatus {
     PASSED = "PASSED",
@@ -16,8 +18,11 @@ export namespace UserServiceTypes {
     name: string | null;
     email: string;
     anonymous: boolean;
-    created: Date;
+    accessLevel: null | string;
+    spirit: null | SpiritType;
+    energy: null | EnergyType;
     onboardingStatus: UserOnboardingStatus;
+    created: Date;
   };
 
   export type AuthTelegramResType = {

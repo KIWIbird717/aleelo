@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export type ModelType = "elements" | "moodStatus";
 
-type typeIcon = "man" | "earth" | "level2" | "happy";
+type typeIcon = "man" | "earth" | "level2" | "joy";
 
 export interface IElement {
   id: number;

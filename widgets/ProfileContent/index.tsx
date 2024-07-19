@@ -9,7 +9,8 @@ import { UserService } from "@/shared/lib/services/user";
 import { GameService } from "@/shared/lib/services/game";
 import { GameServiceTypes } from "@/shared/lib/services/game/types";
 import GameStatusResult = GameServiceTypes.GameStatusResult;
-
+import { UserServiceTypes } from "@/shared/lib/services/user/types";
+import UserResType = UserServiceTypes.UserResType;
 
 interface IProfileContentProps {
   avatarUrl: string;
@@ -20,13 +21,13 @@ export const ProfileContent: FC<IProfileContentProps> = (
     avatarUrl,
   }
 ) => {
-  const [name, setName] = useState<string | null>(null);
+  const [profile, setProfile] = useState<UserResType | null>(null);
   const [status, setStatus] = useState<GameStatusResult | null>(null)
 
   useEffect(() => {
     (async () => {
       const { data:profileData } = await UserService.profile();
-      setName(profileData.name);
+      setProfile(profileData);
 
       const {data:gameStatusData} = await GameService.getGameStatus()
       setStatus({
@@ -43,10 +44,10 @@ export const ProfileContent: FC<IProfileContentProps> = (
       <div className={"flex flex-col gap-3.5"}>
         <Heading />
         <Avatar avatarUrl={avatarUrl}
-                name={name!}
+                name={profile?.name!}
         />
       </div>
-      <ProfileBlock status={status!} />
+      <ProfileBlock status={status!} profile={profile!} />
       <ProfileRequest />
     </div>
   );
