@@ -66,16 +66,6 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
     setBottomInput(height / 2 - svgHeight);
   }, [height, svgHeight]);
 
-  useRequest(async () => {
-    const practiceRes = await GameService.getPractices({
-      limit: 50,
-      offset: 0,
-      gameId: currentGame.get()?.id,
-    });
-
-    await serverApi.get(`game-chat/practices/${practiceRes.data.id}/send-message`);
-  }, []);
-
   return (
     <div
       className={twMerge(
