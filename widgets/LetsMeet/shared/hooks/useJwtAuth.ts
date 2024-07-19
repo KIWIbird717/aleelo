@@ -31,6 +31,7 @@ export const useJwtAuth = () => {
       "Authorization-tma": `tma ${telegram?.initData}`,
     });
 
+    // устанавливаем jwt в localStorage и cookie
     localStorage.setItem("jwt", authTgRes.data.jwt);
 
     // заносим в настройки пользователя дефолтные данные для юзера

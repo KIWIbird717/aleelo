@@ -14,6 +14,7 @@ export const AuthorizationCheck = () => {
       if (!myProfile) {
         return serverSideRedirect(`${path}/onboarding`);
       }
+
       return serverSideRedirect(`${path}/home`);
     } catch (error) {
       // если ошибка 401 (Unauthorized)

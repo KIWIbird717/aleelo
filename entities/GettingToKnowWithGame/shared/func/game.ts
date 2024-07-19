@@ -6,12 +6,14 @@ export const getCurrentGame = async (): Promise<{ id: string } | undefined> => {
   const logger = new Logger("getCurrentGame");
   try {
     const gameStatusResponse = await GameService.getGameStatus();
+    await GameService.makeStep();
     return { id: gameStatusResponse.data.game.id };
   } catch (error) {
     logger.warn("GET /game/status request was not successful");
 
     try {
       const createdGameResponse = await ChatService.createGame();
+      await GameService.makeStep();
       return { id: createdGameResponse.data.id };
     } catch (error) {
       logger.error("Can not finish game creation");

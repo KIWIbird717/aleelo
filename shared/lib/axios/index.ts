@@ -14,17 +14,12 @@ export const mediaApi = axios.create({
 });
 
 serverApi.interceptors.request.use(async (config) => {
-  if (!isServer) {
-    let jwtToken = getCookie("jwt");
-    if (!jwtToken && isServer) {
-      const { cookies } = await import("next/headers");
-      jwtToken = cookies().get("jwt")?.value;
-    }
-    if (!jwtToken && !isServer) {
-      jwtToken = localStorage.getItem("jwt") as string;
-    }
+  let jwtToken = getCookie("jwt");
 
-    config.headers.Authorization = `Bearer ${jwtToken}`;
+  if (!jwtToken && !isServer) {
+    jwtToken = localStorage.getItem("jwt") as string;
   }
+
+  config.headers.Authorization = `Bearer ${jwtToken}`;
   return config;
 });

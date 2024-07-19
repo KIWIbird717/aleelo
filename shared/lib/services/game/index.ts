@@ -38,4 +38,12 @@ export namespace GameService {
       serverApi.put<undefined>("/game/onboarding/finish"),
     );
   };
+
+  export const makeStep = () => {
+    return errorHandler(thisName("makeStep"), serverApi.post("game/make-step"));
+  };
+
+  export const getPractices = (params: { limit?: number; offset?: number; gameId?: string }) => {
+    return errorHandler(thisName("getPractices"), serverApi.get("game/practices", { params }));
+  };
 }

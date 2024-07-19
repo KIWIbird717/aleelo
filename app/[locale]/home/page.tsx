@@ -13,7 +13,6 @@ import { useTelegram } from "@/shared/lib/hooks/useTelegram";
 
 export default function HomePage() {
   const logger = new Logger("HomePage");
-  const telegram = useTelegram();
 
   const { width, svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
   const currentGame = useCurrentGame();

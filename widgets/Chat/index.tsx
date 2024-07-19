@@ -6,6 +6,10 @@ import SendIcon from "@/public/images/svg/chat/send.svg";
 import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
 import useRequest from "@/shared/lib/hooks/useRequest";
+import { ChatService } from "@/shared/lib/services/chat";
+import { GameService } from "@/shared/lib/services/game";
+import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
+import { serverApi } from "@/shared/lib/axios";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -41,12 +45,23 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [messages, setMessages] = useState(messagesData);
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
+  const currentGame = useCurrentGame();
 
   useRequest(() => {}, []);
 
   useEffect(() => {
     setBottomInput(height / 2 - svgHeight);
   }, [height, svgHeight]);
+
+  useRequest(async () => {
+    const practiceRes = await GameService.getPractices({
+      limit: 50,
+      offset: 0,
+      gameId: currentGame.get()?.id,
+    });
+
+    await serverApi.get(`game-chat/practices/${practiceRes.data.id}/send-message`);
+  }, []);
 
   return (
     <div
