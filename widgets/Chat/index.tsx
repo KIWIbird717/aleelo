@@ -9,8 +9,8 @@ import { IMessage } from "@/shared/lib/redux-store/slices/chat-slice/type";
 import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
 import { ChatSlice } from "@/shared/lib/redux-store/slices/chat-slice/userSlice";
 import { AnimatePresence } from "framer-motion";
-import { GameService } from "@/shared/lib/services/game";
 import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
+import { GameService } from "@/shared/lib/services/game";
 import { serverApi } from "@/shared/lib/axios";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
@@ -27,51 +27,17 @@ interface IMessagesData {
   imageUrL?: string;
 }
 
-const messagesData: IMessage[] = [
-  {
-    id: "1",
-    type: "eft",
-    text: "Сейчас важный момент игры",
-    options: ["Слава", "Семья", "Здоровье", "Деньги", "Любовь", "Духовность", "Самореализация"],
-  },
-  {
-    id: "2",
-    type: "eft",
-    text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
-    options: ["Слава", "Семья", "Здоровье", "Деньги", "Любовь", "Духовность", "Самореализация"],
-  },
-  {
-    id: "7",
-    type: "eft",
-    text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
-    options: ["Слава", "Семья", "Здоровье", "Деньги", "Любовь", "Духовность", "Самореализация"],
-  },
-  {
-    id: "3",
-    type: "user",
-    imageUrl: "",
-    text: "Деньги",
-  },
-  {
-    id: "4",
-    type: "user",
-    imageUrl: "",
-    text: "Деньги",
-  },
-];
-
 export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [input, setInput] = useState("");
   const { messages } = useAppSelector((state) => state.chat);
-  const currentGame = useCurrentGame();
 
   const dispatch = useAppDispatch();
 
   // const [messages, setMessages] = useState(messagesData);
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
+  const currentGame = useCurrentGame();
 
-  useRequest(() => {}, []);
   useRequest(() => {}, []);
 
   const onBlur = () => setIsFocused(false);
