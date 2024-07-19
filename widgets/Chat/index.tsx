@@ -4,14 +4,9 @@ import { Input } from "@/shared/ui/Input";
 import SendIcon from "@/public/images/svg/chat/send.svg";
 import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
-import useRequest from "@/shared/lib/hooks/useRequest";
-import { IMessage } from "@/shared/lib/redux-store/slices/chat-slice/type";
-import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
-import { ChatSlice } from "@/shared/lib/redux-store/slices/chat-slice/userSlice";
 import { AnimatePresence } from "framer-motion";
 import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
-import { GameService } from "@/shared/lib/services/game";
-import { serverApi } from "@/shared/lib/axios";
+import { useMessage } from "@/shared/lib/hooks/useMessage";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -20,45 +15,27 @@ interface IChatProps {
   height: number;
 }
 
-interface IMessagesData {
-  type: "eft" | "user";
-  messages: string[];
-  options?: string[];
-  imageUrL?: string;
-}
-
 export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
   const [input, setInput] = useState("");
-  const { messages } = useAppSelector((state) => state.chat);
-  const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
+  const { messages, addMessage } = useMessage();
 
   const currentGame = useCurrentGame();
 
   const onBlur = () => setIsFocused(false);
   const onFocus = () => setIsFocused(true);
 
-  const sendMessage = async () => {
-    if (input.trim() === "") return;
-
-    const newMessage: IMessage = {
-      id: new Date().toISOString(),
-      text: input,
-      createdAt: new Date(),
-      type: "user",
-      imageUrl: "",
-    };
-
-    dispatch(ChatSlice.addMessage(newMessage));
+  const sendMessage = () => {
+    addMessage(input)
     setInput("");
     onBlur();
   };
 
-  const handleKeyDown = async (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      await sendMessage();
-      onBlur();
+      sendMessage()
+      event.currentTarget.blur()
     }
   };
 

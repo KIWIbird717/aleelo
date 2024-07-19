@@ -8,7 +8,7 @@ interface IMessageProps {
   // index: number;
   message: string;
   type: "user" | "eft";
-  isFirstMessage: boolean
+  isFirstMessage: boolean;
 }
 
 export const Message: FC<IMessageProps> = (
@@ -16,18 +16,16 @@ export const Message: FC<IMessageProps> = (
     // index,
     message,
     type,
-    isFirstMessage
-  }
-  ) => {
+    isFirstMessage,
+  },
+) => {
   return (
     <div
       className={twMerge(
         "relative ml-0 mr-[43px] w-fit rounded-[20px] bg-mint-700 px-4 py-2.5 shadow-dialogOnBoarding",
-        !isFirstMessage && type === "eft" && "rounded-tl-none",
-        !isFirstMessage && type === "user" && "rounded-tr-none",
-        // isFirstMessage && "mb-[14px]",
-        type === "eft" && "rounded-tl-none ml-[65px]",
-        type === "user" && "rounded-tr-none",
+        isFirstMessage && type === "eft" && "rounded-tl-none",
+        isFirstMessage && type === "user" && "rounded-tr-none",
+        type === "eft" && "ml-[65px]",
         type === "user" && "ml-[43px] mr-[65px] bg-gold",
       )}
     >
