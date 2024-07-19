@@ -23,6 +23,7 @@ type Props = {
   isChat?: boolean;
   setFocus?: () => void;
   setBlur?: () => void;
+  onClickButton?: () => void
 } & ComponentProps<"input">;
 
 export const Input = forwardRef<InputRefType, Props>((props, ref) => {
@@ -66,7 +67,10 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
       />
 
       {props.icon && (
-        <button className="absolute right-[20px] top-[13px] z-[21] cursor-pointer" type={"button"}>
+        <button className="absolute right-[20px] top-[13px] z-[21] cursor-pointer"
+                type={"button"}
+                onClick={props.onClickButton}
+        >
           {props.icon}
         </button>
       )}

@@ -45,21 +45,15 @@ import {
   WaterIcon32,
   WomanIcon32,
 } from "@/shared/ui/Icon/icons32/constants";
-import IconVariant = IconNS.IconVariant;
+
 import IconSize = IconNS.IconSize;
 
 
 export namespace IconNS {
   export const size = {
-    small: {
-      className: "w-[32px] h-[32px]",
-    },
-    medium: {
-      className: "w-[48px] h-[48px]",
-    },
-    large: {
-      className: "w-[100px] h-[100px]",
-    },
+    small: { className: "w-[32px] h-[32px]" },
+    medium: { className: "w-[48px] h-[48px]" },
+    large: { className: "w-[100px] h-[100px]" },
   };
 
   //варианты иконок
@@ -237,56 +231,50 @@ export const Icon: FC<IconNS.IIconProps> = (
     size = "medium",
   },
 ) => {
-  const [colorClass, setColorClass] = useState<string | null>(null)
+  const [colorClass, setColorClass] = useState<string | null>(null);
 
-  const ICON_VARIANTS = size === "medium"
-    ? IconNS.variants[variant].iconMedium
-    : size === "large"
-      ? IconNS.variants[variant].iconLarge
-      : IconNS.variants[variant].iconSmall;
+  const ICON_VARIANTS = IconNS.variants[variant]?.[`icon${capitalize(size)}` as keyof typeof IconNS.variants["null"]] || IconNS.variants.null.iconMedium;
   const CLASSNAME_SIZE = IconNS.size[size].className;
-  const CLASSNAME_COLOR = color && size === "medium"
-    ? IconNS.color[color].className48
-    : color && size === "small"
-      ? IconNS.color[color].className32
-      : undefined;
+  const CLASSNAME_COLOR = color ? IconNS.color[color][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue] : undefined;
 
   useEffect(() => {
-   if(variant && size) {
-     const colorMapping: { [key in IconNS.IconVariant]?: { small: keyof typeof IconNS.color; medium: keyof typeof IconNS.color, large?: keyof typeof IconNS.color } } = {
-       man: { small: "deepBlue", medium: "deepBlue", large: undefined },
-       woman: { small: "red", medium: "red", large: undefined },
-       water: { small: "blue", medium: "blue", large: undefined },
-       fire: { small: "orange", medium: "orange", large: undefined },
-       flame: { small: "orange", medium: "orange", large: undefined },
-       wind: { small: "grey", medium: "grey", large: undefined },
-       earth: { small: "turquoise", medium: "turquoise", large: undefined },
-       sadness: { small: "yellow", medium: "yellow", large: undefined },
-       fear: { small: "yellow", medium: "yellow", large: undefined },
-       joy: { small: "yellow", medium: "yellow", large: undefined },
-       anger: { small: "yellow", medium: "yellow", large: undefined },
-       level1: { small: "turquoise", medium: "turquoise", large: undefined },
-       level2: { small: "turquoise", medium: "turquoise", large: undefined },
-       level3: { small: "turquoise", medium: "turquoise", large: undefined },
-       level4: { small: "turquoise", medium: "turquoise", large: undefined },
-       level5: { small: "turquoise", medium: "turquoise", large: undefined },
-       level6: { small: "turquoise", medium: "turquoise", large: undefined },
-       level7: { small: "turquoise", medium: "turquoise", large: undefined },
-       level8: { small: "turquoise", medium: "turquoise", large: undefined },
-     };
+    if (variant && size) {
+      const colorMapping: {
+        [key in IconNS.IconVariant]?: {
+          small: keyof typeof IconNS.color;
+          medium: keyof typeof IconNS.color,
+          large?: keyof typeof IconNS.color
+        }
+      } = {
+        man: { small: "deepBlue", medium: "deepBlue", large: undefined },
+        woman: { small: "red", medium: "red", large: undefined },
+        water: { small: "blue", medium: "blue", large: undefined },
+        fire: { small: "orange", medium: "orange", large: undefined },
+        flame: { small: "orange", medium: "orange", large: undefined },
+        wind: { small: "grey", medium: "grey", large: undefined },
+        earth: { small: "turquoise", medium: "turquoise", large: undefined },
+        sadness: { small: "yellow", medium: "yellow", large: undefined },
+        fear: { small: "yellow", medium: "yellow", large: undefined },
+        joy: { small: "yellow", medium: "yellow", large: undefined },
+        anger: { small: "yellow", medium: "yellow", large: undefined },
+        level1: { small: "turquoise", medium: "turquoise", large: undefined },
+        level2: { small: "turquoise", medium: "turquoise", large: undefined },
+        level3: { small: "turquoise", medium: "turquoise", large: undefined },
+        level4: { small: "turquoise", medium: "turquoise", large: undefined },
+        level5: { small: "turquoise", medium: "turquoise", large: undefined },
+        level6: { small: "turquoise", medium: "turquoise", large: undefined },
+        level7: { small: "turquoise", medium: "turquoise", large: undefined },
+        level8: { small: "turquoise", medium: "turquoise", large: undefined },
+      };
 
-     const colorClassKey = colorMapping[variant]?.[size as IconSize]
-     if (colorClassKey) {
-       setColorClass(IconNS.color[colorClassKey][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue]);
-     } else {
-       setColorClass("bg-none");
-     }
-   }
+      const colorClassKey = colorMapping[variant]?.[size as IconSize];
+      if (colorClassKey) {
+        setColorClass(IconNS.color[colorClassKey][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue]);
+      } else {
+        setColorClass("bg-none");
+      }
+    }
   }, [variant, size]);
-
-  // useEffect(() => {
-  //   colorFunc(variant)
-  // }, [colorFunc, variant]);
 
   return (
     <div className={cn(

@@ -5,19 +5,30 @@ import ChatEftSvg from "@/public/images/svg/chat/message-eft.svg";
 import ChatUserSvg from "@/public/images/svg/chat/message-user.svg";
 
 interface IMessageProps {
-  index: number;
+  // index: number;
   message: string;
   type: "user" | "eft";
+  isFirstMessage: boolean
 }
 
-export const Message: FC<IMessageProps> = ({ index, message, type }) => {
+export const Message: FC<IMessageProps> = (
+  {
+    // index,
+    message,
+    type,
+    isFirstMessage
+  }
+  ) => {
   return (
     <div
       className={twMerge(
         "relative ml-0 mr-[43px] w-fit rounded-[20px] bg-mint-700 px-4 py-2.5 shadow-dialogOnBoarding",
-        index === 0 && type === "eft" && "rounded-tl-none",
-        index === 0 && type === "user" && "rounded-tr-none",
-        type === "user" && "ml-[43px] mr-0 bg-gold",
+        !isFirstMessage && type === "eft" && "rounded-tl-none",
+        !isFirstMessage && type === "user" && "rounded-tr-none",
+        // isFirstMessage && "mb-[14px]",
+        type === "eft" && "rounded-tl-none ml-[65px]",
+        type === "user" && "rounded-tr-none",
+        type === "user" && "ml-[43px] mr-[65px] bg-gold",
       )}
     >
       <Typography
@@ -34,7 +45,8 @@ export const Message: FC<IMessageProps> = ({ index, message, type }) => {
       <div
         className={twMerge(
           "absolute top-0 hidden",
-          index === 0 && "block",
+          // "absolute top-0 block",
+          isFirstMessage && "block",
           type === "eft" && "-left-[11px]",
           type === "user" && "-right-[10px]",
         )}
