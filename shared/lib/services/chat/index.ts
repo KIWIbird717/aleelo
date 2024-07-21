@@ -50,7 +50,7 @@ export namespace ChatService {
     );
   };
 
-  //PUT /game-chat/practices/${practiceId}/send-message
+  //PUT /game-chat/practice/${practiceId}/send-message
   export const sendPracticeMessage = (practiceId: string) => {
     return errorHandler(
       thisName("sendPracticeMessage"),

@@ -2,10 +2,11 @@ import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
 import { useAppDispatch } from "@/shared/lib/redux-store/hooks";
 import { UserSlice } from "@/shared/lib/redux-store/slices/user-slice/userSlice";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getCurrentGame } from "../func/game";
 import { UserService } from "@/shared/lib/services/user";
 import { GameService } from "@/shared/lib/services/game";
+import { PracticeService } from "@/shared/lib/services/practice";
 
 export const useStages = (chatPageRoute: string) => {
   const dispatch = useAppDispatch();
@@ -16,12 +17,24 @@ export const useStages = (chatPageRoute: string) => {
     const logger = new Logger("useStages");
     try {
       await GameService.finishOnboarding();
-
       // создание игры
       const createdGame = await getCurrentGame();
+
+      const { data } = await PracticeService.getPractices(
+        {
+          gameId: createdGame?.id,
+          limit: 50,
+          offset: 0,
+        },
+      );
+
+      const cellOne = data.find((item) => item.cell === 1)
+
       if (createdGame) {
         currentGame.set({
           id: createdGame.id,
+          chatId: cellOne?.chat.id!,
+          practiceId: cellOne?.id!,
         });
       }
 

@@ -1,17 +1,16 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import SpiralIcon from "@/public/images/svg/icons/spiral.svg";
 import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
 
 interface IShareAndPracticeBtnsProps {
   padding: number;
+  link: string
 }
 
-export const ShareAndPracticeBtns: FC<IShareAndPracticeBtnsProps> = ({ padding }) => {
-  const locale = useLocale();
+export const ShareAndPracticeBtns: FC<IShareAndPracticeBtnsProps> = ({ padding, link }) => {
   const { push } = useRouter();
-  const redirect = () => push(`/${locale}/chat`);
+  const redirect = () => push(link);
 
   return (
     <div

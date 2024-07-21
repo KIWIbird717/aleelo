@@ -8,6 +8,7 @@ const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion
 
 export interface IAudioPlayerProps extends IPlayerProps {
   padding: number;
+  link: string
 }
 
 export const AudioPlayer: FC<IAudioPlayerProps> = (props) => {
@@ -24,7 +25,7 @@ export const AudioPlayer: FC<IAudioPlayerProps> = (props) => {
     >
       <Player width={props.width} onPlayPause={props.onPlayPause} />
 
-      <ShareAndPracticeBtns padding={props.padding} />
+      <ShareAndPracticeBtns padding={props.padding} link={props.link} />
       <div className="relative h-[43.71vh] w-[57.34vw] overflow-hidden rounded-t-full object-cover after:absolute after:top-0 after:block after:h-[43.71vh] after:w-[57.34vw] after:rounded-t-full after:shadow-[inset_0px_4px_24px_rgba(0,0,0,0.7)] after:content-['']">
         <Image className="z-[-1]" src={ImagePractice} alt={"img-practice"} />
       </div>

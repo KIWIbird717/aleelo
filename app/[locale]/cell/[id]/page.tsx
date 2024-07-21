@@ -26,7 +26,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
   const logger = new Logger(PracticePage.name);
   const locale = useLocale();
   const [isShowText, setIsShowText] = useState(false);
-
+  const link = `/${locale}/chat`
   const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
@@ -79,7 +79,7 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {!isShowText && <AudioPlayer width={width} padding={padding} />}
+        {!isShowText && <AudioPlayer width={width} padding={padding} link={link} />}
       </AnimatePresence>
 
       <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={isShowText} onHide={onHide} />

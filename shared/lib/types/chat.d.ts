@@ -10,8 +10,8 @@ export interface PostMessageOptions {
 }
 
 export interface IPagination {
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 interface IPostMessageResult {

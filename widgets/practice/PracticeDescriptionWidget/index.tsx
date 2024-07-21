@@ -11,6 +11,7 @@ import { FC } from "react";
 import dynamic from "next/dynamic";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
 import { useDescriptionShow } from "./shared/hooks/useDescriptionShow";
+import { useLocale } from "next-intl";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -23,6 +24,9 @@ type PracticeDescriptionWidgetProps = {
 } & Pick<IAudioPlayerProps, "onPlayPause">;
 
 export const PracticeDescriptionWidget: FC<PracticeDescriptionWidgetProps> = (props) => {
+  const locale = useLocale();
+
+  const link = `/${locale}/onboarding/practice`
   return (
     <>
       <AnimatePresence initial={true} mode={"sync"}>
@@ -54,6 +58,7 @@ export const PracticeDescriptionWidget: FC<PracticeDescriptionWidgetProps> = (pr
             width={props.width}
             padding={props.padding}
             onPlayPause={props.onPlayPause}
+            link={link}
           />
         )}
       </AnimatePresence>

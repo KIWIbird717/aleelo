@@ -5,6 +5,8 @@ const CURRENT_GAME_STORAGE_KEY = "CURRENT_GAME";
 // shema
 export type CurrentGameType = {
   id: string;
+  chatId: string
+  practiceId: string
 };
 
 /**
