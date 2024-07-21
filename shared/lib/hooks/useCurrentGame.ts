@@ -2,6 +2,7 @@ import { Logger } from "../utils/logger/Logger";
 
 const CURRENT_GAME_STORAGE_KEY = "CURRENT_GAME";
 
+// shema
 export type CurrentGameType = {
   id: string;
 };
@@ -18,10 +19,12 @@ export type CurrentGameType = {
 export const useCurrentGame = () => {
   const logger = new Logger("useCurrentGame");
 
+  // перезаписать
   const set = (currentGame: CurrentGameType) => {
     return localStorage.setItem(CURRENT_GAME_STORAGE_KEY, JSON.stringify(currentGame));
   };
 
+  // обновить и оставить предыдущие значения
   const update = (updates: Partial<CurrentGameType>) => {
     if (has()) {
       const currentGame = get();

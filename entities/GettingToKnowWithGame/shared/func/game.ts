@@ -4,14 +4,16 @@ import { ChatService } from "@/shared/lib/services/chat";
 
 export const getCurrentGame = async (): Promise<{ id: string } | undefined> => {
   const logger = new Logger("getCurrentGame");
+
   try {
+    // если нудно получить предыдущие данные
     const gameStatusResponse = await GameService.getGameStatus();
-    await GameService.makeStep();
     return { id: gameStatusResponse.data.game.id };
   } catch (error) {
     logger.warn("GET /game/status request was not successful");
 
     try {
+      // если заходит в первый раз
       const createdGameResponse = await ChatService.createGame();
       await GameService.makeStep();
       return { id: createdGameResponse.data.id };

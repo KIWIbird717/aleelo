@@ -7,6 +7,8 @@ game-chat/practices/{practiceId}/send-message берем из getPractices id - 
 /getMessages получаем историю чата, передаем chat.id практики из getPractices
 
 На этапе онбординга (создание игры)
+
+/postMessage
 Этапы:
 Выбираем сферу в на которой фокусируемся (Любовь, семья, деньги ...)
 
