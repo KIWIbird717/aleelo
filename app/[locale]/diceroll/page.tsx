@@ -23,9 +23,9 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   const diceRoll = searchParams.get("diceRoll");
   const result = Number(diceRoll);
 
-  const {back} = useRouter()
+  const { back } = useRouter();
 
-  const redirectBack = () => back()
+  const redirectBack = () => back();
 
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
@@ -89,7 +89,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       <AnimatePresence initial={false}>
         {isIntroAnimationVisible && (
           <motion.div exit={{ opacity: 0 }} transition={{ type: "tween", stiffness: 300 }}>
-            <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack onHide={redirectBack}/>
+            <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack onHide={redirectBack} />
           </motion.div>
         )}
       </AnimatePresence>
