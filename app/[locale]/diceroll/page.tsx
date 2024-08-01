@@ -6,7 +6,7 @@ import { View } from "@/shared/layout/View";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { Navbar } from "@/entities/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import { AnimatePresence, motion } from "framer-motion";
+
 import Dice0 from "@/public/images/svg/diceroll/dice0.svg";
 import Dice1 from "@/public/images/svg/diceroll/dice1.svg";
 import Dice2 from "@/public/images/svg/diceroll/dice2.svg";
@@ -14,6 +14,10 @@ import Dice3 from "@/public/images/svg/diceroll/dice3.svg";
 import Dice4 from "@/public/images/svg/diceroll/dice4.svg";
 import { Button } from "@/shared/ui/Button/Button";
 import { twMerge } from "tailwind-merge";
+import dynamic from "next/dynamic";
+
+const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
+
 
 interface IDiceRollProps {}
 
@@ -64,17 +68,17 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
         )}
 
         <div className={"w-full h-[calc(100vh-160px)] flex flex-col justify-center items-center"}>
-          <motion.div className="flex flex-col justify-center items-center relative">
-            <motion.div
-              initial={isLifted ? { y: -20 } : {y: 0}}
-              animate={isRolling ? { rotate: 360 * 4 } : isLifted ? { y: -20 } : {}}
+          <MotionDiv className="flex flex-col justify-center items-center relative">
+            <MotionDiv
+              initial={isRolling ? { rotate: 360 * 4  } : isLifted ? { y: -20 } : {y: 0}}
+              animate={isRolling ? { rotate: 360 * 4 } : isLifted ? { y: -20 } : {y: 0}}
               transition={isLifted ? { duration: 0.5 } : { duration: 3, repeat: isRolling ? Infinity : 0 }}
             >
               {currentImage}
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
 
-          <motion.div
+          <MotionDiv
             className="w-[282px] h-[42px] bg-gradient-triangle-shadow mt-[36px] blur-[10px]"
           />
 
@@ -97,7 +101,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
         </div>
 
         {isCompleted && (
-          <motion.div
+          <MotionDiv
             initial={{ y: -50 }}
             animate={{ y: 0 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -110,7 +114,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
             >
               Далее
             </Button>
-          </motion.div>
+          </MotionDiv>
         )}
       </div>
 
