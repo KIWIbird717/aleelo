@@ -16,17 +16,15 @@ import { useSearchParams } from "next/navigation";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-interface IDiceRollProps {
-
-}
+interface IDiceRollProps {}
 
 const DiceRoll: NextPage<IDiceRollProps> = () => {
   const { svgGRef, svgRef } = useSizes();
   const searchParams = useSearchParams();
-  const diceRoll = searchParams.get('diceRoll');
-  const result = Number(diceRoll)
+  const diceRoll = searchParams.get("diceRoll");
+  const result = Number(diceRoll);
 
-  console.log({result});
+  console.log({ result });
 
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
