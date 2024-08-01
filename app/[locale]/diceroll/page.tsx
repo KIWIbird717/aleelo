@@ -18,10 +18,15 @@ import dynamic from "next/dynamic";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-
 interface IDiceRollProps {}
 
-const diceImages = [<Dice0 />, <Dice1 />, <Dice2 />, <Dice3 />, <Dice4 />];
+const diceImages = [
+  <Dice0 key={"Dice0"} />,
+  <Dice1 key={"Dice1"} />,
+  <Dice2 key={"Dice2"} />,
+  <Dice3 key={"Dice3"} />,
+  <Dice4 key={"Dice4"} />,
+];
 
 const DiceRoll: NextPage<IDiceRollProps> = () => {
   const { svgGRef, svgRef } = useSizes();
@@ -52,14 +57,16 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   };
 
   return (
-    <View backgroundEffect="gradient" className={"pt-[35px] relative"}>
+    <View backgroundEffect="gradient" className={"relative pt-[35px]"}>
       <div onClick={handleRoll} className={"h-full"}>
         {!isRolling && (
           <>
             <div className={""}>
               <Typography
                 tag={"h1"}
-                className={"text-center text-[24px] leading-8 font-semibold !text-gold text-shadow-gold"}
+                className={
+                  "text-center text-[24px] font-semibold leading-8 !text-gold text-shadow-gold"
+                }
               >
                 {isCompleted ? "Ваш бросок:" : "Сделай ход"}
               </Typography>
@@ -67,32 +74,36 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
           </>
         )}
 
-        <div className={"w-full h-[calc(100vh-160px)] flex flex-col justify-center items-center"}>
-          <MotionDiv className="flex flex-col justify-center items-center relative">
+        <div className={"flex h-[calc(100vh-160px)] w-full flex-col items-center justify-center"}>
+          <MotionDiv className="relative flex flex-col items-center justify-center">
             <MotionDiv
-              initial={isRolling ? { rotate: 360 * 4  } : isLifted ? { y: -20 } : {y: 0}}
-              animate={isRolling ? { rotate: 360 * 4 } : isLifted ? { y: -20 } : {y: 0}}
-              transition={isLifted ? { duration: 0.5 } : { duration: 3, repeat: isRolling ? Infinity : 0 }}
+              initial={isRolling ? { rotate: 360 * 4 } : isLifted ? { y: -20 } : { y: 0 }}
+              animate={isRolling ? { rotate: 360 * 4 } : isLifted ? { y: -20 } : { y: 0 }}
+              transition={
+                isLifted ? { duration: 0.5 } : { duration: 3, repeat: isRolling ? Infinity : 0 }
+              }
             >
               {currentImage}
             </MotionDiv>
           </MotionDiv>
 
-          <MotionDiv
-            className="w-[282px] h-[42px] bg-gradient-triangle-shadow mt-[36px] blur-[10px]"
-          />
+          <MotionDiv className="mt-[36px] h-[42px] w-[282px] bg-gradient-triangle-shadow blur-[10px]" />
 
           {isCompleted && (
             <div className={"relative bottom-[10px]"}>
               <Typography
                 tag={"p"}
-                className={twMerge("!absolute w-full font-semibold text-center text-[72px] leading-[118px] diceroll-gradient z-[1]")}
+                className={twMerge(
+                  "diceroll-gradient !absolute z-[1] w-full text-center text-[72px] font-semibold leading-[118px]",
+                )}
               >
                 {result}
               </Typography>
               <Typography
                 tag={"p"}
-                className={twMerge("relative font-semibold text-center text-[72px] leading-[118px] !text-diceroll z-[0]")}
+                className={twMerge(
+                  "relative z-[0] text-center text-[72px] font-semibold leading-[118px] !text-diceroll",
+                )}
               >
                 {result}
               </Typography>
@@ -105,12 +116,12 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
             initial={{ y: -50 }}
             animate={{ y: 0 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="flex justify-center items-center mt-5 fixed bottom-8 w-full"
+            className="fixed bottom-8 mt-5 flex w-full items-center justify-center"
           >
             <Button
               variant={"green"}
               size={"large"}
-              className="w-[167px] !text-white text-shadow-deep-blue font-semibold text-[20px] leading-8"
+              className="w-[167px] text-[20px] font-semibold leading-8 !text-white text-shadow-deep-blue"
             >
               Далее
             </Button>
