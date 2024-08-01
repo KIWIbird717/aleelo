@@ -20,15 +20,14 @@ export const useStages = (chatPageRoute: string) => {
       // создание игры
       const createdGame = await getCurrentGame();
 
-      const { data } = await PracticeService.getPractices(
-        {
-          gameId: createdGame?.id,
-          limit: 50,
-          offset: 0,
-        },
-      );
+      if (!createdGame?.id) return;
 
-      const cellOne = data.find((item) => item.cell === 1)
+      const { data } = await PracticeService.getPractices(createdGame?.id, {
+        limit: 50,
+        offset: 0,
+      });
+
+      const cellOne = data.find((item) => item.cell === 1);
 
       if (createdGame) {
         currentGame.set({
