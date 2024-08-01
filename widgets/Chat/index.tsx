@@ -5,39 +5,41 @@ import SendIcon from "@/public/images/svg/chat/send.svg";
 import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";
-import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
-import { useMessage } from "@/shared/lib/hooks/useMessage";
+import { IUseMessage, useMessage } from "@/shared/lib/hooks/useMessage";
+import { Button } from "@/shared/ui/Button/Button";
+import { IOptions } from "@/app/[locale]/onboarding/practice/page";
+import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 interface IChatProps {
   svgHeight: number;
   height: number;
+  options?: IOptions[]
+  onChangeChoose: (choose: IOptions) => void
+  messageObj: IUseMessage
 }
 
-export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
-  const [input, setInput] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+export const Chat: FC<IChatProps> = (
+  {
+    svgHeight,
+    height,
+    options,
+    onChangeChoose,
+    messageObj
+  },
+) => {
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
-  const { messages, addMessage } = useMessage();
-
-  const currentGame = useCurrentGame();
-
-  const onBlur = () => setIsFocused(false);
-  const onFocus = () => setIsFocused(true);
-
-  const sendMessage = () => {
-    addMessage(input)
-    setInput("");
-    onBlur();
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      sendMessage()
-      event.currentTarget.blur()
-    }
-  };
+  const {
+    isFocused,
+    messages,
+    input,
+    sendMessage,
+    handleKeyDown,
+    onFocus,
+    onBlur,
+    onChangeValue
+  } = messageObj
 
   useEffect(() => {
     setBottomInput(height / 2 - svgHeight);
@@ -56,6 +58,7 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
         animate={{ opacity: isFocused ? 0.3 : 1 }}
         transition={{ duration: 0.3 }}
       >
+
         <AnimatePresence initial={false}>
           {messages.map((message, index) => {
             const showAvatar = index === 0 || messages[index].type !== messages[index - 1].type;
@@ -73,6 +76,26 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
             );
           })}
         </AnimatePresence>
+
+        {!!options &&
+          <div
+            className={"flex flex-col items-end gap-4"}
+          >
+            <div className={"flex flex-col items-end gap-4"}>
+              {options?.map((option, index) => {
+                return (
+                  <Button key={index}
+                          variant={"yellow"}
+                          size={"small"}
+                          onClick={() => onChangeChoose(option)}
+                  >
+                    {option.title}
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
+        }
       </MotionDiv>
 
       <MotionDiv
@@ -94,7 +117,7 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height }) => {
           onKeyDown={handleKeyDown}
           setFocus={onFocus}
           setBlur={onBlur}
-          onChange={(e) => setInput(e.currentTarget.value)}
+          onChange={(e) => onChangeValue(e.currentTarget.value)}
         />
       </MotionDiv>
     </div>

@@ -225,3 +225,10 @@ h5 {
   -webkit-text-fill-color: transparent;
   position: relative;
 }
+
+.diceroll-gradient {
+  background: linear-gradient(180deg, #FEF5C9 0%, #FCC400 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}

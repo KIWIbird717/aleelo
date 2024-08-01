@@ -3,6 +3,8 @@ export enum GameChatBlockUserResponseEnum {
   submitRequestExplain = 'submitRequestExplain',
   submitRequest = 'submitRequest',
   showRequestExamples = 'showRequestExamples',
+
+  //сферы выбора
   chooseSphereGlory = 'chooseSphereGlory',
   chooseSphereFamily = 'chooseSphereFamily',
   chooseSphereHealth = 'chooseSphereHealth',
@@ -10,6 +12,8 @@ export enum GameChatBlockUserResponseEnum {
   chooseSphereLove = 'chooseSphereLove',
   chooseSphereSpirituality = 'chooseSphereSpirituality',
   chooseSphereSelfRealisation = 'chooseSphereSelfRealisation',
+
+  //
   iAmReadyToComposeRequest = 'iAmReadyToComposeRequest',
 
   // Submit report

@@ -18,7 +18,7 @@ const ChatPage: NextPage<IChatPageProps> = () => {
 
   return (
     <View className={"flex flex-col"} backgroundEffect={"gradient"}>
-      <Chat svgHeight={svgHeight!} height={height} />
+      {/*<Chat svgHeight={svgHeight!} height={height} />*/}
       <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={true} onHide={() => back()} />
     </View>
   );

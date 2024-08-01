@@ -40,6 +40,8 @@ const config: Config = {
         "gradient-modal-sheet": "linear-gradient(180deg, #C9E2E7 0.01%, #A1C6CC 92.81%)",
         "gradient-border-edit":
           "linear-gradient(180deg, rgba(123, 199, 196, 0.5) 0%, rgba(62, 137, 141, 0.5) 100%)",
+        "gradient-triangle-shadow":
+          "radial-gradient(50% 50% at 50% 50%, rgba(28, 55, 61, 0.6) 0%, rgba(28, 55, 61, 0) 100%)",
       },
       keyframes: {
         gradientMove: {
@@ -225,8 +227,14 @@ const config: Config = {
         ".text-shadow-static": {
           textShadow: "0px 5px 8px rgba(28, 55, 61, 0.4), 0px 1px 2px rgba(17, 61, 95, 1)"
         },
+        ".text-diceroll": {
+          textShadow: "0px 8px 14px rgba(4, 53, 69, 0.45)"
+        },
         ".text-shadow-satisfied": {
           textShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)"
+        },
+        ".text-shadow-deep-blue": {
+          textShadow: "0px 1px 2px rgba(17, 61, 95, 1)"
         }
       };
 

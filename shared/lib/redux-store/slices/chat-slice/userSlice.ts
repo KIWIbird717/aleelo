@@ -4,7 +4,22 @@ import { IChatSlice, IMessage } from "@/shared/lib/redux-store/slices/chat-slice
 
 export namespace ChatSlice {
   const initialState: IChatSlice = {
-    messages: []
+    messages: [
+      {
+        id: new Date().toISOString(),
+        text: "Сейчас важный момент игры",
+        createdAt: new Date(),
+        type: "eft",
+        imageUrl: "",
+      },
+      {
+        id: new Date().toISOString(),
+        text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
+        createdAt: new Date(),
+        type: "eft",
+        imageUrl: "",
+      }
+    ]
   };
 
   export const chatSlice = createSlice({
