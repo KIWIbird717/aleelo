@@ -57,7 +57,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
     }
   }, [result, isLoading]);
 
-// Эффект для управления состоянием загрузки
+  // Эффект для управления состоянием загрузки
   useEffect(() => {
     if (isLoopAnimationVisible) {
       setTimeout(() => {
@@ -65,7 +65,6 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       }, 3000);
     }
   }, [isLoopAnimationVisible]);
-
 
   return (
 <<<<<<< HEAD
@@ -214,14 +213,11 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       </MotionDiv>}
 
       <AnimatePresence initial={false}>
-        {isIntroAnimationVisible &&
-          <motion.div
-            exit={{ opacity: 0 }}
-            transition={{ type: "tween", stiffness: 300 }}
-          >
+        {isIntroAnimationVisible && (
+          <motion.div exit={{ opacity: 0 }} transition={{ type: "tween", stiffness: 300 }}>
             <Navbar svgRef={svgRef} svgGRef={svgGRef} />
           </motion.div>
-        }
+        )}
       </AnimatePresence>
     </View>
   );
