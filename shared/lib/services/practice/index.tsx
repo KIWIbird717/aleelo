@@ -8,11 +8,13 @@ export namespace PracticeService {
     return `${namespaceName} > ${serviceName}`;
   };
 
-  //GET game/practice
-  export const getPractices = (params: { limit?: number; offset?: number; gameId?: string }) => {
+  // GET game/practices
+  export const getPractices = (gameId: string, pagination: IPagination) => {
     return errorHandler(
       thisName("getPractices"),
-      serverApi.get<Array<IPractice>>("/game/practices", { params }),
+      serverApi.get<Array<IPractice>>("/game/practices", {
+        params: { ...pagination, gameId },
+      }),
     );
   };
 }

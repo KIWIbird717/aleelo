@@ -216,18 +216,18 @@ h5 {
 .practice-gradient-text {
   background-clip: text;
   color: transparent;
-  background-image: linear-gradient(180deg, #C9E2E7 8.26%, rgba(201, 226, 231, 0) 100%);
+  background-image: linear-gradient(180deg, #c9e2e7 8.26%, rgba(201, 226, 231, 0) 100%);
 }
 
 .practice-gradient-static {
-  background: linear-gradient(180deg, #C9E2E7 0.01%, #A1C6CC 92.81%);
+  background: linear-gradient(180deg, #c9e2e7 0.01%, #a1c6cc 92.81%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
 }
 
 .diceroll-gradient {
-  background: linear-gradient(180deg, #FEF5C9 0%, #FCC400 100%);
+  background: linear-gradient(180deg, #fef5c9 0%, #fcc400 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
