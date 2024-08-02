@@ -76,8 +76,6 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
         });
 
         setChoose(null);
-
-        console.log({ PostMessageResult });
       }
     })();
   }, [choose, currentGame?.chatId, setChoose]);
