@@ -1,14 +1,13 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
-import { Typography } from "@/shared/ui/Typography/Typography";
 import { Navbar } from "@/entities/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import Lottie, { Options as LottieOptions } from "react-lottie";
 
+import Lottie from "react-lottie";
 import { Button } from "@/shared/ui/Button/Button";
-import { twMerge } from "tailwind-merge";
 import dynamic from "next/dynamic";
 
 import DiceIntro from "@/public/lotties/Dice_intro_anim.json";
@@ -42,25 +41,11 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   const { svgGRef, svgRef } = useSizes();
   let result = 2;
 
-  const introAnimationRef = useRef<Lottie>(null); // Реф для начальной анимации
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
   const [isLoopAnimationVisible, setIsLoopAnimationVisible] = useState(false); // Состояние видимости циклической анимации
   const [isEndAnimationVisible, setIsEndAnimationVisible] = useState(false); // Состояние видимости конечной анимации
   const [isLoading, setIsLoading] = useState(true); // Состояние загрузки
-
-  // Настройки для Lottie анимаций
-  const defaultOptions: LottieOptions = {
-    loop: false,
-    autoplay: false,
-    animationData: DiceIntro,
-  };
-
-  const defaultOptionsLoop: LottieOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: DiceLoop,
-  };
 
   // Эффект для управления конечной анимацией после загрузки и наличия результата
   useEffect(() => {
@@ -81,33 +66,6 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
     }
   }, [isLoopAnimationVisible]);
 
-  // Используем useMemo для выбора конечной анимации в зависимости от результата
-  const endAnimation = useMemo(() => {
-    switch (result) {
-      case 1: {
-        return DiceIntro1;
-      }
-      case 2: {
-        return DiceIntro2;
-      }
-      case 3: {
-        return DiceIntro3;
-      }
-      case 4: {
-        return DiceIntro4;
-      }
-      default: {
-        return;
-      }
-    }
-  }, [result]);
-
-  // Настройки для конечной анимации
-  const defaultOptionsEnd: LottieOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: endAnimation,
-  };
 
   return (
 <<<<<<< HEAD
@@ -253,10 +211,18 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
         >
           Далее
         </Button>
-      </MotionDiv>
+      </MotionDiv>}
 
-
-      <Navbar svgRef={svgRef} svgGRef={svgGRef} />
+      <AnimatePresence initial={false}>
+        {isIntroAnimationVisible &&
+          <motion.div
+            exit={{ opacity: 0 }}
+            transition={{ type: "tween", stiffness: 300 }}
+          >
+            <Navbar svgRef={svgRef} svgGRef={svgGRef} />
+          </motion.div>
+        }
+      </AnimatePresence>
     </View>
   );
 };

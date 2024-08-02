@@ -333,7 +333,7 @@ Logger.debug("debug message"); // [DEBUG] 05:10:21 - debug message
 Logger.warn("warn message"); // [WARN] 05:10:21 - warn message
 Logger.error("error message"); // [ERROR] 05:10:21 - error message
 
-// Логирование c контекста
+// Логирование DiceRollHeader контекста
 const logger = new Logger("context");
 logger.log("log message with context"); // [LOG] 05:10:21 [context] - log message with context
 logger.debug("debug message with context"); // [DEBUG] 05:10:21 [context] - debug message with context
