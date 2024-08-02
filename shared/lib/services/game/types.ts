@@ -33,10 +33,34 @@ export namespace GameServiceTypes {
   };
 
   /** GET /game/status */
-  export interface GameStatusResult {
-    game: GameModelSnapshotType;
+  export type GameStatusResult = {
+    game: {
+      request: any | null;
+      status: string;
+      ended: any | null;
+      sphere: any | null;
+      id: string;
+      created: string;
+      talisman: any | null;
+      chat: {
+        id: string;
+        created: string;
+      };
+    };
+    currentStep: {
+      cell: number;
+      diceRoll: any | null;
+      reportAfter: string;
+      intensity: any | null;
+      emotion: any | null;
+      reportSkipped: boolean;
+      id: string;
+      usefulness: any | null;
+      created: string;
+      report: any | null;
+    };
     stepsCount: number;
     practiceCompleted: boolean;
     numberOfGames: number;
-  }
+  };
 }

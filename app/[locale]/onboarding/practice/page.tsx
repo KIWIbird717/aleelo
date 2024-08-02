@@ -23,39 +23,40 @@ const options: IOptions[] = [
   {
     title: "Слава",
     value: GameChatBlockUserResponseEnum.chooseSphereGlory,
-  }, {
+  },
+  {
     title: "Семья",
     value: GameChatBlockUserResponseEnum.chooseSphereFamily,
-  }, {
+  },
+  {
     title: "Здоровье",
     value: GameChatBlockUserResponseEnum.chooseSphereHealth,
-  }, {
+  },
+  {
     title: "Деньги",
     value: GameChatBlockUserResponseEnum.chooseSphereMoney,
-  }, {
+  },
+  {
     title: "Любовь",
     value: GameChatBlockUserResponseEnum.chooseSphereLove,
-  }, {
+  },
+  {
     title: "Духовность",
     value: GameChatBlockUserResponseEnum.chooseSphereSpirituality,
-  }, {
+  },
+  {
     title: "Самореализация",
     value: GameChatBlockUserResponseEnum.chooseSphereSelfRealisation,
   },
 ];
 
-interface IPracticesPageProps {
-}
+interface IPracticesPageProps {}
 
 const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const logger = new Logger("ChatPage");
 
   const messageObj = useMessage();
-  const {
-    choose,
-    setChoose,
-    onChangeChoose,
-  } = messageObj;
+  const { choose, setChoose, onChangeChoose } = messageObj;
 
   const { height, svgGRef, svgRef, svgHeight } = useSizes();
   const { back } = useRouter();
@@ -65,9 +66,11 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
   useEffect(() => {
     (async () => {
       if (choose) {
+        if (!currentGame?.id) return;
+
         const { data: PostMessageResult } = await ChatService.postMessage({
           blockType: GameChatBlockEnum.chooseSphere,
-          chatId: "af99157b-88ba-4c0b-b2b9-91e812f7e355",
+          chatId: currentGame.chatId,
           response: choose.value,
           message: choose.title,
         });
@@ -76,7 +79,6 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
 
         console.log({ PostMessageResult });
       }
-
     })();
   }, [choose, currentGame?.chatId, setChoose]);
 
@@ -85,19 +87,22 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
       // await ChatService.resetGame()
 
       await ChatService.sendPracticeMessage(currentGame?.practiceId!);
-      const { data } = await ChatService.getMessages(currentGame?.chatId!, { offset: 0, limit: 50 });
+      const { data } = await ChatService.getMessages(currentGame?.chatId!, {
+        offset: 0,
+        limit: 50,
+      });
       console.log({ data });
     })();
   }, [currentGame?.chatId, currentGame?.practiceId, choose]);
 
-
   return (
     <View className={"flex flex-col"} backgroundEffect={"gradient"}>
-      <Chat svgHeight={svgHeight!}
-            height={height}
-            options={options}
-            onChangeChoose={onChangeChoose}
-            messageObj={messageObj}
+      <Chat
+        svgHeight={svgHeight!}
+        height={height}
+        options={options}
+        onChangeChoose={onChangeChoose}
+        messageObj={messageObj}
       />
       <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={true} onHide={() => back()} />
     </View>

@@ -26,18 +26,15 @@ const PracticePage: NextPage<IPracticePageProps> = () => {
   const logger = new Logger(PracticePage.name);
   const locale = useLocale();
   const [isShowText, setIsShowText] = useState(false);
-  const link = `/${locale}/chat`
+  const link = `/${locale}/chat`;
   const { width, svgGRef, svgRef, padding, svgHeight } = useSizes();
 
   useRequest(async () => {
     try {
       const { data } = await mediaApi.get(`/audio/cell-descriptions/en/1.mp3`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        responseType: "stream",
       });
+      console.log({ data });
     } catch (error) {
       logger.error(error);
     }

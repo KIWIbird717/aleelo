@@ -20,7 +20,7 @@ export const useStages = (chatPageRoute: string) => {
       // создание игры
       const createdGame = await getCurrentGame();
 
-      if (!createdGame?.id) return;
+      if (!createdGame?.chatId) return;
 
       const { data } = await PracticeService.getPractices(createdGame?.id, {
         limit: 50,
@@ -32,7 +32,7 @@ export const useStages = (chatPageRoute: string) => {
       if (createdGame) {
         currentGame.set({
           id: createdGame.id,
-          chatId: cellOne?.chat.id!,
+          chatId: createdGame.chatId || "",
           practiceId: cellOne?.id!,
         });
       }
