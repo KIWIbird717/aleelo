@@ -5,7 +5,6 @@ import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Navbar } from "@/entities/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import Lottie, { Options as LottieOptions } from "react-lottie";
 
 import Lottie from "react-lottie";
 import { Button } from "@/shared/ui/Button/Button";
