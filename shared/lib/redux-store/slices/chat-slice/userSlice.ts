@@ -1,36 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IChatSlice, IMessage } from "@/shared/lib/redux-store/slices/chat-slice/type";
+import { createSlice } from "@reduxjs/toolkit";
+import { IChatSlice } from "@/shared/lib/redux-store/slices/chat-slice/type";
+import { IChatMessage } from "@/shared/lib/types/chat-message";
 
 export namespace ChatSlice {
   const initialState: IChatSlice = {
-    messages: [
-      {
-        id: new Date().toISOString(),
-        text: "Сейчас важный момент игры",
-        createdAt: new Date(),
-        type: "eft",
-        imageUrl: "",
-      },
-      {
-        id: new Date().toISOString(),
-        text: "Закрой глаза и подумай, о какой сфере жизни твои мысли?",
-        createdAt: new Date(),
-        type: "eft",
-        imageUrl: "",
-      }
-    ]
+    messages: []
   };
 
   export const chatSlice = createSlice({
     name: "chat",
     initialState,
     reducers: {
-      addMessage: (state, action: PayloadAction<IMessage>) => {
+      addMessage: (state, action: PayloadAction<IChatMessage>) => {
+        console.log("push");
         state.messages.push(action.payload);
       },
-      getMessages: (state, action: PayloadAction<IMessage[]>) => {
-        state.messages = action.payload;
+      getMessages: (state, action: PayloadAction<IChatMessage[]>) => {
+        const newMessages = action.payload;
+
+        newMessages.forEach(newMessage => {
+          const exists = state.messages.some(message => message.id === newMessage.id);
+          if (!exists) {
+            state.messages.push(newMessage);
+          }
+        });
       },
     },
   });

@@ -27,17 +27,29 @@ type Props = {
 } & ComponentProps<"input">;
 
 export const Input = forwardRef<InputRefType, Props>((props, ref) => {
+  const {
+    setBlur,
+    setFocus,
+    disabled,
+    error,
+    icon,
+    classNameInput,
+    onClickButton,
+    isChat,
+    ...rest
+  } = props
+
   const [isFocused, setIsFocused] = useState(false);
 
   const inputRef = useRef<InputRefType>(null);
   useImperativeHandle<InputRefType, InputRefType>(ref, () => inputRef.current, []);
 
   const handleFocus = () => {
-    if (props.setFocus) props.setFocus();
+    if (setFocus) setFocus();
     setIsFocused(true);
   };
   const handleBlur = () => {
-    if (props.setBlur) props.setBlur();
+    if (setBlur) setBlur();
     setIsFocused(false);
   };
 
@@ -46,36 +58,36 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
       className={cn(
         isFocused && "shadow-inputActive transition-all duration-200 ease-out",
         "relative z-[10] h-[50px] w-full overflow-hidden rounded-full bg-turquoise-400 p-[2px]",
-        props.error && "bg-gradient-border-error",
-        props.disabled && "opacity-50 shadow-none",
+       error && "bg-gradient-border-error",
+        disabled && "opacity-50 shadow-none",
       )}
     >
       <input
         ref={inputRef}
-        disabled={props.disabled}
+        disabled={disabled}
         className={cn(
           "absolute left-[2px] top-[2px] z-[20] h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-full bg-white pl-[25px] pr-[25px] text-[16px] leading-[19.5px] outline-none transition-all duration-200 ease-out",
           styles.inputShadow,
-          props.error && `pr-[61px] ${styles.inputShadowError}`,
-          props.icon && "pr-[61px]",
-          props.disabled && `text-mint-950 shadow-none placeholder:text-mint-950`,
-          props.classNameInput,
+          error && `pr-[61px] ${styles.inputShadowError}`,
+         icon && "pr-[61px]",
+          disabled && `text-mint-950 shadow-none placeholder:text-mint-950`,
+          classNameInput,
         )}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        {...props}
+        {...rest}
       />
 
-      {props.icon && (
+      {icon && (
         <button className="absolute right-[20px] top-[13px] z-[21] cursor-pointer"
                 type={"button"}
-                onClick={props.onClickButton}
+                onClick={onClickButton}
         >
-          {props.icon}
+          {icon}
         </button>
       )}
       <AnimatePresence>
-        {props.error && !props.disabled && (
+        {error && !disabled && (
           <MotionDiv
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

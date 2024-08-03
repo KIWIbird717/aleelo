@@ -1,22 +1,24 @@
-import { IMessage } from "@/shared/lib/redux-store/slices/chat-slice/type";
 import { ChatSlice } from "@/shared/lib/redux-store/slices/chat-slice/userSlice";
 import { useAppDispatch, useAppSelector } from "@/shared/lib/redux-store/hooks";
 import { Dispatch, KeyboardEvent, SetStateAction, useState } from "react";
 import { IOptions } from "@/app/[locale]/onboarding/practice/page";
+import { IChatMessage } from "@/shared/lib/types/chat-message";
+import { IMessageSender } from "@/shared/lib/types/game-chat-message";
 
 export interface IUseMessage {
-  messages: IMessage[]
-  isFocused: boolean
-  input: string
-  choose: IOptions | null
-  sendMessage: () => void
-  handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void
-  onBlur: () => void
-  onFocus: () => void
-  onChangeValue: (value: string) => void
-  onChangeChoose: (choose: IOptions) => void
-  setChoose: Dispatch<SetStateAction<IOptions | null>>
+  messages: IChatMessage[];
+  isFocused: boolean;
+  input: string;
+  choose: IOptions | null;
+  sendMessage: () => void;
+  handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
+  onFocus: () => void;
+  onChangeValue: (value: string) => void;
+  onChangeChoose: (choose: IOptions) => void;
+  setChoose: Dispatch<SetStateAction<IOptions | null>>;
 }
+
 
 export const useMessage = () => {
   const dispatch = useAppDispatch();
@@ -31,26 +33,29 @@ export const useMessage = () => {
 
   const onChangeValue = (value: string) => setInput(value);
   const onChangeChoose = (choose: IOptions) => {
-    addMessage(choose.title);
+    // addMessage(choose);
     setChoose(choose);
   };
 
-  const addMessage = (input: string) => {
-    if (input.trim() === "") return;
+  const fetchMessages = (message: IChatMessage[]) => {
+    dispatch(ChatSlice.getMessages(message));
+  };
 
-    const newMessage: IMessage = {
+  const addMessage = (choose: IOptions ) => {
+    // if (input.trim() === "") return;
+
+    const newMessage = {
       id: new Date().toISOString(),
-      text: input,
-      createdAt: new Date(),
-      type: "user",
-      imageUrl: "",
+      created: new Date(),
+      sender: "user" as IMessageSender.User,
+      key: choose.key as any,
     };
 
-    dispatch(ChatSlice.addMessage(newMessage));
+    dispatch(ChatSlice.addMessage(newMessage as IChatMessage));
   };
 
   const sendMessage = () => {
-    addMessage(input);
+    addMessage(input, ""); //TODO: исправить
     setInput("");
     onBlur();
   };
@@ -74,5 +79,6 @@ export const useMessage = () => {
     onChangeValue,
     onChangeChoose,
     setChoose,
+    fetchMessages,
   };
 };

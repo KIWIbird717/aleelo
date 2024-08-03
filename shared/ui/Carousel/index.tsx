@@ -6,6 +6,7 @@ import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-reac
 
 import { cn } from "../../lib/utils/cn";
 import { Button } from "../ButtonShadcn";
+import { twMerge } from "tailwind-merge";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -17,6 +18,10 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
+};
+
+type CarouselContentProps = {
+  classNameContent?: string
 };
 
 type CarouselContextProps = {
@@ -134,12 +139,12 @@ const Carousel = React.forwardRef<
 });
 Carousel.displayName = "Carousel";
 
-const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselContentProps>(
+  ({ className, classNameContent, ...props }, ref) => {
     const { carouselRef, orientation } = useCarousel();
 
     return (
-      <div ref={carouselRef} className="overflow-hidden">
+      <div ref={carouselRef} className={twMerge("overflow-hidden", classNameContent )}>
         <div
           ref={ref}
           className={cn(

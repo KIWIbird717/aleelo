@@ -3,23 +3,22 @@ import Image from "next/image";
 import EftImage from "@/public/images/eft.png";
 import UserImage from "@/public/images/user.png";
 import { twMerge } from "tailwind-merge";
+import { IMessageSender } from "@/shared/lib/types/game-chat-message";
 
 interface IAvatarProps {
-  type: "user" | "eft";
-  photoUrl?: string;
+  sender: IMessageSender
   isFirstMessage: boolean;
 }
 
 export const Avatar: FC<IAvatarProps> = (
   {
-    photoUrl,
-    type,
+    sender,
     isFirstMessage,
   },
 ) => {
-  const image = type === "eft" ? EftImage : UserImage;
-  const isEft = type === "eft";
-  const isUser = type === "user";
+  const image = sender === "ai" ? EftImage : UserImage;
+  const isEft = sender === "ai";
+  const isUser = sender === "user";
 
   return (
     <div
@@ -41,7 +40,7 @@ export const Avatar: FC<IAvatarProps> = (
           >
             <Image
               src={image}
-              alt={`avatar-${type}`}
+              alt={`avatar-${sender}`}
               className={twMerge(
                 "flex-1 object-cover pl-[1.7px] pr-[3px] pt-[5px]",
                 isUser && "rounded-full pl-0 pr-0 pt-0",

@@ -11,54 +11,27 @@ import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { useEffect } from "react";
 import { ChatService } from "@/shared/lib/services/chat";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
-import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 import { useMessage } from "@/shared/lib/hooks/useMessage";
 
+
 export interface IOptions {
-  title: string;
-  value: GameChatBlockUserResponseEnum;
+  message: string;
+  // value: GameChatBlockUserResponseEnum | GameChatBlockEnum
+  key: GameChatBlockUserResponseEnum
 }
 
-const options: IOptions[] = [
-  {
-    title: "Слава",
-    value: GameChatBlockUserResponseEnum.chooseSphereGlory,
-  },
-  {
-    title: "Семья",
-    value: GameChatBlockUserResponseEnum.chooseSphereFamily,
-  },
-  {
-    title: "Здоровье",
-    value: GameChatBlockUserResponseEnum.chooseSphereHealth,
-  },
-  {
-    title: "Деньги",
-    value: GameChatBlockUserResponseEnum.chooseSphereMoney,
-  },
-  {
-    title: "Любовь",
-    value: GameChatBlockUserResponseEnum.chooseSphereLove,
-  },
-  {
-    title: "Духовность",
-    value: GameChatBlockUserResponseEnum.chooseSphereSpirituality,
-  },
-  {
-    title: "Самореализация",
-    value: GameChatBlockUserResponseEnum.chooseSphereSelfRealisation,
-  },
-];
+
 
 interface IPracticesPageProps {}
 
 const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const logger = new Logger("ChatPage");
+  const { height, svgGRef, svgRef, svgHeight } = useSizes();
 
   const messageObj = useMessage();
-  const { choose, setChoose, onChangeChoose } = messageObj;
+  const {fetchMessages} = messageObj
 
-  const { height, svgGRef, svgRef, svgHeight } = useSizes();
+  const { choose, setChoose, onChangeChoose } = messageObj;
   const { back } = useRouter();
   const { get } = useCurrentGame();
   const currentGame = get();
@@ -68,37 +41,43 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
       if (choose) {
         if (!currentGame?.id) return;
 
-        const { data: PostMessageResult } = await ChatService.postMessage({
-          blockType: GameChatBlockEnum.chooseSphere,
+        await ChatService.postMessage({
+          blockType: messageObj.messages[messageObj.messages.length - 2].blockType,
           chatId: currentGame.chatId,
-          response: choose.value,
-          message: choose.title,
+          response: choose.key,
+          message: choose.message,
         });
 
         setChoose(null);
+
+        await ChatService.sendPracticeMessage(currentGame?.practiceId!);
+        const { data } = await ChatService.getMessages(currentGame?.chatId!, {
+          offset: 0,
+          limit: 50,
+        });
+
+        fetchMessages(data.reverse())
       }
     })();
-  }, [choose, currentGame?.chatId, setChoose]);
+  }, [choose, currentGame?.chatId, currentGame?.id, setChoose]);
 
   useEffect(() => {
     (async () => {
-      // await ChatService.resetGame()
-
       await ChatService.sendPracticeMessage(currentGame?.practiceId!);
       const { data } = await ChatService.getMessages(currentGame?.chatId!, {
         offset: 0,
         limit: 50,
       });
-      console.log({ data });
+
+      fetchMessages(data.reverse())
     })();
-  }, [currentGame?.chatId, currentGame?.practiceId, choose]);
+  }, [currentGame?.chatId, currentGame?.practiceId]);
 
   return (
     <View className={"flex flex-col"} backgroundEffect={"gradient"}>
       <Chat
         svgHeight={svgHeight!}
         height={height}
-        options={options}
         onChangeChoose={onChangeChoose}
         messageObj={messageObj}
       />
