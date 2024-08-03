@@ -81,7 +81,7 @@ export const Chat: FC<IChatProps> = (
 
       </MotionDiv>
 
-      <MotionDiv
+      {!!messages && messages[messages.length - 1]?.blockType === "awesomeThenClickAndSetRequest" && <MotionDiv
         className={twMerge("fixed left-0 w-full px-4 blur-none")}
         style={{ bottom: `${svgHeight - 17}px` }}
         animate={{ y: isFocused ? -bottomInput : 0 }}
@@ -102,7 +102,7 @@ export const Chat: FC<IChatProps> = (
           setBlur={onBlur}
           onChange={(e) => onChangeValue(e.currentTarget.value)}
         />
-      </MotionDiv>
+      </MotionDiv>}
     </div>
   );
 };

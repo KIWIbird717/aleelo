@@ -4,8 +4,8 @@ import { Typography } from "@/shared/ui/Typography/Typography";
 import ChatEftSvg from "@/public/images/svg/chat/message-eft.svg";
 import ChatUserSvg from "@/public/images/svg/chat/message-user.svg";
 import { IMessageSender } from "@/shared/lib/types/game-chat-message";
-import localesRU from "@/public/locales/ru.json";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
+import { useTranslations } from "next-intl";
 
 interface IMessageProps {
   // index: number;
@@ -26,9 +26,11 @@ export const Message: FC<IMessageProps> = (
     response
   },
 ) => {
-  const titleAI = `chat_message_${messageKey}`
-  const titleUser = `chat_message_user_response_${response}`
-  const message = messageKey ? localesRU[titleAI] : localesRU[titleUser]
+  const t = useTranslations()
+
+  const titleAI = t(`chat_message_${messageKey}`)
+  const titleUser = t(`chat_message_user_response_${response}`)
+  const message = messageKey ? titleAI : titleUser
 
   return (
     <div
