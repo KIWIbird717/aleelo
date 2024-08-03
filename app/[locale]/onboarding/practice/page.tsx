@@ -12,14 +12,13 @@ import { useEffect } from "react";
 import { ChatService } from "@/shared/lib/services/chat";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 import { useMessage } from "@/shared/lib/hooks/useMessage";
+import { useOption } from "@/shared/lib/hooks/useOption";
 
 
 export interface IOptions {
   message: string;
-  // value: GameChatBlockUserResponseEnum | GameChatBlockEnum
   key: GameChatBlockUserResponseEnum
 }
-
 
 
 interface IPracticesPageProps {}
@@ -29,47 +28,45 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const { height, svgGRef, svgRef, svgHeight } = useSizes();
 
   const messageObj = useMessage();
+  const {optionState, onChangeChoose, onChangeBlockType} = useOption()
   const {fetchMessages} = messageObj
 
-  const { choose, setChoose, onChangeChoose } = messageObj;
   const { back } = useRouter();
   const { get } = useCurrentGame();
   const currentGame = get();
 
+  const handleFetchMessages = async () => {
+    await ChatService.sendPracticeMessage(currentGame?.practiceId!);
+    const { data } = await ChatService.getMessages(currentGame?.chatId!, {
+      offset: 0,
+      limit: 50,
+    });
+
+    fetchMessages(data.reverse())
+  }
+
   useEffect(() => {
     (async () => {
-      if (choose) {
+      if (optionState.key && optionState.message) {
         if (!currentGame?.id) return;
 
         await ChatService.postMessage({
           blockType: messageObj.messages[messageObj.messages.length - 2].blockType,
           chatId: currentGame.chatId,
-          response: choose.key,
-          message: choose.message,
+          response: optionState.key,
+          message: optionState.message,
         });
 
-        setChoose(null);
+        onChangeChoose(null, null);
 
-        await ChatService.sendPracticeMessage(currentGame?.practiceId!);
-        const { data } = await ChatService.getMessages(currentGame?.chatId!, {
-          offset: 0,
-          limit: 50,
-        });
-
-        fetchMessages(data.reverse())
+        await handleFetchMessages()
       }
     })();
-  }, [choose, currentGame?.chatId, currentGame?.id, setChoose]);
+  }, [currentGame?.chatId, currentGame?.id, onChangeChoose, optionState.key, optionState.message]);
 
   useEffect(() => {
     (async () => {
-      await ChatService.sendPracticeMessage(currentGame?.practiceId!);
-      const { data } = await ChatService.getMessages(currentGame?.chatId!, {
-        offset: 0,
-        limit: 50,
-      });
-
-      fetchMessages(data.reverse())
+      await handleFetchMessages()
     })();
   }, [currentGame?.chatId, currentGame?.practiceId]);
 
@@ -78,7 +75,6 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
       <Chat
         svgHeight={svgHeight!}
         height={height}
-        onChangeChoose={onChangeChoose}
         messageObj={messageObj}
       />
       <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={true} onHide={() => back()} />

@@ -14,7 +14,6 @@ const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion
 interface IChatProps {
   svgHeight: number;
   height: number;
-  onChangeChoose: (choose: IOptions) => void;
   messageObj: IUseMessage;
 }
 
@@ -22,7 +21,6 @@ export const Chat: FC<IChatProps> = (
   {
     svgHeight,
     height,
-    onChangeChoose,
     messageObj,
   },
 ) => {
@@ -74,7 +72,6 @@ export const Chat: FC<IChatProps> = (
           })}
 
           <Options messages={messages}
-                   onChangeChoose={onChangeChoose}
           />
 
         </AnimatePresence>

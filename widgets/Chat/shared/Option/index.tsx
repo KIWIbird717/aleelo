@@ -2,21 +2,22 @@ import { FC } from "react";
 import { Button } from "@/shared/ui/Button/Button";
 import { IOptions } from "@/app/[locale]/onboarding/practice/page";
 import dynamic from "next/dynamic";
+import { useOption } from "@/shared/lib/hooks/useOption";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 
 interface IOptionProps {
   options: IOptions[];
-  onChangeChoose: (choose: IOptions) => void;
 }
 
 export const Option: FC<IOptionProps> = (
   {
     options,
-    onChangeChoose
   },
 ) => {
+
+  const {onChangeChoose} = useOption()
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 50 }}
@@ -31,7 +32,9 @@ export const Option: FC<IOptionProps> = (
             <Button key={index}
                     variant={"yellow"}
                     size={"small"}
-                    onClick={() => onChangeChoose(option)}
+                    onClick={() => {
+                      onChangeChoose(option.message, option.key)
+                    }}
             >
               {option.message}
             </Button>

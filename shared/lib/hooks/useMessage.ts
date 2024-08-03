@@ -9,14 +9,14 @@ export interface IUseMessage {
   messages: IChatMessage[];
   isFocused: boolean;
   input: string;
-  choose: IOptions | null;
+  // choose: IOptions | null;
   sendMessage: () => void;
   handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
   onBlur: () => void;
   onFocus: () => void;
   onChangeValue: (value: string) => void;
-  onChangeChoose: (choose: IOptions) => void;
-  setChoose: Dispatch<SetStateAction<IOptions | null>>;
+  // onChangeChoose: (choose: IOptions) => void;
+  // setChoose: Dispatch<SetStateAction<IOptions | null>>;
 }
 
 
@@ -24,7 +24,8 @@ export const useMessage = () => {
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [choose, setChoose] = useState<IOptions | null>(null);
+  // const [choose, setChoose] = useState<IOptions | null>(null);
+
 
   const { messages } = useAppSelector((state) => state.chat);
 
@@ -32,10 +33,10 @@ export const useMessage = () => {
   const onFocus = () => setIsFocused(true);
 
   const onChangeValue = (value: string) => setInput(value);
-  const onChangeChoose = (choose: IOptions) => {
-    // addMessage(choose);
-    setChoose(choose);
-  };
+  // const onChangeChoose = (choose: IOptions) => {
+  //   // addMessage(choose);
+  //    setChoose(choose);
+  // };
 
   const fetchMessages = (message: IChatMessage[]) => {
     dispatch(ChatSlice.getMessages(message));
@@ -71,14 +72,14 @@ export const useMessage = () => {
     messages,
     isFocused,
     input,
-    choose,
     sendMessage,
     handleKeyDown,
     onBlur,
     onFocus,
     onChangeValue,
-    onChangeChoose,
-    setChoose,
     fetchMessages,
+    // choose,
+    // onChangeChoose,
+    // setChoose,
   };
 };

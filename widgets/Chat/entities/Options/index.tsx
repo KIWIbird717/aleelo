@@ -7,15 +7,14 @@ import { IChatMessage } from "@/shared/lib/types/chat-message";
 
 interface IOptionsProps {
   messages: IChatMessage[];
-  onChangeChoose: (choose: IOptions) => void;
 }
 
 export const Options: FC<IOptionsProps> = (
   {
     messages,
-    onChangeChoose,
   },
 ) => {
+  const isShow = !!messages && messages[messages.length - 1]?.blockType;
 
   const optionsSphere: IOptions[] = useMemo(() => [
     {
@@ -83,27 +82,27 @@ export const Options: FC<IOptionsProps> = (
 
   return (
     <>
-      {!!messages && messages[messages.length - 1]?.blockType === ("chooseSphere" || "chooseAnotherSphere") &&
+      {isShow === ("chooseSphere" || "chooseAnotherSphere") &&
         <Option options={optionsSphere}
-                onChangeChoose={onChangeChoose}
+
         />
       }
 
-      {!!messages && messages[messages.length - 1]?.blockType === "submitRequest" &&
+      {isShow === "submitRequest" &&
         <Option options={optionsThreeVariant}
-                onChangeChoose={onChangeChoose}
+
         />
       }
 
-      {!!messages && messages[messages.length - 1]?.blockType === "submitRequestExplain" &&
+      {isShow === "submitRequestExplain" &&
         <Option options={optionsIDontKnowWhatWrite}
-                onChangeChoose={onChangeChoose}
+
         />
       }
 
-      {!!messages && messages[messages.length - 1]?.blockType === "requestExamplesList" &&
+      {isShow === "requestExamplesList" &&
         <Option options={optionsExamples}
-                onChangeChoose={onChangeChoose}
+
         />
       }
     </>
