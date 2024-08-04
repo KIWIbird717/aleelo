@@ -58,9 +58,12 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
       if (optionState.key && optionState.message) {
         if (!currentGame?.id) return;
 
+        const lastMessage = messageObj.messages[messageObj.messages.length - 1];
+        const preLastMessage = messageObj.messages[messageObj.messages.length - 2];
+
         try {
           await ChatService.postMessage({
-            blockType: messageObj.messages[messageObj.messages.length - 2].blockType,
+            blockType: (lastMessage || preLastMessage).blockType,
             chatId: currentGame.chatId,
             response: optionState.key,
             message: optionState.message,
