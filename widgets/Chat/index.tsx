@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";
 import { IUseMessage } from "@/shared/lib/hooks/useMessage";
-import { IOptions } from "@/app/[locale]/onboarding/practice/page";
 import { Options } from "@/widgets/Chat/entities/Options";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
@@ -60,13 +59,10 @@ export const Chat: FC<IChatProps> = (
             const isCurrentType = message.sender === messages[index + 1]?.sender;
 
             return (
-              <Messages
-                key={message.id}
-                sender={message.sender}
-                messageKey={message.key}
-                response={message.response}
-                isFirstMessage={showAvatar}
-                isCurrentType={isCurrentType}
+              <Messages key={message.id}
+                        message={message}
+                        isFirstMessage={showAvatar}
+                        isCurrentType={isCurrentType}
               />
             );
           })}

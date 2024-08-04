@@ -6,14 +6,16 @@ import ChatUserSvg from "@/public/images/svg/chat/message-user.svg";
 import { IMessageSender } from "@/shared/lib/types/game-chat-message";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 import { useTranslations } from "next-intl";
+import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 
 interface IMessageProps {
-  // index: number;
   messageKey: string | null;
   sender: IMessageSender
   isFirstMessage: boolean;
   className?: string
   response: GameChatBlockUserResponseEnum | null
+  message: string | null;
+  blockType: GameChatBlockEnum
 }
 
 export const Message: FC<IMessageProps> = (
@@ -23,14 +25,19 @@ export const Message: FC<IMessageProps> = (
     sender,
     isFirstMessage,
     className,
-    response
+    response,
+    message,
+    blockType
   },
 ) => {
   const t = useTranslations()
 
   const titleAI = t(`chat_message_${messageKey}`)
   const titleUser = t(`chat_message_user_response_${response}`)
-  const message = messageKey ? titleAI : titleUser
+  const variantMessage = messageKey ? titleAI : titleUser
+  const lastMessage = (messageKey === null && blockType === "awesomeThenClickAndSetRequest")
+    ? message
+    : variantMessage
 
   return (
     <div
@@ -51,7 +58,7 @@ export const Message: FC<IMessageProps> = (
           sender === "ai" && "!text-mint text-shadow-light",
         )}
       >
-        {message}
+        {lastMessage}
       </Typography>
 
       <div

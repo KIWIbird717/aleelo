@@ -52,7 +52,7 @@ export const useMessage = () => {
     if (input.trim() === "") return;
 
     //TODO: исправить
-    dispatch(OptionSlice.setOption({ key: GameChatBlockUserResponseEnum.submitFinalReport, message: input }));
+    dispatch(OptionSlice.setOption({ key: GameChatBlockUserResponseEnum.submitRequest, message: input }));
 
     setInput("");
     onBlur();

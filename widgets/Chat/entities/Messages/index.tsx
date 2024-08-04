@@ -3,30 +3,26 @@ import { twMerge } from "tailwind-merge";
 import { Avatar } from "@/widgets/Chat/shared/Avatar";
 import { Message } from "@/widgets/Chat/shared/Message";
 import dynamic from "next/dynamic";
-import { IMessageSender } from "@/shared/lib/types/game-chat-message";
-import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 import { CarouselMessage } from "@/widgets/Chat/shared/CarouselMessage";
+import { IChatMessage } from "@/shared/lib/types/chat-message";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 
 interface IMessagesProps {
-  sender: IMessageSender;
-  messageKey: string | null;
+  message: IChatMessage
   isFirstMessage: boolean;
   isCurrentType: boolean;
-  response: GameChatBlockUserResponseEnum | null;
 }
 
 export const Messages: FC<IMessagesProps> = (
   {
-    sender,
-    messageKey,
     isFirstMessage,
     isCurrentType,
-    response,
+    message
   },
 ) => {
+  const {sender, key: messageKey, blockType, response,message: text} = message
 
   return (
     <MotionDiv
@@ -49,10 +45,14 @@ export const Messages: FC<IMessagesProps> = (
                      sender={sender}
                      isFirstMessage={isFirstMessage}
                      response={response}
+                     message={text}
+                     blockType={blockType}
           />
           : <CarouselMessage sender={sender}
                              isFirstMessage={isFirstMessage}
                              response={response}
+                             message={text}
+                             blockType={blockType}
           />
         }
       </div>

@@ -3,18 +3,23 @@ import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/Carousel";
 import { Message } from "@/widgets/Chat/shared/Message";
 import { IMessageSender } from "@/shared/lib/types/game-chat-message";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
+import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 
 interface ICarouselMessageProps {
   sender: IMessageSender
   isFirstMessage: boolean;
   response: GameChatBlockUserResponseEnum | null
+  message: string | null;
+  blockType: GameChatBlockEnum
 }
 
 export const CarouselMessage: FC<ICarouselMessageProps> = (
   {
     sender,
     isFirstMessage,
-    response
+    response,
+    message,
+    blockType
   }
 ) => {
 
@@ -44,6 +49,8 @@ export const CarouselMessage: FC<ICarouselMessageProps> = (
                        isFirstMessage={isFirstMessage}
                        className={"m-0 w-[166px] min-h-[154px]"}
                        response={response}
+                       message={message}
+                       blockType={blockType}
               />
             </CarouselItem>;
           })}
