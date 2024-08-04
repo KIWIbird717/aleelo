@@ -17,56 +17,74 @@ import { useOption } from "@/shared/lib/hooks/useOption";
 
 export interface IOptions {
   message: string;
-  key: GameChatBlockUserResponseEnum
+  key: GameChatBlockUserResponseEnum;
 }
 
 
-interface IPracticesPageProps {}
+interface IPracticesPageProps {
+}
 
 const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const logger = new Logger("ChatPage");
   const { height, svgGRef, svgRef, svgHeight } = useSizes();
 
   const messageObj = useMessage();
-  const {optionState, onChangeChoose, onChangeBlockType} = useOption()
-  const {fetchMessages} = messageObj
+  const { optionState, onChangeChoose, onChangeBlockType } = useOption();
+  const { fetchMessages } = messageObj;
 
   const { back } = useRouter();
   const { get } = useCurrentGame();
   const currentGame = get();
 
   const handleFetchMessages = async () => {
-    await ChatService.sendPracticeMessage(currentGame?.practiceId!);
-    const { data } = await ChatService.getMessages(currentGame?.chatId!, {
-      offset: 0,
-      limit: 50,
-    });
+    try {
+      await ChatService.sendPracticeMessage(currentGame?.practiceId!);
 
-    fetchMessages(data.reverse())
-  }
+      const { data } = await ChatService.getMessages(currentGame?.chatId!, {
+        offset: 0,
+        limit: 50,
+      });
+
+      fetchMessages(data.reverse());
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      onChangeChoose(null, null);
+    }
+  };
 
   useEffect(() => {
     (async () => {
       if (optionState.key && optionState.message) {
         if (!currentGame?.id) return;
 
-        await ChatService.postMessage({
-          blockType: messageObj.messages[messageObj.messages.length - 2].blockType,
-          chatId: currentGame.chatId,
-          response: optionState.key,
-          message: optionState.message,
-        });
+        try {
+          await ChatService.postMessage({
+            blockType: messageObj.messages[messageObj.messages.length - 2].blockType,
+            chatId: currentGame.chatId,
+            response: optionState.key,
+            message: optionState.message,
+          });
 
-        onChangeChoose(null, null);
+          try {
+            await handleFetchMessages();
+          } catch (error) {
+            logger.error(error);
+          }
+        } catch (error) {
+          logger.error(error);
+        } finally {
+          onChangeChoose(null, null);
+        }
 
-        await handleFetchMessages()
+
       }
     })();
   }, [currentGame?.chatId, currentGame?.id, onChangeChoose, optionState.key, optionState.message]);
 
   useEffect(() => {
     (async () => {
-      await handleFetchMessages()
+      await handleFetchMessages();
     })();
   }, [currentGame?.chatId, currentGame?.practiceId]);
 

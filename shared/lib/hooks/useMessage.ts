@@ -4,6 +4,8 @@ import { Dispatch, KeyboardEvent, SetStateAction, useState } from "react";
 import { IOptions } from "@/app/[locale]/onboarding/practice/page";
 import { IChatMessage } from "@/shared/lib/types/chat-message";
 import { IMessageSender } from "@/shared/lib/types/game-chat-message";
+import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
+import { OptionSlice } from "@/shared/lib/redux-store/slices/option-slice/optionSlice";
 
 export interface IUseMessage {
   messages: IChatMessage[];
@@ -42,21 +44,16 @@ export const useMessage = () => {
     dispatch(ChatSlice.getMessages(message));
   };
 
-  const addMessage = (choose: IOptions ) => {
-    // if (input.trim() === "") return;
+  const addMessage = (choose: IOptions) => {
 
-    const newMessage = {
-      id: new Date().toISOString(),
-      created: new Date(),
-      sender: "user" as IMessageSender.User,
-      key: choose.key as any,
-    };
-
-    dispatch(ChatSlice.addMessage(newMessage as IChatMessage));
   };
 
   const sendMessage = () => {
-    addMessage(input, ""); //TODO: исправить
+    if (input.trim() === "") return;
+
+    //TODO: исправить
+    dispatch(OptionSlice.setOption({ key: GameChatBlockUserResponseEnum.submitFinalReport, message: input }));
+
     setInput("");
     onBlur();
   };
