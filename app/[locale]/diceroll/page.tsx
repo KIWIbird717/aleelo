@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Navbar } from "@/entities/Navbar";
