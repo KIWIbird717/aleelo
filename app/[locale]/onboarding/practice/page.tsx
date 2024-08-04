@@ -14,15 +14,12 @@ import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-bloc
 import { useMessage } from "@/shared/lib/hooks/useMessage";
 import { useOption } from "@/shared/lib/hooks/useOption";
 
-
 export interface IOptions {
   message: string;
   key: GameChatBlockUserResponseEnum;
 }
 
-
-interface IPracticesPageProps {
-}
+interface IPracticesPageProps {}
 
 const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const logger = new Logger("ChatPage");
@@ -67,6 +64,9 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
         }
 
         try {
+          const lastMessage = messageObj.messages[messageObj.messages.length - 1];
+          const preLastMessage = messageObj.messages[messageObj.messages.length - 2];
+
           await ChatService.postMessage({
             blockType: (lastMessage || preLastMessage).blockType,
             chatId: currentGame.chatId,
@@ -97,11 +97,7 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
 
   return (
     <View className={"flex flex-col"} backgroundEffect={"gradient"}>
-      <Chat
-        svgHeight={svgHeight!}
-        height={height}
-        messageObj={messageObj}
-      />
+      <Chat svgHeight={svgHeight!} height={height} messageObj={messageObj} />
       <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={true} onHide={() => back()} />
     </View>
   );

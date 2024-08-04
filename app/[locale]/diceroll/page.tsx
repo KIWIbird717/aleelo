@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Navbar } from "@/entities/Navbar";
@@ -53,7 +53,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       setIsIntroAnimationVisible(false);
       setIsLoopAnimationVisible(false);
       setIsEndAnimationVisible(true);
-      endAnimationRef?.current?.play(); // Запускаем конечную анимацию
+      (endAnimationRef?.current as any)?.play(); // Запускаем конечную анимацию
     }
   }, [result, isLoading]);
 
