@@ -29,7 +29,7 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
   const { height, svgGRef, svgRef, svgHeight } = useSizes();
 
   const messageObj = useMessage();
-  const { optionState, onChangeChoose, onChangeBlockType } = useOption();
+  const { optionState, onChangeChoose, hideInput } = useOption();
   const { fetchMessages } = messageObj;
 
   const { back } = useRouter();
@@ -61,6 +61,11 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
         const lastMessage = messageObj.messages[messageObj.messages.length - 1];
         const preLastMessage = messageObj.messages[messageObj.messages.length - 2];
 
+        if (lastMessage.blockType === "requestExamplesList" && optionState.isShowInput) {
+          onChangeChoose(null, null);
+          return;
+        }
+
         try {
           await ChatService.postMessage({
             blockType: (lastMessage || preLastMessage).blockType,
@@ -71,6 +76,7 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
 
           try {
             await handleFetchMessages();
+
           } catch (error) {
             logger.error(error);
           }
@@ -79,8 +85,6 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
         } finally {
           onChangeChoose(null, null);
         }
-
-
       }
     })();
   }, [currentGame?.chatId, currentGame?.id, onChangeChoose, optionState.key, optionState.message]);

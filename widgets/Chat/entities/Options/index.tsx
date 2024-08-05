@@ -1,9 +1,11 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { Option } from "@/widgets/Chat/shared/Option";
 import { IOptions } from "@/app/[locale]/onboarding/practice/page";
 import localesRU from "@/public/locales/ru.json";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 import { IChatMessage } from "@/shared/lib/types/chat-message";
+import { useOption } from "@/shared/lib/hooks/useOption";
+import { useMessage } from "@/shared/lib/hooks/useMessage";
 
 interface IOptionsProps {
   messages: IChatMessage[];
@@ -14,7 +16,21 @@ export const Options: FC<IOptionsProps> = (
     messages,
   },
 ) => {
-  const isShow = !!messages && messages[messages.length - 1]?.blockType;
+
+  const {
+    onChangeChoose,
+    showInput,
+    optionState,
+  } = useOption();
+
+  const {blockTypeLastMessage} = useMessage()
+
+  const isShowOption = !!messages && blockTypeLastMessage;
+
+  const onChangeChooseInput = (message: string | null, key: GameChatBlockUserResponseEnum | null) => {
+    onChangeChoose(message, key);
+    showInput();
+  };
 
   const optionsSphere: IOptions[] = useMemo(() => [
     {
@@ -48,10 +64,10 @@ export const Options: FC<IOptionsProps> = (
   ], []);
 
   const optionsThreeVariant: IOptions[] = useMemo(() => [
-    {
-      message: localesRU["chat_message_iAmReadyToComposeRequest"],
-      key: GameChatBlockUserResponseEnum.submitRequest,
-    },
+    // {
+    //   message: localesRU["chat_message_iAmReadyToComposeRequest"],
+    //   key: GameChatBlockUserResponseEnum.submitRequest,
+    // },
     {
       message: localesRU["chat_message_submitRequestExplain"],
       key: GameChatBlockUserResponseEnum.submitRequestExplain,
@@ -76,33 +92,40 @@ export const Options: FC<IOptionsProps> = (
   const optionsExamples: IOptions[] = useMemo(() => [
     {
       message: localesRU["chat_message_iAmReadyToComposeRequest"],
-      key: GameChatBlockUserResponseEnum.iAmReadyToComposeRequest,
+      key: GameChatBlockUserResponseEnum.submitRequestExplain,
     },
   ], []);
 
+  useEffect(() => {
+
+  }, []);
+
+
   return (
     <>
-      {isShow === ("chooseSphere" || "chooseAnotherSphere") &&
+      {isShowOption === ("chooseSphere" || "chooseAnotherSphere") &&
         <Option options={optionsSphere}
-
+                onChangeChoose={onChangeChoose}
         />
       }
 
-      {isShow === "submitRequest" &&
+      {isShowOption === "submitRequest" &&
         <Option options={optionsThreeVariant}
-
+                onChangeChoose={onChangeChoose}
         />
       }
 
-      {isShow === "submitRequestExplain" &&
+      {isShowOption === "submitRequestExplain" &&
         <Option options={optionsIDontKnowWhatWrite}
-
+                onChangeChoose={onChangeChoose}
         />
       }
 
-      {isShow === "requestExamplesList" &&
+      {isShowOption === "requestExamplesList" &&
+        !optionState.isShowInput &&
+        optionState.isShowOption &&
         <Option options={optionsExamples}
-
+                onChangeChoose={onChangeChooseInput}
         />
       }
     </>

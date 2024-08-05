@@ -3,21 +3,23 @@ import { Button } from "@/shared/ui/Button/Button";
 import { IOptions } from "@/app/[locale]/onboarding/practice/page";
 import dynamic from "next/dynamic";
 import { useOption } from "@/shared/lib/hooks/useOption";
+import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
 
 interface IOptionProps {
   options: IOptions[];
+  onChangeChoose: ( message: string | null, key: GameChatBlockUserResponseEnum | null) => void
 }
 
 export const Option: FC<IOptionProps> = (
   {
     options,
+    onChangeChoose
   },
 ) => {
 
-  const {onChangeChoose} = useOption()
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 50 }}

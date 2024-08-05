@@ -6,32 +6,37 @@ import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-bloc
 import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 
 interface ICarouselMessageProps {
-  sender: IMessageSender
+  sender: IMessageSender;
   isFirstMessage: boolean;
-  response: GameChatBlockUserResponseEnum | null
   message: string | null;
-  blockType: GameChatBlockEnum
 }
+
+const exampleMessages = [
+  {
+    key: "requestExample1",
+    blockType: GameChatBlockEnum.requestExamplesList,
+    response: GameChatBlockUserResponseEnum.submitRequest,
+  }, {
+    key: "requestExample2",
+    blockType: GameChatBlockEnum.requestExamplesList,
+    response: GameChatBlockUserResponseEnum.submitRequest,
+  }, {
+    key: "requestExample3",
+    blockType: GameChatBlockEnum.requestExamplesList,
+    response: GameChatBlockUserResponseEnum.submitRequest,
+  },
+];
 
 export const CarouselMessage: FC<ICarouselMessageProps> = (
   {
     sender,
     isFirstMessage,
-    response,
     message,
-    blockType
-  }
+  },
 ) => {
-
-  const exampleMessages = [
-    "requestExample1",
-    "requestExample2",
-    "requestExample3",
-  ];
 
   return (
     <div className={"w-full flex"}>
-
       <Carousel opts={{ align: "start" }}
                 autoFocus={true}
                 className="w-full max-w-sm"
@@ -39,18 +44,18 @@ export const CarouselMessage: FC<ICarouselMessageProps> = (
         <CarouselContent classNameContent={"overflow-visible"}
                          className={"px-0 mx-0 mb-[17px] gap-1.5 "}
         >
-          {[...new Array(3)].map((_, i) => {
+          {exampleMessages.map((value, i) => {
             return <CarouselItem key={i}
                                  className={" mt-[14px] basis-auto"}
             >
               <Message key={i}
-                       messageKey={exampleMessages[i]}
+                       messageKey={value.key}
                        sender={sender}
                        isFirstMessage={isFirstMessage}
                        className={"m-0 w-[166px] min-h-[154px]"}
-                       response={response}
+                       response={value.response}
                        message={message}
-                       blockType={blockType}
+                       blockType={value.blockType}
               />
             </CarouselItem>;
           })}

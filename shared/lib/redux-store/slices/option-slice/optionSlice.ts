@@ -4,10 +4,11 @@ import { IOptionSlice } from "@/shared/lib/redux-store/slices/option-slice/type"
 
 export namespace OptionSlice {
   const initialState: IOptionSlice = {
-    isShow: false,
+    isShowOption: true,
+    isShowInput: false,
     message: null,
     key: null,
-    blockType: null
+    blockType: null,
   };
 
   export const optionSlice = createSlice({
@@ -15,22 +16,35 @@ export namespace OptionSlice {
     initialState,
     reducers: {
       setOption: (state, action) => {
-        state.message = action.payload.message
-        state.key = action.payload.key
+        state.message = action.payload.message;
+        state.key = action.payload.key;
       },
-      setBlockType: (state, action ) => {
-        state.blockType = action.payload.blockType
+      setBlockType: (state, action) => {
+        state.blockType = action.payload.blockType;
       },
       setShowOption: (state) => {
-        state.isShow = true
+        state.isShowOption = true;
       },
       setHideOption: (state) => {
-        state.isShow = false
+        state.isShowOption = false;
+      },
+      setShowInput: (state) => {
+        state.isShowInput = true;
+      },
+      setHideInput: (state) => {
+        state.isShowInput = false;
       },
     },
   });
 
-  export const { setShowOption, setHideOption, setBlockType, setOption } = optionSlice.actions;
+  export const {
+    setShowOption,
+    setHideOption,
+    setBlockType,
+    setOption,
+    setShowInput,
+    setHideInput,
+  } = optionSlice.actions;
   export const optionReducer = optionSlice.reducer;
   export type Type = IOptionSlice;
 }

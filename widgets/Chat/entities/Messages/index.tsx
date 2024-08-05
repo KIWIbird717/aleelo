@@ -50,9 +50,7 @@ export const Messages: FC<IMessagesProps> = (
           />
           : <CarouselMessage sender={sender}
                              isFirstMessage={isFirstMessage}
-                             response={response}
                              message={text}
-                             blockType={blockType}
           />
         }
       </div>

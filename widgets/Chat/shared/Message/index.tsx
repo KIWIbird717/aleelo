@@ -35,7 +35,7 @@ export const Message: FC<IMessageProps> = (
   const titleAI = t(`chat_message_${messageKey}`)
   const titleUser = t(`chat_message_user_response_${response}`)
   const variantMessage = messageKey ? titleAI : titleUser
-  const lastMessage = (messageKey === null && blockType === "awesomeThenClickAndSetRequest")
+  const text = (messageKey === null && (blockType === "awesomeThenClickAndSetRequest" || blockType === "requestExamplesList"))
     ? message
     : variantMessage
 
@@ -58,7 +58,7 @@ export const Message: FC<IMessageProps> = (
           sender === "ai" && "!text-mint text-shadow-light",
         )}
       >
-        {lastMessage}
+        {text}
       </Typography>
 
       <div

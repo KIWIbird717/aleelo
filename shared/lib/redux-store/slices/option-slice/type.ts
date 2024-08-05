@@ -2,7 +2,8 @@ import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-bloc
 import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 
 export interface IOptionSlice {
-  isShow: boolean;
+  isShowOption: boolean;
+  isShowInput: boolean;
   message: string | null;
   key: GameChatBlockUserResponseEnum | null
   blockType:  GameChatBlockEnum | null
