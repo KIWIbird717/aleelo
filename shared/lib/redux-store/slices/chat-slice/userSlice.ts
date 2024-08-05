@@ -12,10 +12,6 @@ export namespace ChatSlice {
     name: "chat",
     initialState,
     reducers: {
-      addMessage: (state, action: PayloadAction<IChatMessage>) => {
-        console.log("push");
-        state.messages.push(action.payload);
-      },
       getMessages: (state, action: PayloadAction<IChatMessage[]>) => {
         const newMessages = action.payload;
 
@@ -29,7 +25,7 @@ export namespace ChatSlice {
     },
   });
 
-  export const { getMessages, addMessage } = chatSlice.actions;
+  export const { getMessages } = chatSlice.actions;
   export const chatReducer = chatSlice.reducer;
   export type Type = IChatSlice;
 }

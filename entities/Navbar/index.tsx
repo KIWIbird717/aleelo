@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, MutableRefObject, ReactNode, useMemo } from "react";
+import React, { FC, MouseEvent, MutableRefObject, ReactNode, useEffect, useMemo } from "react";
 import { NavbarCard } from "./shared/ui/NavbarCard";
 import GameIcon from "@/public/images/svg/navbar/game.svg";
 import GameActiveIcon from "@/public/images/svg/navbar/game-active.svg";
@@ -10,10 +10,12 @@ import FlowIcon from "@/public/images/svg/navbar/flow.svg";
 import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
 import BackIcon from "@/public/images/svg/navbar/back.svg";
 import { cn } from "@/shared/lib/utils/cn";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useDimensions } from "@/shared/lib/hooks/useDimensions";
+import { useNavbar } from "@/shared/lib/hooks/useNavbar";
+import { useMessage } from "@/shared/lib/hooks/useMessage";
+import { twMerge } from "tailwind-merge";
 
 const X_MARGINS = 20; // px
 const DEVIDE = 0.96279;
@@ -24,6 +26,7 @@ type NavItemType = {
   icon: ReactNode;
   link: string;
 };
+
 interface INavbarProps {
   isBack?: boolean;
   onHide?: () => void;
@@ -35,11 +38,31 @@ interface INavbarProps {
 export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) => {
   const path = usePathname() || "";
   const { width } = useDimensions();
+  const {
+    handleValid,
+    handleDisable,
+    isDisabled,
+  } = useNavbar();
 
+  const { blockTypeLastMessage, blockTypePreLastMessage, messages } = useMessage();
+  
   const pathName = path.split("/")[path.split("/").length - 1];
   const pageName = path.split("/")[2];
   const centerTitle = isBack ? "Вернуться" : "Бросок";
   const locale = useLocale();
+  const isPracticePage = pathName === "practice"
+
+  useEffect(() => {
+    const isDisabledNavbar = isPracticePage && blockTypeLastMessage === "chooseSphere";
+    const isValid = isPracticePage && blockTypeLastMessage === "submitRequestFinal";
+
+    if (isDisabledNavbar) {
+      handleDisable();
+    }
+    if (isValid) {
+      handleValid();
+    }
+  }, [blockTypeLastMessage, blockTypePreLastMessage, handleDisable, handleValid, isDisabled, isPracticePage, pathName]);
 
   const centerIcon = useMemo(() => (isBack ? <BackIcon /> : <ThrowIcon />), [isBack]);
 
@@ -48,7 +71,8 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
       {
         id: 0,
         name: "Игра",
-        icon: pathName === "home" ? <GameActiveIcon /> : <GameIcon />,
+        icon: pathName === "home" ? <GameActiveIcon /> :
+          <GameIcon className={twMerge(isPracticePage && !isDisabled && "[&>path]:fill-mint-900")} />,
         link: `/${locale}/home`,
       },
       {
@@ -76,16 +100,24 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         link: "profile",
       },
     ],
-    [centerIcon, centerTitle, pathName, locale],
+    [pathName, isPracticePage, isDisabled, locale, centerTitle, centerIcon],
   );
 
   return (
     <div className="fixed bottom-[-13px] z-[33]">
       <div className="relative">
-        <div className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
-          {navElements.map((item) => (
-            <NavLinkItem key={`nav item: ${item.id}`} item={item} onHide={onHide} isBack={isBack} />
-          ))}
+        <div
+          className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
+          {navElements.map((item, index) => {
+            const isValidFirstItem = index === 0 ? isDisabled : index !== 2;
+
+            return <NavLinkItem key={`nav item: ${item.id}`}
+                                item={item}
+                                onHide={onHide}
+                                isBack={isBack}
+                                isDisabled={isValidFirstItem}
+            />;
+          })}
         </div>
 
         {/* // нужен для того, чтобы не отображался navbar при открытом modal window*/}
@@ -103,34 +135,44 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
 
 type NavLinkItemProps = {
   item: NavItemType;
+  isDisabled?: boolean
 } & Pick<INavbarProps, "onHide" | "isBack">;
 
 const NavLinkItem: FC<NavLinkItemProps> = (props) => {
+  const { push } = useRouter();
   const thirdEl = props.item.id === 2;
 
   const path = usePathname() || "";
 
   const pathName = path.split("/")[path.split("/").length - 1];
 
-  const onClickHandler: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+  const onClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     if (thirdEl && props.onHide) {
       event.preventDefault();
       props.onHide();
     }
+    push(props.item.link);
+
   };
 
   return (
-    <Link
+    <button
+      disabled={props.isDisabled}
+      type={"button"}
       className="relative grid h-full w-full grid-rows-3 flex-col content-center items-center justify-center"
-      onClick={onClickHandler}
-      href={props.item.link}
-      prefetch={true}
+      onClick={(e) => onClickHandler(e)}
     >
+      {/*<Link*/}
+      {/*className="relative grid h-full w-full grid-rows-3 flex-col content-center items-center justify-center"*/}
+      {/*  onClick={onClickHandler}*/}
+      {/*  href={props.item.link}*/}
+      {/*  prefetch={true}*/}
+      {/*>*/}
       <div
         className={cn(
           "row-span-2 flex h-full w-full items-center justify-center pt-[10px]",
           thirdEl &&
-            "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
+          "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
           pathName === props.item.link && "",
           thirdEl && props.isBack && "bg-button-gradient-turquoise shadow-shadowGreen",
         )}
@@ -146,6 +188,7 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       >
         {props.item.name}
       </div>
-    </Link>
+      {/*</Link>*/}
+    </button>
   );
 };
