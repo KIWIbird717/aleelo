@@ -39,3 +39,7 @@ next-env.d.ts
 bun.lockb
 yarn.lock
 certificates
+
+.env
+.env.local
+.env.production
