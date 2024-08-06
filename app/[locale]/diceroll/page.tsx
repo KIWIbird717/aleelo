@@ -51,7 +51,6 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   }, [isLoopAnimationVisible]);
 
   return (
-<<<<<<< HEAD
     <View backgroundEffect="gradient" className={"relative pt-[35px]"}>
       <DiceRollHeader
         isIntroAnimationVisible={isIntroAnimationVisible}
