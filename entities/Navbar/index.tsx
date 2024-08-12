@@ -5,6 +5,7 @@ import { NavbarCard } from "./shared/ui/NavbarCard";
 import GameIcon from "@/public/images/svg/navbar/game.svg";
 import GameActiveIcon from "@/public/images/svg/navbar/game-active.svg";
 import PracticeIcon from "@/public/images/svg/navbar/practice.svg";
+import ReportIcon from "@/public/images/svg/navbar/report.svg";
 import ThrowIcon from "@/public/images/svg/navbar/throw.svg";
 import FlowIcon from "@/public/images/svg/navbar/flow.svg";
 import ProfileIcon from "@/public/images/svg/navbar/profile.svg";
@@ -36,35 +37,80 @@ interface INavbarProps {
 }
 
 export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) => {
+  const locale = useLocale();
   const path = usePathname() || "";
   const { width } = useDimensions();
+
   const {
     handleValid,
     handleDisable,
     isDisabled,
-  } = useNavbar();
+    centerButtonIcon,
+    diceRoll,
+  } = useNavbar(isBack);
 
-  const { blockTypeLastMessage, blockTypePreLastMessage, messages } = useMessage();
-  
-  const pathName = path.split("/")[path.split("/").length - 1];
-  const pageName = path.split("/")[2];
-  const centerTitle = isBack ? "Вернуться" : "Бросок";
-  const locale = useLocale();
-  const isPracticePage = pathName === "practice"
+  const {
+    blockTypeLastMessage,
+    blockTypePreLastMessage,
+  } = useMessage();
+
+  const pathName = path.split("/").pop();
+  const isPracticePage = pathName === "practice";
 
   useEffect(() => {
-    const isDisabledNavbar = isPracticePage && blockTypeLastMessage === "chooseSphere";
-    const isValid = isPracticePage && blockTypeLastMessage === "submitRequestFinal";
+    if (isPracticePage) {
+      const isDisabledNavbar = blockTypeLastMessage === "chooseSphere";
+      const isValid = blockTypeLastMessage === "submitRequestFinal";
 
-    if (isDisabledNavbar) {
-      handleDisable();
-    }
-    if (isValid) {
-      handleValid();
+      if (isDisabledNavbar) {
+        handleDisable();
+      } else if (isValid) {
+        handleValid();
+      }
     }
   }, [blockTypeLastMessage, blockTypePreLastMessage, handleDisable, handleValid, isDisabled, isPracticePage, pathName]);
 
-  const centerIcon = useMemo(() => (isBack ? <BackIcon /> : <ThrowIcon />), [isBack]);
+  const getCenterTitle = useMemo(() => {
+    switch (centerButtonIcon) {
+      case "backIcon":
+        return "Вернуться"
+      case "reportActive":
+      case "reportUnActive":
+        return "Мысли";
+      case "diceRollActive":
+      case "diceRollUnActive":
+        return "Бросок";
+      default:
+        return "Вернуться";
+    }
+  }, [centerButtonIcon]);
+
+
+  const getCenterIcon = useMemo(() => {
+    switch (centerButtonIcon) {
+      case "backIcon":
+        return <BackIcon />;
+      case "reportActive":
+      case "reportUnActive":
+        return <ReportIcon />;
+      case "diceRollUnActive":
+      case "diceRollActive":
+        return <ThrowIcon />;
+      default:
+        return <BackIcon />;
+    }
+  }, [centerButtonIcon]);
+
+  const getCenterLink = useMemo(() => {
+    switch (centerButtonIcon) {
+      case "reportActive":
+        return `/${locale}/chat`;
+      case "diceRollActive":
+        return `/${locale}/diceroll`;
+      default:
+        return `null`;
+    }
+  }, [centerButtonIcon, locale]);
 
   const navElements = useMemo<NavItemType[]>(
     () => [
@@ -83,9 +129,9 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
       },
       {
         id: 2,
-        name: centerTitle,
-        icon: centerIcon,
-        link: "throw",
+        name: getCenterTitle,
+        icon: getCenterIcon,
+        link: getCenterLink,
       },
       {
         id: 3,
@@ -100,7 +146,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         link: "profile",
       },
     ],
-    [pathName, isPracticePage, isDisabled, locale, centerTitle, centerIcon],
+    [pathName, isPracticePage, isDisabled, locale, getCenterTitle, getCenterIcon, getCenterLink],
   );
 
   return (
@@ -109,13 +155,21 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         <div
           className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
           {navElements.map((item, index) => {
-            const isValidFirstItem = index === 0 ? isDisabled : index !== 2;
+
+            let isValidFirstItem;
+
+            if (isPracticePage) {
+              isValidFirstItem = index === 0 ? isDisabled : index !== 2;
+            } else {
+              isValidFirstItem = index === 2 ? isDisabled : false;
+            }
 
             return <NavLinkItem key={`nav item: ${item.id}`}
                                 item={item}
                                 onHide={onHide}
                                 isBack={isBack}
                                 isDisabled={isValidFirstItem}
+                                diceRoll={index === 2 ? diceRoll : null}
             />;
           })}
         </div>
@@ -136,23 +190,46 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
 type NavLinkItemProps = {
   item: NavItemType;
   isDisabled?: boolean
+  diceRoll?: number | null
 } & Pick<INavbarProps, "onHide" | "isBack">;
 
 const NavLinkItem: FC<NavLinkItemProps> = (props) => {
+  const {
+    item,
+    onHide,
+    isDisabled,
+    diceRoll,
+    isBack,
+  } = props;
+  const locale = useLocale();
+
   const { push } = useRouter();
   const thirdEl = props.item.id === 2;
 
   const path = usePathname() || "";
 
-  const pathName = path.split("/")[path.split("/").length - 1];
+  const pathName = path.split("/").pop()
+  const pageName = path.split("/")[2];
+  const isCellPage = pageName === "cell";
+  const itemLink = item.link;
 
   const onClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    if (thirdEl && props.onHide) {
+    if (thirdEl && onHide) {
       event.preventDefault();
-      props.onHide();
+      onHide();
     }
-    push(props.item.link);
 
+    if (!isDisabled) {
+      if ((itemLink !== "null" && itemLink !== `/${locale}/diceroll`) || isCellPage) {
+        push(itemLink);
+      }
+
+      // TODO: На данный момент diceroll = null, нужно уточнить, что делать, когда приходит null, сделать кнопку не активной или что
+
+      if (itemLink === `/${locale}/diceroll` && diceRoll !== null) {
+        push(`${item.link}?diceRoll=${5}`);
+      }
+    }
   };
 
   return (
@@ -173,20 +250,20 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
           "row-span-2 flex h-full w-full items-center justify-center pt-[10px]",
           thirdEl &&
           "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
-          pathName === props.item.link && "",
-          thirdEl && props.isBack && "bg-button-gradient-turquoise shadow-shadowGreen",
+          pathName === itemLink && "",
+          thirdEl && !isDisabled && "bg-button-gradient-turquoise shadow-shadowGreen",
         )}
       >
-        {props.item.icon}
+        {item.icon}
       </div>
       <div
         className={cn(
           "row-start-3 flex justify-center pb-[15px] text-[12px] font-normal leading-4 text-grey",
           thirdEl && "font-semibold",
-          pathName === props.item.link && "font-bold text-brown-900",
+          pathName === itemLink && "font-bold text-brown-900",
         )}
       >
-        {props.item.name}
+        {item.name}
       </div>
       {/*</Link>*/}
     </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Navbar } from "@/entities/Navbar";
@@ -12,14 +12,21 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { Triangle } from "@/widgets/Triangle";
 import { DiceRollHeader } from "@/widgets/DiceRollHeader";
+import { useSearchParams } from "next/navigation";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-interface IDiceRollProps {}
+interface IDiceRollProps {
+
+}
 
 const DiceRoll: NextPage<IDiceRollProps> = () => {
   const { svgGRef, svgRef } = useSizes();
-  let result = 2;
+  const searchParams = useSearchParams();
+  const diceRoll = searchParams.get('diceRoll');
+  const result = Number(diceRoll)
+
+  console.log({result});
 
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
@@ -54,7 +61,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       />
 
       <Triangle
-        result={result}
+        result={result || 2}
         isIntroAnimationVisible={isIntroAnimationVisible}
         isLoopAnimationVisible={isLoopAnimationVisible}
         isEndAnimationVisible={isEndAnimationVisible}
