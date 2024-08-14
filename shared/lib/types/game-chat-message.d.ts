@@ -1,4 +1,4 @@
 export enum IMessageSender {
-  AI = 'ai',
-  User = 'user',
+  AI = "ai",
+  User = "user",
 }

@@ -10,8 +10,7 @@ import { AnimatePresence } from "framer-motion";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-interface IModalMoodStatusProps {
-}
+interface IModalMoodStatusProps {}
 
 export const ModalMoodStatus: FC<IModalMoodStatusProps> = () => {
   const { onClose, modalData } = useModal();
@@ -35,36 +34,38 @@ export const ModalMoodStatus: FC<IModalMoodStatusProps> = () => {
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.3 }}
         >
-          <ModalContent onClose={onClose}
-                        className={"pb-8 h-auto gap-0 px-10"}
-          >
-            <Typography tag={"h2"}
-                        className={"text-center text-mint-900"}
-            >
+          <ModalContent onClose={onClose} className={"h-auto gap-0 px-10 pb-8"}>
+            <Typography tag={"h2"} className={"text-center text-mint-900"}>
               Статус настроения
             </Typography>
 
-            <div className={"w-full flex justify-center mt-[26px] mb-[30px]"}>
+            <div className={"mb-[30px] mt-[26px] flex w-full justify-center"}>
               <div
-                className={"flex items-center justify-center w-[147px] h-[26px] rounded-[20px] bg-green-800"}
+                className={
+                  "flex h-[26px] w-[147px] items-center justify-center rounded-[20px] bg-green-800"
+                }
               >
-
-                <Typography tag={"p"}
-                            className={"text-[13px] font-normal leading-5 text-white !text-shadow-satisfied"}
+                <Typography
+                  tag={"p"}
+                  className={"text-[13px] font-normal leading-5 text-white !text-shadow-satisfied"}
                 >
                   {data?.text}
                 </Typography>
               </div>
             </div>
 
-            <Typography tag={"p"}
-                        className={"text-center px-5 mb-[33px] font-normal text-[15px] leading-[21px] text-mint !text-shadow-light"}
+            <Typography
+              tag={"p"}
+              className={
+                "mb-[33px] px-5 text-center text-[15px] font-normal leading-[21px] text-mint !text-shadow-light"
+              }
             >
-              Настроение зависит от количества ходов Насколько полезным было пребывание на этой клетке? Еще одна строка
+              Настроение зависит от количества ходов Насколько полезным было пребывание на этой
+              клетке? Еще одна строка
             </Typography>
           </ModalContent>
         </MotionDiv>
       )}
     </AnimatePresence>
   );
-}
+};

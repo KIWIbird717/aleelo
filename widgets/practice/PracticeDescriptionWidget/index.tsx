@@ -26,7 +26,7 @@ type PracticeDescriptionWidgetProps = {
 export const PracticeDescriptionWidget: FC<PracticeDescriptionWidgetProps> = (props) => {
   const locale = useLocale();
 
-  const link = `/${locale}/onboarding/practice`
+  const link = `/${locale}/onboarding/practice`;
   return (
     <>
       <AnimatePresence initial={true} mode={"sync"}>

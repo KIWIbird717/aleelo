@@ -2,21 +2,22 @@ import { FC } from "react";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { Button } from "@/shared/ui/Button/Button";
 
-interface IProfileRequestProps {
-}
+interface IProfileRequestProps {}
 
 export const ProfileRequest: FC<IProfileRequestProps> = () => {
   return (
-    <div className={"flex flex-col mt-[22px] gap-5"}>
-      <Typography tag={"p"}
-                  className={"font-bold text-[13px] leading-5 text-center text-mint-600 !text-shadow-gold px-[22px]"}
+    <div className={"mt-[22px] flex flex-col gap-5"}>
+      <Typography
+        tag={"p"}
+        className={
+          "px-[22px] text-center text-[13px] font-bold leading-5 text-mint-600 !text-shadow-gold"
+        }
       >
-        Запрос на выращивание денежного дерева, поимку золотой рыбки и умение себя вовремя останавливать
+        Запрос на выращивание денежного дерева, поимку золотой рыбки и умение себя вовремя
+        останавливать
       </Typography>
-      <div className={"w-full flex justify-center"}>
-        <Button size={"small"}
-                variant={"blue"}
-        >
+      <div className={"flex w-full justify-center"}>
+        <Button size={"small"} variant={"blue"}>
           Изменить запрос
         </Button>
       </div>

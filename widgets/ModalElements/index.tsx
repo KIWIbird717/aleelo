@@ -21,7 +21,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
 
   const isModalOpen = isOpen && type === "elements";
 
-  const icon = element?.typeIcon!
+  const icon = element?.typeIcon!;
 
   return (
     <AnimatePresence mode={"wait"}>
@@ -47,9 +47,7 @@ export const ModalElements: FC<IModalElementsProps> = () => {
                   {element?.heading}
                 </Typography>
                 <div className={"flex w-full justify-center"}>
-                  <Icon variant={icon}
-                        size={"large"}
-                  />
+                  <Icon variant={icon} size={"large"} />
                 </div>
               </div>
               <div className={"w-full overflow-y-scroll px-3 pb-[46px]"}>

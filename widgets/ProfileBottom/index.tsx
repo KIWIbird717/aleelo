@@ -7,17 +7,20 @@ import { ModalSheetProfile } from "@/widgets/ModalSheetProfile";
 import { IGameStatistics } from "@/shared/lib/types/game";
 
 interface IProfileBottomProps {
-  statistics: IGameStatistics
+  statistics: IGameStatistics;
 }
 
-export const ProfileBottom: FC<IProfileBottomProps> = (
-  {statistics}
-) => {
-
+export const ProfileBottom: FC<IProfileBottomProps> = ({ statistics }) => {
   const { width, svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
   return (
     <>
-      <ModalSheetProfile svgWidth={svgWidth} padding={padding} svgHeight={svgHeight} height={height} statistics={statistics} />
+      <ModalSheetProfile
+        svgWidth={svgWidth}
+        padding={padding}
+        svgHeight={svgHeight}
+        height={height}
+        statistics={statistics}
+      />
       <Navbar svgGRef={svgGRef} svgRef={svgRef} />
     </>
   );

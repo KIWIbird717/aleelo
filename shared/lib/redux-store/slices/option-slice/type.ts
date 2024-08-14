@@ -5,6 +5,6 @@ export interface IOptionSlice {
   isShowOption: boolean;
   isShowInput: boolean;
   message: string | null;
-  key: GameChatBlockUserResponseEnum | null
-  blockType:  GameChatBlockEnum | null
+  key: GameChatBlockUserResponseEnum | null;
+  blockType: GameChatBlockEnum | null;
 }

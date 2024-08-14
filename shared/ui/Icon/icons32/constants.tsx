@@ -8,11 +8,4 @@ import WaterIcon32 from "@/shared/ui/Icon/icons32/elements/water.svg";
 import ManIcon32 from "@/shared/ui/Icon/icons32/energies/man.svg";
 import WomanIcon32 from "@/shared/ui/Icon/icons32/energies/woman.svg";
 
-export {
-  EarthIcon32,
-  FireIcon32,
-  WaterIcon32,
-  AirIcon32,
-  ManIcon32,
-  WomanIcon32,
-};
+export { EarthIcon32, FireIcon32, WaterIcon32, AirIcon32, ManIcon32, WomanIcon32 };

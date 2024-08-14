@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { FC, useEffect, useState } from "react";
 import { ProfileContent } from "@/widgets/ProfileContent";
@@ -7,23 +7,19 @@ import { GameService } from "@/shared/lib/services/game";
 import { IGameStatistics } from "@/shared/lib/types/game";
 
 interface IProfilePageProps {
-  url: string
+  url: string;
 }
 
-export const ProfilePage: FC<IProfilePageProps> = (
-  {
-    url
-  }
-) => {
-  const [statistics, setStatistics] = useState<IGameStatistics | null>(null)
+export const ProfilePage: FC<IProfilePageProps> = ({ url }) => {
+  const [statistics, setStatistics] = useState<IGameStatistics | null>(null);
 
   useEffect(() => {
     (async () => {
-      const {data: statisticsData} = await GameService.getGeneralStatistics()
-      setStatistics(statisticsData)
+      const { data: statisticsData } = await GameService.getGeneralStatistics();
+      setStatistics(statisticsData);
 
-      console.log({statisticsData});
-    })()
+      console.log({ statisticsData });
+    })();
   }, []);
 
   return (

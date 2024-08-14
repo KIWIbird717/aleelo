@@ -23,8 +23,10 @@ import {
 
 import {
   AirIcon100,
-  AngryIcon100, EarthIcon100,
-  FearIcon100, FireIcon100,
+  AngryIcon100,
+  EarthIcon100,
+  FearIcon100,
+  FireIcon100,
   HappyIcon100,
   Level1Icon100,
   Level2Icon100,
@@ -34,7 +36,9 @@ import {
   Level6Icon100,
   Level7Icon100,
   Level8Icon100,
-  ManIcon100, SadIcon100, WaterIcon100,
+  ManIcon100,
+  SadIcon100,
+  WaterIcon100,
   WomanIcon100,
 } from "@/shared/ui/ElementIcons/icons/constants";
 import {
@@ -47,7 +51,6 @@ import {
 } from "@/shared/ui/Icon/icons32/constants";
 
 import IconSize = IconNS.IconSize;
-
 
 export namespace IconNS {
   export const size = {
@@ -209,12 +212,10 @@ export namespace IconNS {
   } as const;
 
   // классы, которые используются всеми вариантами кнопок
-  export const DEFAULT_CLASSES =
-    "flex flex-col items-center justify-center rounded-full";
+  export const DEFAULT_CLASSES = "flex flex-col items-center justify-center rounded-full";
 
-  export type IconVariant = keyof typeof variants
-  export type IconSize = keyof typeof size
-
+  export type IconVariant = keyof typeof variants;
+  export type IconSize = keyof typeof size;
 
   export type IIconProps = {
     variant?: IconVariant;
@@ -224,27 +225,32 @@ export namespace IconNS {
   } & ComponentProps<"button">;
 }
 
-export const Icon: FC<IconNS.IIconProps> = (
-  {
-    variant = "null",
-    color = undefined,
-    size = "medium",
-  },
-) => {
+export const Icon: FC<IconNS.IIconProps> = ({
+  variant = "null",
+  color = undefined,
+  size = "medium",
+}) => {
   const [colorClass, setColorClass] = useState<string | null>(null);
 
-  const ICON_VARIANTS = IconNS.variants[variant]?.[`icon${capitalize(size)}` as keyof typeof IconNS.variants["null"]] || IconNS.variants.null.iconMedium;
+  const ICON_VARIANTS =
+    IconNS.variants[variant]?.[
+      `icon${capitalize(size)}` as keyof (typeof IconNS.variants)["null"]
+    ] || IconNS.variants.null.iconMedium;
   const CLASSNAME_SIZE = IconNS.size[size].className;
-  const CLASSNAME_COLOR = color ? IconNS.color[color][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue] : undefined;
+  const CLASSNAME_COLOR = color
+    ? IconNS.color[color][
+        `className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue
+      ]
+    : undefined;
 
   useEffect(() => {
     if (variant && size) {
       const colorMapping: {
         [key in IconNS.IconVariant]?: {
           small: keyof typeof IconNS.color;
-          medium: keyof typeof IconNS.color,
-          large?: keyof typeof IconNS.color
-        }
+          medium: keyof typeof IconNS.color;
+          large?: keyof typeof IconNS.color;
+        };
       } = {
         man: { small: "deepBlue", medium: "deepBlue", large: undefined },
         woman: { small: "red", medium: "red", large: undefined },
@@ -269,7 +275,11 @@ export const Icon: FC<IconNS.IIconProps> = (
 
       const colorClassKey = colorMapping[variant]?.[size as IconSize];
       if (colorClassKey) {
-        setColorClass(IconNS.color[colorClassKey][`className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue]);
+        setColorClass(
+          IconNS.color[colorClassKey][
+            `className${capitalize(size === "medium" ? "48" : "32")}` as keyof typeof IconNS.color.blue
+          ],
+        );
       } else {
         setColorClass("bg-none");
       }
@@ -277,12 +287,13 @@ export const Icon: FC<IconNS.IIconProps> = (
   }, [variant, size]);
 
   return (
-    <div className={cn(
-      IconNS.DEFAULT_CLASSES,
-      colorClass ? colorClass : CLASSNAME_COLOR,
-      CLASSNAME_SIZE,
-    )
-    }>
+    <div
+      className={cn(
+        IconNS.DEFAULT_CLASSES,
+        colorClass ? colorClass : CLASSNAME_COLOR,
+        CLASSNAME_SIZE,
+      )}
+    >
       {ICON_VARIANTS}
     </div>
   );

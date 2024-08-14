@@ -32,7 +32,7 @@ export const items: IElement[] = [
     id: 1,
     heading: "Стихия земли",
     title: "Стихия",
-    icon:  <Icon variant={"earth"} color={"turquoise"} />,
+    icon: <Icon variant={"earth"} color={"turquoise"} />,
     typeIcon: "earth",
     description:
       "Энергии Земли отвечают за стабильность, практичность, стойкость, логичность, гостеприимство и хозяйственность, заботу, чувство безопасности.\n" +

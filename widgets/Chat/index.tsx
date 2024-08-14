@@ -17,13 +17,7 @@ interface IChatProps {
   messageObj: IUseMessage;
 }
 
-export const Chat: FC<IChatProps> = (
-  {
-    svgHeight,
-    height,
-    messageObj,
-  },
-) => {
+export const Chat: FC<IChatProps> = ({ svgHeight, height, messageObj }) => {
   const [bottomInput, setBottomInput] = useState(height / 2 - svgHeight);
   const {
     isFocused,
@@ -37,12 +31,11 @@ export const Chat: FC<IChatProps> = (
     blockTypeLastMessage,
   } = messageObj;
 
-  const {optionState} = useOption()
+  const { optionState } = useOption();
 
   useEffect(() => {
     setBottomInput(height / 2 - svgHeight);
   }, [height, svgHeight]);
-
 
   return (
     <div
@@ -57,53 +50,51 @@ export const Chat: FC<IChatProps> = (
         animate={{ opacity: isFocused ? 0.3 : 1 }}
         transition={{ duration: 0.3 }}
       >
-
         <AnimatePresence initial={false}>
           {messages.map((message, index) => {
             const showAvatar = index === 0 || messages[index].sender !== messages[index - 1].sender;
             const isCurrentType = message.sender === messages[index + 1]?.sender;
 
             return (
-              <Messages key={message.id}
-                        message={message}
-                        isFirstMessage={showAvatar}
-                        isCurrentType={isCurrentType}
+              <Messages
+                key={message.id}
+                message={message}
+                isFirstMessage={showAvatar}
+                isCurrentType={isCurrentType}
               />
             );
           })}
 
-          <Options messages={messages}
-          />
-
+          <Options messages={messages} />
         </AnimatePresence>
-
       </MotionDiv>
       <AnimatePresence initial={false}>
-      {!!messages
-        && (blockTypeLastMessage === "awesomeThenClickAndSetRequest"
-        || (blockTypeLastMessage === "requestExamplesList" && optionState.isShowInput))
-        && <MotionDiv
-          className={twMerge("fixed left-0 w-full px-4 blur-none")}
-          style={{ bottom: `${svgHeight - 17}px` }}
-          animate={{ y: isFocused ? -bottomInput : 0 }}
-          transition={{ duration: 0.3 }}
-          // initial={false}
-        >
-          <Input
-            placeholder={"Нажми здесь, чтобы поговорить с Лилой"}
-            classNameInput={
-              "placeholder:text-[13px] placeholder:text-mint-900 placeholder:font-normal placeholder:leading-5 bg-mint-700 focus:placeholder:opacity-0"
-            }
-            value={input}
-            icon={<SendIcon />}
-            onClickButton={sendMessage}
-            isChat={true}
-            onKeyDown={handleKeyDown}
-            setFocus={onFocus}
-            setBlur={onBlur}
-            onChange={(e) => onChangeValue(e.currentTarget.value)}
-          />
-        </MotionDiv>}
+        {!!messages &&
+          (blockTypeLastMessage === "awesomeThenClickAndSetRequest" ||
+            (blockTypeLastMessage === "requestExamplesList" && optionState.isShowInput)) && (
+            <MotionDiv
+              className={twMerge("fixed left-0 w-full px-4 blur-none")}
+              style={{ bottom: `${svgHeight - 17}px` }}
+              animate={{ y: isFocused ? -bottomInput : 0 }}
+              transition={{ duration: 0.3 }}
+              // initial={false}
+            >
+              <Input
+                placeholder={"Нажми здесь, чтобы поговорить с Лилой"}
+                classNameInput={
+                  "placeholder:text-[13px] placeholder:text-mint-900 placeholder:font-normal placeholder:leading-5 bg-mint-700 focus:placeholder:opacity-0"
+                }
+                value={input}
+                icon={<SendIcon />}
+                onClickButton={sendMessage}
+                isChat={true}
+                onKeyDown={handleKeyDown}
+                setFocus={onFocus}
+                setBlur={onBlur}
+                onChange={(e) => onChangeValue(e.currentTarget.value)}
+              />
+            </MotionDiv>
+          )}
       </AnimatePresence>
     </div>
   );

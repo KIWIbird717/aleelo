@@ -15,7 +15,7 @@ export interface IElement {
 
 export interface IModalData {
   element?: IElement;
-  text?: string
+  text?: string;
 }
 
 export interface IModelSlice {

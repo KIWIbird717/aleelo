@@ -7,13 +7,12 @@ import { OptionSlice } from "@/shared/lib/redux-store/slices/option-slice/option
 import { useOption } from "@/shared/lib/hooks/useOption";
 import { GameChatBlockEnum } from "@/shared/lib/types/game-chat-blocks";
 
-
 export interface IUseMessage {
   messages: IChatMessage[];
   isFocused: boolean;
   input: string;
-  blockTypeLastMessage: GameChatBlockEnum,
-  blockTypePreLastMessage: GameChatBlockEnum,
+  blockTypeLastMessage: GameChatBlockEnum;
+  blockTypePreLastMessage: GameChatBlockEnum;
   sendMessage: () => void;
   handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
   onBlur: () => void;
@@ -21,14 +20,13 @@ export interface IUseMessage {
   onChangeValue: (value: string) => void;
 }
 
-
 export const useMessage = () => {
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const { messages } = useAppSelector((state) => state.chat);
-  const {hideInput, hideOption} = useOption()
+  const { hideInput, hideOption } = useOption();
 
   const onBlur = () => setIsFocused(false);
   const onFocus = () => setIsFocused(true);
@@ -41,10 +39,12 @@ export const useMessage = () => {
 
   const sendMessage = () => {
     if (input.trim() === "") return;
-    hideInput()
-    hideOption()
+    hideInput();
+    hideOption();
     //TODO: исправить
-    dispatch(OptionSlice.setOption({ key: GameChatBlockUserResponseEnum.submitRequest, message: input }));
+    dispatch(
+      OptionSlice.setOption({ key: GameChatBlockUserResponseEnum.submitRequest, message: input }),
+    );
 
     setInput("");
     onBlur();
@@ -57,8 +57,8 @@ export const useMessage = () => {
     }
   };
 
-  const blockTypeLastMessage = messages[messages.length - 1]?.blockType
-  const blockTypePreLastMessage = messages[messages.length - 2]?.blockType
+  const blockTypeLastMessage = messages[messages.length - 1]?.blockType;
+  const blockTypePreLastMessage = messages[messages.length - 2]?.blockType;
 
   return {
     messages,

@@ -18,17 +18,15 @@ interface ITriangleProps {
   result: number;
 }
 
-export const Triangle: FC<ITriangleProps> = (
-  {
-    isIntroAnimationVisible,
-    isLoopAnimationVisible,
-    isEndAnimationVisible,
-    result,
-    endAnimationRef,
-    setIsLoopAnimationVisible,
-    setIsIntroAnimationVisible,
-  },
-) => {
+export const Triangle: FC<ITriangleProps> = ({
+  isIntroAnimationVisible,
+  isLoopAnimationVisible,
+  isEndAnimationVisible,
+  result,
+  endAnimationRef,
+  setIsLoopAnimationVisible,
+  setIsIntroAnimationVisible,
+}) => {
   const introAnimationRef = useRef<Lottie>(null); // Реф для начальной анимации
 
   // Настройки для Lottie анимаций
@@ -73,37 +71,36 @@ export const Triangle: FC<ITriangleProps> = (
   };
 
   return (
-    <div className={"w-full  flex flex-col justify-center items-center"}>
-      {isIntroAnimationVisible &&
-        <Lottie options={defaultOptions}
-                ref={introAnimationRef}
-                style={{ display: "flex", flex: 1, width: "auto" }}
-                eventListeners={[
-                  {
-                    eventName: "complete",
-                    callback: () => {
-                      setIsIntroAnimationVisible(false);
-                      setIsLoopAnimationVisible(true);
-                    },
-                  },
-                ]}
-                isPaused
-        />}
-      {isLoopAnimationVisible ? (
-        <Lottie options={defaultOptionsLoop}
-                style={{ display: "flex", flex: 1, width: "auto" }}
+    <div className={"flex  w-full flex-col items-center justify-center"}>
+      {isIntroAnimationVisible && (
+        <Lottie
+          options={defaultOptions}
+          ref={introAnimationRef}
+          style={{ display: "flex", flex: 1, width: "auto" }}
+          eventListeners={[
+            {
+              eventName: "complete",
+              callback: () => {
+                setIsIntroAnimationVisible(false);
+                setIsLoopAnimationVisible(true);
+              },
+            },
+          ]}
+          isPaused
         />
+      )}
+      {isLoopAnimationVisible ? (
+        <Lottie options={defaultOptionsLoop} style={{ display: "flex", flex: 1, width: "auto" }} />
       ) : null}
       {isEndAnimationVisible && endAnimation ? (
-        <Lottie ref={endAnimationRef}
-                options={defaultOptionsEnd}
-                style={{ display: "flex", flex: 1, width: "auto" }}
+        <Lottie
+          ref={endAnimationRef}
+          options={defaultOptionsEnd}
+          style={{ display: "flex", flex: 1, width: "auto" }}
         />
       ) : null}
 
-      <DiceResult result={result}
-                  isEndAnimationVisible={isEndAnimationVisible}
-      />
+      <DiceResult result={result} isEndAnimationVisible={isEndAnimationVisible} />
     </div>
-  )
+  );
 };

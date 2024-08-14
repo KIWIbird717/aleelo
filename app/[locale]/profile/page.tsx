@@ -7,10 +7,10 @@ interface IProfileProps {}
 
 const getData = async () => {
   return "https://ui-avatars.com/api/size=128";
-}
+};
 
 const Profile: NextPage<IProfileProps> = async () => {
-  const url = await getData()
+  const url = await getData();
 
   return (
     <View backgroundEffect="gradient">

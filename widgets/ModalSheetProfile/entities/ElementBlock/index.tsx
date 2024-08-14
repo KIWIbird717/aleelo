@@ -7,35 +7,38 @@ interface IElementBlockProps {
   isLast?: boolean;
   className?: string;
   classNameItems?: string;
-  children: ReactNode
+  children: ReactNode;
 }
 
-export const ElementBlock: FC<IElementBlockProps> = (
-  {
-    title,
-    isLast,
-    className,
-    classNameItems,
-    children
-  },
-) => {
+export const ElementBlock: FC<IElementBlockProps> = ({
+  title,
+  isLast,
+  className,
+  classNameItems,
+  children,
+}) => {
   return (
-    <div className={twMerge(
-      "relative w-full flex flex-col gap-3.5 pb-4 px-4",
-      !isLast && "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-mint-950 after:shadow-white",
-      className,
-    )}
+    <div
+      className={twMerge(
+        "relative flex w-full flex-col gap-3.5 px-4 pb-4",
+        !isLast &&
+          "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-mint-950 after:shadow-white",
+        className,
+      )}
     >
-      <Typography tag={"p"}
-                  className={"font-bold text-[15px] leading-5 text-mint-900 !text-shadow-light text-center"}
+      <Typography
+        tag={"p"}
+        className={"text-center text-[15px] font-bold leading-5 text-mint-900 !text-shadow-light"}
       >
         {title}
       </Typography>
 
-      <div className={twMerge(
-        "relative w-full flex flex-wrap gap-y-4 justify-between",
-        classNameItems,
-      )}>
+      <div
+        className={twMerge(
+          "relative flex w-full flex-wrap justify-between gap-y-4",
+          classNameItems,
+        )}
+      >
         {children}
       </div>
     </div>

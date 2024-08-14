@@ -76,7 +76,6 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
 
           try {
             await handleFetchMessages();
-
           } catch (error) {
             logger.error(error);
           }

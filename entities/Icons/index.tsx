@@ -10,17 +10,10 @@ interface IIconsProps {
   className?: string;
   padding?: number;
   items: IElement[];
-  variant?: "first" | "second"
+  variant?: "first" | "second";
 }
 
-export const Icons: FC<IIconsProps> = (
-  {
-    className,
-    padding,
-    items,
-    variant
-  },
-) => {
+export const Icons: FC<IIconsProps> = ({ className, padding, items, variant }) => {
   return (
     <MotionDiv
       className={twMerge("flex", className)}
@@ -39,7 +32,7 @@ export const Icons: FC<IIconsProps> = (
 
         return (
           <div key={item.id}>
-            <Element item={item}  classNameText={classNameText} variants={variant} />
+            <Element item={item} classNameText={classNameText} variants={variant} />
           </div>
         );
       })}

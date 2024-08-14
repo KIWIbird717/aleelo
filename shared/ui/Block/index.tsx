@@ -5,23 +5,25 @@ import { Typography } from "@/shared/ui/Typography/Typography";
 interface IBlockProps {
   className?: string;
   children?: ReactNode;
-  title?: string
+  title?: string;
 }
 
-export const Block: FC<IBlockProps> = (
-  {
-    className,
-    children,
-    title
-  }
-) => {
+export const Block: FC<IBlockProps> = ({ className, children, title }) => {
   return (
-    <div className={cn("w-full flex flex-col border-[2px] border-mint-750 rounded-[20px] py-3 px-4", className)}>
-      {!!title && <Typography tag={"p"}
-                              className={"text-center font-bold text-[15px] leading-[21px] text-gold !text-shadow-gold"}
-      >
-        {title}
-      </Typography>}
+    <div
+      className={cn(
+        "flex w-full flex-col rounded-[20px] border-[2px] border-mint-750 px-4 py-3",
+        className,
+      )}
+    >
+      {!!title && (
+        <Typography
+          tag={"p"}
+          className={"text-center text-[15px] font-bold leading-[21px] text-gold !text-shadow-gold"}
+        >
+          {title}
+        </Typography>
+      )}
       {children}
     </div>
   );

@@ -8,7 +8,7 @@ const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion
 
 export interface IAudioPlayerProps extends IPlayerProps {
   padding: number;
-  link: string
+  link: string;
 }
 
 export const AudioPlayer: FC<IAudioPlayerProps> = (props) => {

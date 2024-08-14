@@ -41,18 +41,9 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
   const path = usePathname() || "";
   const { width } = useDimensions();
 
-  const {
-    handleValid,
-    handleDisable,
-    isDisabled,
-    centerButtonIcon,
-    diceRoll,
-  } = useNavbar(isBack);
+  const { handleValid, handleDisable, isDisabled, centerButtonIcon, diceRoll } = useNavbar(isBack);
 
-  const {
-    blockTypeLastMessage,
-    blockTypePreLastMessage,
-  } = useMessage();
+  const { blockTypeLastMessage, blockTypePreLastMessage } = useMessage();
 
   const pathName = path.split("/").pop();
   const isPracticePage = pathName === "practice";
@@ -68,12 +59,20 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         handleValid();
       }
     }
-  }, [blockTypeLastMessage, blockTypePreLastMessage, handleDisable, handleValid, isDisabled, isPracticePage, pathName]);
+  }, [
+    blockTypeLastMessage,
+    blockTypePreLastMessage,
+    handleDisable,
+    handleValid,
+    isDisabled,
+    isPracticePage,
+    pathName,
+  ]);
 
   const getCenterTitle = useMemo(() => {
     switch (centerButtonIcon) {
       case "backIcon":
-        return "Вернуться"
+        return "Вернуться";
       case "reportActive":
       case "reportUnActive":
         return "Мысли";
@@ -84,7 +83,6 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
         return "Вернуться";
     }
   }, [centerButtonIcon]);
-
 
   const getCenterIcon = useMemo(() => {
     switch (centerButtonIcon) {
@@ -117,8 +115,14 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
       {
         id: 0,
         name: "Игра",
-        icon: pathName === "home" ? <GameActiveIcon /> :
-          <GameIcon className={twMerge(isPracticePage && !isDisabled && "[&>path]:fill-mint-900")} />,
+        icon:
+          pathName === "home" ? (
+            <GameActiveIcon />
+          ) : (
+            <GameIcon
+              className={twMerge(isPracticePage && !isDisabled && "[&>path]:fill-mint-900")}
+            />
+          ),
         link: `/${locale}/home`,
       },
       {
@@ -152,10 +156,8 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
   return (
     <div className="fixed bottom-[-13px] z-[33]">
       <div className="relative">
-        <div
-          className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
+        <div className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
           {navElements.map((item, index) => {
-
             let isValidFirstItem;
 
             if (isPracticePage) {
@@ -164,13 +166,16 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
               isValidFirstItem = index === 2 ? isDisabled : false;
             }
 
-            return <NavLinkItem key={`nav item: ${item.id}`}
-                                item={item}
-                                onHide={onHide}
-                                isBack={isBack}
-                                isDisabled={isValidFirstItem}
-                                diceRoll={index === 2 ? diceRoll : null}
-            />;
+            return (
+              <NavLinkItem
+                key={`nav item: ${item.id}`}
+                item={item}
+                onHide={onHide}
+                isBack={isBack}
+                isDisabled={isValidFirstItem}
+                diceRoll={index === 2 ? diceRoll : null}
+              />
+            );
           })}
         </div>
 
@@ -189,18 +194,12 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
 
 type NavLinkItemProps = {
   item: NavItemType;
-  isDisabled?: boolean
-  diceRoll?: number | null
+  isDisabled?: boolean;
+  diceRoll?: number | null;
 } & Pick<INavbarProps, "onHide" | "isBack">;
 
 const NavLinkItem: FC<NavLinkItemProps> = (props) => {
-  const {
-    item,
-    onHide,
-    isDisabled,
-    diceRoll,
-    isBack,
-  } = props;
+  const { item, onHide, isDisabled, diceRoll, isBack } = props;
   const locale = useLocale();
 
   const { push } = useRouter();
@@ -208,7 +207,7 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
 
   const path = usePathname() || "";
 
-  const pathName = path.split("/").pop()
+  const pathName = path.split("/").pop();
   const pageName = path.split("/")[2];
   const isCellPage = pageName === "cell";
   const itemLink = item.link;
@@ -249,7 +248,7 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
         className={cn(
           "row-span-2 flex h-full w-full items-center justify-center pt-[10px]",
           thirdEl &&
-          "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
+            "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
           pathName === itemLink && "",
           thirdEl && !isDisabled && "bg-button-gradient-turquoise shadow-shadowGreen",
         )}

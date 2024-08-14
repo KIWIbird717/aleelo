@@ -23,7 +23,7 @@ type Props = {
   isChat?: boolean;
   setFocus?: () => void;
   setBlur?: () => void;
-  onClickButton?: () => void
+  onClickButton?: () => void;
 } & ComponentProps<"input">;
 
 export const Input = forwardRef<InputRefType, Props>((props, ref) => {
@@ -37,7 +37,7 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
     onClickButton,
     isChat,
     ...rest
-  } = props
+  } = props;
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -58,7 +58,7 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
       className={cn(
         isFocused && "shadow-inputActive transition-all duration-200 ease-out",
         "relative z-[10] h-[50px] w-full overflow-hidden rounded-full bg-turquoise-400 p-[2px]",
-       error && "bg-gradient-border-error",
+        error && "bg-gradient-border-error",
         disabled && "opacity-50 shadow-none",
       )}
     >
@@ -69,7 +69,7 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
           "absolute left-[2px] top-[2px] z-[20] h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-full bg-white pl-[25px] pr-[25px] text-[16px] leading-[19.5px] outline-none transition-all duration-200 ease-out",
           styles.inputShadow,
           error && `pr-[61px] ${styles.inputShadowError}`,
-         icon && "pr-[61px]",
+          icon && "pr-[61px]",
           disabled && `text-mint-950 shadow-none placeholder:text-mint-950`,
           classNameInput,
         )}
@@ -79,9 +79,10 @@ export const Input = forwardRef<InputRefType, Props>((props, ref) => {
       />
 
       {icon && (
-        <button className="absolute right-[20px] top-[13px] z-[21] cursor-pointer"
-                type={"button"}
-                onClick={onClickButton}
+        <button
+          className="absolute right-[20px] top-[13px] z-[21] cursor-pointer"
+          type={"button"}
+          onClick={onClickButton}
         >
           {icon}
         </button>

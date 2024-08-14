@@ -13,13 +13,13 @@ export const useOption = () => {
   const hideInput = () => dispatch(OptionSlice.setHideInput());
   const showInput = () => dispatch(OptionSlice.setShowInput());
 
-  const onChangeChoose = ( message: string | null, key: GameChatBlockUserResponseEnum | null) => {
-    dispatch(OptionSlice.setOption({ key: key, message: message}))
-  }
+  const onChangeChoose = (message: string | null, key: GameChatBlockUserResponseEnum | null) => {
+    dispatch(OptionSlice.setOption({ key: key, message: message }));
+  };
 
-  const onChangeBlockType = (blockType:  GameChatBlockEnum | null) => {
-    dispatch(OptionSlice.setBlockType(blockType))
-  }
+  const onChangeBlockType = (blockType: GameChatBlockEnum | null) => {
+    dispatch(OptionSlice.setBlockType(blockType));
+  };
 
   return {
     hideOption,
@@ -28,6 +28,6 @@ export const useOption = () => {
     showInput,
     optionState,
     onChangeChoose,
-    onChangeBlockType
+    onChangeBlockType,
   };
 };

@@ -40,9 +40,9 @@ export namespace UserServiceTypes {
   export type UpdateSettingsResType = Partial<UpdateSettingsData>;
 
   export interface ISettings {
-    reportNotificationHour: number
-    reportNotificationMinutes: number
-    gender: Gender
-    name: string
+    reportNotificationHour: number;
+    reportNotificationMinutes: number;
+    gender: Gender;
+    name: string;
   }
 }

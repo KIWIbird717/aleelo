@@ -18,8 +18,7 @@ export const ModalContent: FC<IModalContentProps> = ({ onClose, children, classN
       className={twMerge(
         "relative flex h-full w-full flex-col gap-[26px] rounded-3xl bg-white px-5 pb-8 pt-[46px] shadow-modalWindow",
         className,
-      )
-      }
+      )}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}

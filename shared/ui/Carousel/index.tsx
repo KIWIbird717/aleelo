@@ -21,7 +21,7 @@ type CarouselProps = {
 };
 
 type CarouselContentProps = {
-  classNameContent?: string
+  classNameContent?: string;
 };
 
 type CarouselContextProps = {
@@ -139,25 +139,26 @@ const Carousel = React.forwardRef<
 });
 Carousel.displayName = "Carousel";
 
-const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselContentProps>(
-  ({ className, classNameContent, ...props }, ref) => {
-    const { carouselRef, orientation } = useCarousel();
+const CarouselContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & CarouselContentProps
+>(({ className, classNameContent, ...props }, ref) => {
+  const { carouselRef, orientation } = useCarousel();
 
-    return (
-      <div ref={carouselRef} className={twMerge("overflow-hidden", classNameContent )}>
-        <div
-          ref={ref}
-          className={cn(
-            "flex gap-6 px-8",
-            orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-            className,
-          )}
-          {...props}
-        />
-      </div>
-    );
-  },
-);
+  return (
+    <div ref={carouselRef} className={twMerge("overflow-hidden", classNameContent)}>
+      <div
+        ref={ref}
+        className={cn(
+          "flex gap-6 px-8",
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          className,
+        )}
+        {...props}
+      />
+    </div>
+  );
+});
 CarouselContent.displayName = "CarouselContent";
 
 const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

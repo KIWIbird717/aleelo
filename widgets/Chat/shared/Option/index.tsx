@@ -7,19 +7,12 @@ import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-bloc
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-
 interface IOptionProps {
   options: IOptions[];
-  onChangeChoose: ( message: string | null, key: GameChatBlockUserResponseEnum | null) => void
+  onChangeChoose: (message: string | null, key: GameChatBlockUserResponseEnum | null) => void;
 }
 
-export const Option: FC<IOptionProps> = (
-  {
-    options,
-    onChangeChoose
-  },
-) => {
-
+export const Option: FC<IOptionProps> = ({ options, onChangeChoose }) => {
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 50 }}
@@ -31,12 +24,13 @@ export const Option: FC<IOptionProps> = (
       <div className={"flex flex-col items-end gap-4"}>
         {options?.map((option, index) => {
           return (
-            <Button key={index}
-                    variant={"yellow"}
-                    size={"small"}
-                    onClick={() => {
-                      onChangeChoose(option.message, option.key)
-                    }}
+            <Button
+              key={index}
+              variant={"yellow"}
+              size={"small"}
+              onClick={() => {
+                onChangeChoose(option.message, option.key);
+              }}
             >
               {option.message}
             </Button>

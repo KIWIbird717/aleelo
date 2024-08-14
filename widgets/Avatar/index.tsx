@@ -5,43 +5,42 @@ import MedalIcon from "@/public/images/profile/medal.png";
 import { Button } from "@/shared/ui/Button/Button";
 
 interface IAvatarProps {
-  avatarUrl:string
-  name: string
+  avatarUrl: string;
+  name: string;
 }
 
-export const Avatar: FC<IAvatarProps> = ({avatarUrl, name}) => {
-
+export const Avatar: FC<IAvatarProps> = ({ avatarUrl, name }) => {
   return (
-    <div className={"w-full flex flex-col justify-center items-center gap-2.5"}>
-      <div className={"relative w-[128px] h-[128px] flex justify-center items-center rounded-full bg-avatar"}>
-
-        <div className={"w-[124px] h-[124px] flex justify-center items-center rounded-full bg-gradient-to-b from-[#264F58]/70 to-[#67B6B3]/70"}>
-          <div className={"flex flex-col justify-center items-center w-[118px] h-[118px]"}>
-            <Image src={avatarUrl}
-                   alt={"avatar"}
-                   className={"rounded-full shadow-avatar"}
-                   width={118}
-                   height={118}
+    <div className={"flex w-full flex-col items-center justify-center gap-2.5"}>
+      <div
+        className={
+          "relative flex h-[128px] w-[128px] items-center justify-center rounded-full bg-avatar"
+        }
+      >
+        <div
+          className={
+            "flex h-[124px] w-[124px] items-center justify-center rounded-full bg-gradient-to-b from-[#264F58]/70 to-[#67B6B3]/70"
+          }
+        >
+          <div className={"flex h-[118px] w-[118px] flex-col items-center justify-center"}>
+            <Image
+              src={avatarUrl}
+              alt={"avatar"}
+              className={"rounded-full shadow-avatar"}
+              width={118}
+              height={118}
             />
           </div>
         </div>
 
-        <div className={"absolute top-[25%] -right-6"}>
-          <Button variant={"snow"}
-                  size={"small"}
-                  className={"w-[48px] h-[48px] !p-0"}
-          >
-            <Image src={MedalIcon}
-                   alt={"medal"}
-                   className={"w-[28px] h-[33px]"}
-            />
+        <div className={"absolute -right-6 top-[25%]"}>
+          <Button variant={"snow"} size={"small"} className={"h-[48px] w-[48px] !p-0"}>
+            <Image src={MedalIcon} alt={"medal"} className={"h-[33px] w-[28px]"} />
           </Button>
         </div>
       </div>
       <div>
-        <Typography tag={"h3"}
-                    className={"!text-mint-600 text-shadow-gold text-center"}
-        >
+        <Typography tag={"h3"} className={"text-center !text-mint-600 text-shadow-gold"}>
           {name}
         </Typography>
       </div>

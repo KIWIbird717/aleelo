@@ -8,21 +8,14 @@ import { IChatMessage } from "@/shared/lib/types/chat-message";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-
 interface IMessagesProps {
-  message: IChatMessage
+  message: IChatMessage;
   isFirstMessage: boolean;
   isCurrentType: boolean;
 }
 
-export const Messages: FC<IMessagesProps> = (
-  {
-    isFirstMessage,
-    isCurrentType,
-    message
-  },
-) => {
-  const {sender, key: messageKey, blockType, response,message: text} = message
+export const Messages: FC<IMessagesProps> = ({ isFirstMessage, isCurrentType, message }) => {
+  const { sender, key: messageKey, blockType, response, message: text } = message;
 
   return (
     <MotionDiv
@@ -39,20 +32,18 @@ export const Messages: FC<IMessagesProps> = (
       <Avatar sender={sender} isFirstMessage={isFirstMessage} />
 
       <div className={"flex flex-col gap-[5px]"}>
-
-        {messageKey !== "requestExamplesList"
-          ? <Message messageKey={messageKey}
-                     sender={sender}
-                     isFirstMessage={isFirstMessage}
-                     response={response}
-                     message={text}
-                     blockType={blockType}
+        {messageKey !== "requestExamplesList" ? (
+          <Message
+            messageKey={messageKey}
+            sender={sender}
+            isFirstMessage={isFirstMessage}
+            response={response}
+            message={text}
+            blockType={blockType}
           />
-          : <CarouselMessage sender={sender}
-                             isFirstMessage={isFirstMessage}
-                             message={text}
-          />
-        }
+        ) : (
+          <CarouselMessage sender={sender} isFirstMessage={isFirstMessage} message={text} />
+        )}
       </div>
     </MotionDiv>
   );

@@ -16,48 +16,42 @@ const exampleMessages = [
     key: "requestExample1",
     blockType: GameChatBlockEnum.requestExamplesList,
     response: GameChatBlockUserResponseEnum.submitRequest,
-  }, {
+  },
+  {
     key: "requestExample2",
     blockType: GameChatBlockEnum.requestExamplesList,
     response: GameChatBlockUserResponseEnum.submitRequest,
-  }, {
+  },
+  {
     key: "requestExample3",
     blockType: GameChatBlockEnum.requestExamplesList,
     response: GameChatBlockUserResponseEnum.submitRequest,
   },
 ];
 
-export const CarouselMessage: FC<ICarouselMessageProps> = (
-  {
-    sender,
-    isFirstMessage,
-    message,
-  },
-) => {
-
+export const CarouselMessage: FC<ICarouselMessageProps> = ({ sender, isFirstMessage, message }) => {
   return (
-    <div className={"w-full flex"}>
-      <Carousel opts={{ align: "start" }}
-                autoFocus={true}
-                className="w-full max-w-sm"
-      >
-        <CarouselContent classNameContent={"overflow-visible"}
-                         className={"px-0 mx-0 mb-[17px] gap-1.5 "}
+    <div className={"flex w-full"}>
+      <Carousel opts={{ align: "start" }} autoFocus={true} className="w-full max-w-sm">
+        <CarouselContent
+          classNameContent={"overflow-visible"}
+          className={"mx-0 mb-[17px] gap-1.5 px-0 "}
         >
           {exampleMessages.map((value, i) => {
-            return <CarouselItem key={i}
-                                 className={" mt-[14px] basis-auto"}
-            >
-              <Message key={i}
-                       messageKey={value.key}
-                       sender={sender}
-                       isFirstMessage={isFirstMessage}
-                       className={"m-0 w-[166px] min-h-[154px]"}
-                       response={value.response}
-                       message={message}
-                       blockType={value.blockType}
-              />
-            </CarouselItem>;
+            return (
+              <CarouselItem key={i} className={" mt-[14px] basis-auto"}>
+                <Message
+                  key={i}
+                  messageKey={value.key}
+                  sender={sender}
+                  isFirstMessage={isFirstMessage}
+                  className={"m-0 min-h-[154px] w-[166px]"}
+                  response={value.response}
+                  message={message}
+                  blockType={value.blockType}
+                />
+              </CarouselItem>
+            );
           })}
         </CarouselContent>
       </Carousel>

@@ -5,7 +5,6 @@ import { UserServiceTypes } from "./types";
 import ISettings = UserServiceTypes.ISettings;
 
 export namespace UserService {
-
   const thisName = (serviceName: string) => {
     const namespaceName = "UserService";
     return `${namespaceName} > ${serviceName}`;
@@ -22,11 +21,11 @@ export namespace UserService {
   };
 
   /*
-  * GET /settings
-  * */
+   * GET /settings
+   * */
   export const settings = () => {
     return errorHandler("settings", serverApi.get<ISettings>("/settings"));
-  }
+  };
 
   /**
    * POST /auth/telegram

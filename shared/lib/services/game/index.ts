@@ -20,8 +20,8 @@ export namespace GameService {
   };
 
   /**
-  * GET /game/general-statistics
-  */
+   * GET /game/general-statistics
+   */
   export const getGeneralStatistics = () => {
     return errorHandler(
       thisName("getGeneralStatistics"),

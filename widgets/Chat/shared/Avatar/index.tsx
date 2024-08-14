@@ -6,16 +6,11 @@ import { twMerge } from "tailwind-merge";
 import { IMessageSender } from "@/shared/lib/types/game-chat-message";
 
 interface IAvatarProps {
-  sender: IMessageSender
+  sender: IMessageSender;
   isFirstMessage: boolean;
 }
 
-export const Avatar: FC<IAvatarProps> = (
-  {
-    sender,
-    isFirstMessage,
-  },
-) => {
+export const Avatar: FC<IAvatarProps> = ({ sender, isFirstMessage }) => {
   const image = sender === "ai" ? EftImage : UserImage;
   const isEft = sender === "ai";
   const isUser = sender === "user";
@@ -23,7 +18,7 @@ export const Avatar: FC<IAvatarProps> = (
   return (
     <div
       className={twMerge(
-        "flex absolute h-[54px] w-full max-w-[54px] flex-col items-center justify-center rounded-full",
+        "absolute flex h-[54px] w-full max-w-[54px] flex-col items-center justify-center rounded-full",
         isEft && "bg-button-gradient-orange",
         isUser && "order-1 bg-avatar",
         !isFirstMessage && "bg-none",
@@ -36,7 +31,10 @@ export const Avatar: FC<IAvatarProps> = (
           }
         >
           <div
-            className={twMerge("h-[46px] w-[46px] overflow-hidden rounded-full", isEft && "bg-white")}
+            className={twMerge(
+              "h-[46px] w-[46px] overflow-hidden rounded-full",
+              isEft && "bg-white",
+            )}
           >
             <Image
               src={image}

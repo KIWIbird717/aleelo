@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { IOptionSlice } from "@/shared/lib/redux-store/slices/option-slice/type";
 
-
 export namespace OptionSlice {
   const initialState: IOptionSlice = {
     isShowOption: true,

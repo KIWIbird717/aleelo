@@ -4,18 +4,15 @@ import SettingsIcon from "@/public/images/svg/profile/settings.svg";
 import { Typography } from "@/shared/ui/Typography/Typography";
 import { ButtonIcon } from "@/shared/ui/ButtonIcon/ButtonIcon";
 
-interface IHeadingProps {
-}
+interface IHeadingProps {}
 
 export const Heading: FC<IHeadingProps> = () => {
   return (
-    <div className={"w-full flex justify-between px-4"}>
+    <div className={"flex w-full justify-between px-4"}>
       <ButtonIcon variant={"default"}>
         <EditIcon />
       </ButtonIcon>
-      <Typography tag={"h1"}
-                  className={"!text-gold text-shadow-gold"}
-      >
+      <Typography tag={"h1"} className={"!text-gold text-shadow-gold"}>
         Профиль
       </Typography>
       <ButtonIcon variant={"default"}>

@@ -13,109 +13,123 @@ import UserResType = UserServiceTypes.UserResType;
 import IconVariant = IconNS.IconVariant;
 
 interface IProfileBlockProps {
-  status: GameStatusResult
-  profile: UserResType
+  status: GameStatusResult;
+  profile: UserResType;
 }
 
+export const ProfileBlock: FC<IProfileBlockProps> = ({ status, profile }) => {
+  const { onOpenModal } = useModal();
 
-
-export const ProfileBlock: FC<IProfileBlockProps> = (
-  {status, profile}
-) => {
-
-  const {onOpenModal} = useModal()
-
-  const mood = "Доволен"
+  const mood = "Доволен";
 
   const onClickHandler = () => {
-    onOpenModal("moodStatus", {text: mood})
-  }
+    onOpenModal("moodStatus", { text: mood });
+  };
 
-  const items = useMemo(() => [
-    {
-      icon: <Icon variant={profile?.energy as unknown as IconVariant} size={"medium"} />,
-      title: "Энергия",
-    },
-    {
-      icon: <Icon variant={profile?.spirit as unknown as IconVariant} size={"medium"} />,
-      title: "Стихия",
-    },
-  ], [profile?.energy, profile?.spirit])
+  const items = useMemo(
+    () => [
+      {
+        icon: <Icon variant={profile?.energy as unknown as IconVariant} size={"medium"} />,
+        title: "Энергия",
+      },
+      {
+        icon: <Icon variant={profile?.spirit as unknown as IconVariant} size={"medium"} />,
+        title: "Стихия",
+      },
+    ],
+    [profile?.energy, profile?.spirit],
+  );
 
   return (
-    <div className={"w-full h-full flex justify-between gap-4 pt-[17px]"}>
-      <Block className={"gap-[9px]"}
-             title={"Статус"}
-      >
-        <div className={"w-full flex justify-between"}>
+    <div className={"flex h-full w-full justify-between gap-4 pt-[17px]"}>
+      <Block className={"gap-[9px]"} title={"Статус"}>
+        <div className={"flex w-full justify-between"}>
           {items.map((item, i) => {
-            return <div key={i}
-                        className={"flex flex-col gap-2.5"}
-            >
-              <div
-                className={"w-[48px] h-[48px] flex flex-col justify-center items-center rounded-full"}>
-                {item.icon}
-              </div>
+            return (
+              <div key={i} className={"flex flex-col gap-2.5"}>
+                <div
+                  className={
+                    "flex h-[48px] w-[48px] flex-col items-center justify-center rounded-full"
+                  }
+                >
+                  {item.icon}
+                </div>
 
-              <Typography tag={"p"}
-                          className={"text-center font-bold text-[13px] leading-[19px] text-mint-600 !text-shadow-gold"}
-              >
-                {item.title}
-              </Typography>
-            </div>;
+                <Typography
+                  tag={"p"}
+                  className={
+                    "text-center text-[13px] font-bold leading-[19px] text-mint-600 !text-shadow-gold"
+                  }
+                >
+                  {item.title}
+                </Typography>
+              </div>
+            );
           })}
         </div>
       </Block>
-      <Block className={"gap-4 px-0 pb-2"}
-             title={"Статистика"}
-      >
-
-        <div className={"w-full flex justify-between px-4"}>
+      <Block className={"gap-4 px-0 pb-2"} title={"Статистика"}>
+        <div className={"flex w-full justify-between px-4"}>
           <div className={"relative flex flex-col gap-[9px]"}>
-            <Typography tag={"p"}
-                        className={twMerge("!absolute w-full font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
+            <Typography
+              tag={"p"}
+              className={twMerge(
+                "practice-gradient-static !absolute z-[1] w-full text-center text-[32px] font-semibold leading-[42px]",
+              )}
             >
               {status?.numberOfGames}
             </Typography>
-            <Typography tag={"p"}
-                        className={twMerge("relative font-semibold text-center text-[32px] leading-[42px] !text-shadow-static z-[0]")}
+            <Typography
+              tag={"p"}
+              className={twMerge(
+                "relative z-[0] text-center text-[32px] font-semibold leading-[42px] !text-shadow-static",
+              )}
             >
               {status?.numberOfGames}
             </Typography>
-            <Typography tag={"p"}
-                        className={"text-center text-mint-600 font-bold text-[13px] !text-shadow-gold"}
+            <Typography
+              tag={"p"}
+              className={"text-center text-[13px] font-bold text-mint-600 !text-shadow-gold"}
             >
               Игр
             </Typography>
           </div>
           <div className={"relative flex flex-col gap-[9px]"}>
-            <Typography tag={"p"}
-                        className={twMerge("!absolute w-full font-semibold text-center text-[32px] leading-[42px] practice-gradient-static z-[1]")}
+            <Typography
+              tag={"p"}
+              className={twMerge(
+                "practice-gradient-static !absolute z-[1] w-full text-center text-[32px] font-semibold leading-[42px]",
+              )}
             >
               {status?.stepsCount}
             </Typography>
-            <Typography tag={"p"}
-                        className={twMerge("relative font-semibold text-center text-[32px] leading-[42px] !text-shadow-static z-[0]")}
+            <Typography
+              tag={"p"}
+              className={twMerge(
+                "relative z-[0] text-center text-[32px] font-semibold leading-[42px] !text-shadow-static",
+              )}
             >
               {status?.stepsCount}
             </Typography>
-            <Typography tag={"p"}
-                        className={"text-center text-mint-600 font-bold text-[13px] !text-shadow-gold"}
+            <Typography
+              tag={"p"}
+              className={"text-center text-[13px] font-bold text-mint-600 !text-shadow-gold"}
             >
               Ходы
             </Typography>
           </div>
         </div>
 
-
         <div className={"w-full px-1.5"}>
-          <ButtonIcon variant={"default"}
-                      className={"relative h-[26px] w-full bg-green-800 py-3 px-2"}
-                      onClick={onClickHandler}
+          <ButtonIcon
+            variant={"default"}
+            className={"relative h-[26px] w-full bg-green-800 px-2 py-3"}
+            onClick={onClickHandler}
           >
-            <div className={"w-full flex justify-center items-center"}>
-              <Typography tag={"p"}
-                          className={"text-[13px] font-normal leading-5 text-white !text-shadow-satisfied"}
+            <div className={"flex w-full items-center justify-center"}>
+              <Typography
+                tag={"p"}
+                className={"text-[13px] font-normal leading-5 text-white !text-shadow-satisfied"}
               >
                 {mood}
               </Typography>

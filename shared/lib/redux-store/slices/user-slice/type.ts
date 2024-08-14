@@ -33,14 +33,14 @@ export interface IUserSlice {
 // }
 
 export interface SpiritType {
-  earth: "earth",
-  ether: "ether",
-  water: "water",
-  fire: "fire",
-  wind: "wind",
+  earth: "earth";
+  ether: "ether";
+  water: "water";
+  fire: "fire";
+  wind: "wind";
 }
 
 export interface EnergyType {
-  male: "male",
-  female: "female",
+  male: "male";
+  female: "female";
 }

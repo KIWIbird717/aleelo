@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface IShareAndPracticeBtnsProps {
   padding: number;
-  link: string
+  link: string;
 }
 
 export const ShareAndPracticeBtns: FC<IShareAndPracticeBtnsProps> = ({ padding, link }) => {

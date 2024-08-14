@@ -10,10 +10,10 @@ export const useNavbar = (isBack?: boolean) => {
   const { data } = useSWR("/game/status", GameService.getGameStatus);
   const path = usePathname() || "";
 
-  const pathName = path.split("/").pop()
+  const pathName = path.split("/").pop();
   const pageName = path.split("/")[2];
 
-  const isPracticePage = pathName === "practice" ;
+  const isPracticePage = pathName === "practice";
   const isCellPage = pageName === "cell";
   const isChatPage = pageName === "chat";
 
@@ -22,12 +22,12 @@ export const useNavbar = (isBack?: boolean) => {
       const { report, reportAfter, reportSkipped } = data.data.currentStep;
 
       const isReportActive = report === null && !reportSkipped;
-      const isReportUnActive = !isReportActive && report === null
+      const isReportUnActive = !isReportActive && report === null;
       const isDiceRollActive = new Date(reportAfter) <= new Date();
 
       if (isBack && (isCellPage || isChatPage)) {
         setCenterButtonIcon("backIcon");
-        setIsDisabled(false)
+        setIsDisabled(false);
       } else if (isDiceRollActive) {
         setCenterButtonIcon("diceRollActive");
         setIsDisabled(false);

@@ -5,7 +5,7 @@ import { IChatMessage } from "@/shared/lib/types/chat-message";
 
 export namespace ChatSlice {
   const initialState: IChatSlice = {
-    messages: []
+    messages: [],
   };
 
   export const chatSlice = createSlice({
@@ -15,8 +15,8 @@ export namespace ChatSlice {
       getMessages: (state, action: PayloadAction<IChatMessage[]>) => {
         const newMessages = action.payload;
 
-        newMessages.forEach(newMessage => {
-          const exists = state.messages.some(message => message.id === newMessage.id);
+        newMessages.forEach((newMessage) => {
+          const exists = state.messages.some((message) => message.id === newMessage.id);
           if (!exists) {
             state.messages.push(newMessage);
           }

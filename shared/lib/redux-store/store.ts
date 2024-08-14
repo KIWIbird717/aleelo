@@ -10,7 +10,7 @@ export const store = () => {
       user: UserSlice.userReducer,
       modal: ModalSlice.modalReducer,
       chat: ChatSlice.chatReducer,
-      option: OptionSlice.optionReducer
+      option: OptionSlice.optionReducer,
     },
     /**
      * You cant set up more middlewares
