@@ -7,6 +7,7 @@ import { Button } from "@/shared/ui/Button/Button";
 import { ButtonLink } from "@/shared/ui/ButtonLink";
 import { useStages } from "./shared/hooks/useStages";
 import { useJwtAuth } from "./shared/hooks/useJwtAuth";
+import { View } from "@/shared/layout/View";
 
 export const LetsMeetWidget = () => {
   useJwtAuth(); // автоматически авторизуем пользователя пока происходит онбординг
@@ -15,7 +16,10 @@ export const LetsMeetWidget = () => {
   const { stage, handleStageChange, isLastStage } = useStages();
 
   return (
-    <div className="flex h-screen flex-col justify-between overflow-hidden">
+    <View
+      backgroundEffect="vignette"
+      className="flex h-screen flex-col justify-between overflow-hidden"
+    >
       <ParalaxBackground stage={stage} />
       <LetsMeetDescription className="w-fit" stage={stage} />
       <section className="p-5">
@@ -29,6 +33,6 @@ export const LetsMeetWidget = () => {
           )}
         </div>
       </section>
-    </div>
+    </View>
   );
 };
