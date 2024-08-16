@@ -1,7 +1,7 @@
 "use client";
 
 import { ModalSheet } from "@/widgets/ModalSheet";
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { Map } from "@/entities/Map";
 import { View } from "@/shared/layout/View";
 import { useSizes } from "@/shared/lib/hooks/useSizes";

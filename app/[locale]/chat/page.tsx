@@ -3,7 +3,7 @@
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Chat } from "@/widgets/Chat";
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
 import { useRouter } from "next/navigation";
 import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";

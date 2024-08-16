@@ -195,6 +195,7 @@ type NavLinkItemProps = {
   item: NavItemType;
   isDisabled?: boolean;
   diceRoll?: number | null;
+  onRedirect?: () => void;
 } & Pick<INavbarProps, "onHide" | "isBack">;
 
 const NavLinkItem: FC<NavLinkItemProps> = (props) => {
@@ -218,18 +219,16 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       onHide();
     }
 
-    if (!isDisabled) {
-      if ((itemLink !== "null" && pathName !== `/${locale}/diceroll`) || isCellPage) {
-        push(itemLink);
-      }
+    if (isDisabled) return;
+    if ((itemLink !== "null" && pathName !== `/${locale}/diceroll`) || isCellPage) {
+      push(itemLink);
+    }
 
-      // TODO: На данный момент diceroll = null, нужно уточнить, что делать, когда приходит null, сделать кнопку не активной или что
-      if (itemLink === `/${locale}/diceroll`) {
-        if (diceRoll === null) {
-          push(`${item.link}?diceRoll=${1}`);
-        } else {
-          push(`${item.link}?diceRoll=${diceRoll}`);
-        }
+    if (itemLink === `/${locale}/diceroll`) {
+      if (diceRoll === null) {
+        push(`${item.link}?diceRoll=${1}`);
+      } else {
+        push(`${item.link}?diceRoll=${diceRoll}`);
       }
     }
   };
@@ -239,14 +238,8 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       disabled={props.isDisabled}
       type={"button"}
       className="relative grid h-full w-full grid-rows-3 flex-col content-center items-center justify-center"
-      onClick={(e) => onClickHandler(e)}
+      onClick={onClickHandler}
     >
-      {/*<Link*/}
-      {/*className="relative grid h-full w-full grid-rows-3 flex-col content-center items-center justify-center"*/}
-      {/*  onClick={onClickHandler}*/}
-      {/*  href={props.item.link}*/}
-      {/*  prefetch={true}*/}
-      {/*>*/}
       <div
         className={cn(
           "row-span-2 flex h-full w-full items-center justify-center pt-[10px]",
@@ -267,7 +260,6 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       >
         {item.name}
       </div>
-      {/*</Link>*/}
     </button>
   );
 };

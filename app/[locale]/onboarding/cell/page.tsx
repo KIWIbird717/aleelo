@@ -1,13 +1,11 @@
 "use client";
 
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { View } from "@/shared/layout/View";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { mediaApi } from "@/shared/lib/axios";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import { useState } from "react";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
-import dynamic from "next/dynamic";
 import { NextPage } from "next";
 import { PracticeOnboardingEftSpeeches } from "@/entities/onboarding/PracticeOnboardingEftSpeeches";
 import { useStages } from "@/entities/onboarding/PracticeOnboardingEftSpeeches/shared/hooks/useStages";
@@ -46,7 +44,7 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
     next(4);
   };
 
-  console.log({isShowText});
+  console.log({ isShowText });
 
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>

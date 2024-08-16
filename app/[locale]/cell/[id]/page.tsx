@@ -2,7 +2,7 @@
 
 import { NextPage } from "next";
 import { Typography } from "@/shared/ui/Typography/Typography";
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { View } from "@/shared/layout/View";
 import useRequest from "@/shared/lib/hooks/useRequest";
 import { mediaApi } from "@/shared/lib/axios";

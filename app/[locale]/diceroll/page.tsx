@@ -3,7 +3,7 @@
 import { LegacyRef, useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
 import Lottie from "react-lottie";
 import { Button } from "@/shared/ui/Button/Button";

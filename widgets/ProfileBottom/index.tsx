@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import { Navbar } from "@/entities/Navbar";
+import { Navbar } from "@/widgets/Navbar";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
 import { ModalSheetProfile } from "@/widgets/ModalSheetProfile";
 import { IGameStatistics } from "@/shared/lib/types/game";
