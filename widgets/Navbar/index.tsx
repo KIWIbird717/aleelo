@@ -220,6 +220,11 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
     }
 
     if (isDisabled) return;
+
+    if (props.onRedirect) {
+      return props.onRedirect();
+    }
+
     if ((itemLink !== "null" && pathName !== `/${locale}/diceroll`) || isCellPage) {
       push(itemLink);
     }
