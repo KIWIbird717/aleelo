@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Messages } from "@/widgets/Chat/entities/Messages";
 import { Input } from "@/shared/ui/Input";
 import SendIcon from "@/public/images/svg/chat/send.svg";
@@ -37,8 +37,19 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height, messageObj }) => {
     setBottomInput(height / 2 - svgHeight);
   }, [height, svgHeight]);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [messages]);
+
   return (
-    <div
+    <div ref={containerRef}
       className={twMerge(
         "relative flex flex-col justify-between gap-5 overflow-x-hidden overflow-y-scroll px-4 pb-[65px] pt-[11px]",
         isFocused && "overflow-hidden",

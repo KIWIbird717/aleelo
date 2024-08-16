@@ -20,6 +20,16 @@ export namespace UserService {
     );
   };
 
+  /**
+   * DELETE /settings
+   */
+  export const deleteProfile = () => {
+    return errorHandler(
+      thisName("deleteProfile"),
+      serverApi.delete("/auth/profile"),
+    );
+  };
+
   /*
    * GET /settings
    * */
