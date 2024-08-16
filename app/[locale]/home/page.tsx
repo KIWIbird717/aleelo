@@ -1,24 +1,13 @@
 "use client";
 
-import React from "react";
 import { ModalSheet } from "@/widgets/ModalSheet";
 import { Navbar } from "@/entities/Navbar";
 import { Map } from "@/entities/Map";
 import { View } from "@/shared/layout/View";
-import useRequest from "@/shared/lib/hooks/useRequest";
 import { useSizes } from "@/shared/lib/hooks/useSizes";
-import { Logger } from "@/shared/lib/utils/logger/Logger";
-import { useCurrentGame } from "@/shared/lib/hooks/useCurrentGame";
 
 export default function HomePage() {
-  const logger = new Logger("HomePage");
-
-  const { width, svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
-  const currentGame = useCurrentGame();
-
-  useRequest(async () => {
-    logger.debug({ currentGame: currentGame.get() });
-  }, []);
+  const { svgGRef, svgWidth, svgRef, height, padding, svgHeight } = useSizes();
 
   return (
     <View backgroundEffect="gradient">

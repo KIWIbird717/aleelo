@@ -11,6 +11,6 @@ export default getRequestConfig(async ({ locale }) => {
   const localizationJson = await mediaApi.get(`/localisation/${locale}.json`);
 
   return {
-    messages: localizationJson.data,
+    messages: localizationJson.data || {},
   };
 });

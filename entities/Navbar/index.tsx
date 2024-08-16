@@ -18,8 +18,7 @@ import { useNavbar } from "@/shared/lib/hooks/useNavbar";
 import { useMessage } from "@/shared/lib/hooks/useMessage";
 import { twMerge } from "tailwind-merge";
 
-const X_MARGINS = 20; // px
-const DEVIDE = 0.96279;
+const DIVIDE = 0.96279;
 
 type NavItemType = {
   id: number;
@@ -47,8 +46,6 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
 
   const pathName = path.split("/").pop();
   const isPracticePage = pathName === "practice";
-  console.log({ path });
-
 
   useEffect(() => {
     if (isPracticePage) {
@@ -158,8 +155,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
   return (
     <div className="fixed bottom-[-13px] z-[33]">
       <div className="relative">
-        <div
-          className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
+        <div className="absolute bottom-[20%] mx-[14px] grid h-[59%] w-[90.5%] grid-cols-5 items-center justify-between gap-3 pl-[10px] pr-[15px]">
           {navElements.map((item, index) => {
             let isValidFirstItem;
 
@@ -187,7 +183,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
           svgGRef={svgGRef}
           svgRef={svgRef}
           className="z-[-1] pl-[4px] pr-[2px]"
-          width={width / DEVIDE}
+          width={width / DIVIDE}
         />
         {/*<NavbarCard svgGRef={svgGRef} svgRef={svgRef} className="z-[-1]" width={width / DEVIDE} />*/}
       </div>
@@ -223,7 +219,6 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
     }
 
     if (!isDisabled) {
-
       if ((itemLink !== "null" && pathName !== `/${locale}/diceroll`) || isCellPage) {
         push(itemLink);
       }
@@ -256,7 +251,7 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
         className={cn(
           "row-span-2 flex h-full w-full items-center justify-center pt-[10px]",
           thirdEl &&
-          "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
+            "absolute top-[-10px] flex aspect-square h-auto w-full rounded-full bg-gradient-throw pt-0 shadow-throw",
           pathName === itemLink && "",
           thirdEl && !isDisabled && "bg-button-gradient-turquoise shadow-shadowGreen",
         )}
