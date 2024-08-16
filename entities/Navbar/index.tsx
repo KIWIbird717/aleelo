@@ -229,9 +229,12 @@ const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       }
 
       // TODO: На данный момент diceroll = null, нужно уточнить, что делать, когда приходит null, сделать кнопку не активной или что
-
-      if (itemLink === `/${locale}/diceroll` && diceRoll !== null) {
-        push(`${item.link}?diceRoll=${5}`);
+      if (itemLink === `/${locale}/diceroll`) {
+        if (diceRoll === null) {
+          push(`${item.link}?diceRoll=${1}`);
+        } else {
+          push(`${item.link}?diceRoll=${diceRoll}`);
+        }
       }
     }
   };
