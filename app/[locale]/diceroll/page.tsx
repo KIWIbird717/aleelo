@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { Triangle } from "@/widgets/Triangle";
 import { DiceRollHeader } from "@/widgets/DiceRollHeader";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -23,7 +23,9 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   const diceRoll = searchParams.get("diceRoll");
   const result = Number(diceRoll);
 
-  console.log({ result });
+  const {back} = useRouter()
+
+  const redirectBack = () => back()
 
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
@@ -87,7 +89,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       <AnimatePresence initial={false}>
         {isIntroAnimationVisible && (
           <motion.div exit={{ opacity: 0 }} transition={{ type: "tween", stiffness: 300 }}>
-            <Navbar svgRef={svgRef} svgGRef={svgGRef} />
+            <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack onHide={redirectBack}/>
           </motion.div>
         )}
       </AnimatePresence>

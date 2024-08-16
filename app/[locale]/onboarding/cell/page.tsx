@@ -46,6 +46,8 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
     next(4);
   };
 
+  console.log({isShowText});
+
   return (
     <View className={"relative flex flex-col"} backgroundEffect={"gradient"}>
       <PracticeOnboardingEftSpeeches stage={stage} next={next} className="fixed z-[35]" />

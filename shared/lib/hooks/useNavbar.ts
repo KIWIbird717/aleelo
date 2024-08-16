@@ -14,8 +14,11 @@ export const useNavbar = (isBack?: boolean) => {
   const pageName = path.split("/")[2];
 
   const isPracticePage = pathName === "practice";
-  const isCellPage = pageName === "cell";
+  const isCellPage = pageName === "cell" || pathName === "cell";
   const isChatPage = pageName === "chat";
+  const isDiceRollPage = pathName === "diceroll";
+
+  console.log({isDisabled, centerButtonIcon, pathName, path});
 
   useEffect(() => {
     if (data?.data.currentStep) {
@@ -25,13 +28,15 @@ export const useNavbar = (isBack?: boolean) => {
       const isReportUnActive = !isReportActive && report === null;
       const isDiceRollActive = new Date(reportAfter) <= new Date();
 
-      if (isBack && (isCellPage || isChatPage)) {
+      console.log({isBack});
+
+      if (isBack && (isCellPage || isChatPage || isDiceRollPage)) {
         setCenterButtonIcon("backIcon");
         setIsDisabled(false);
       } else if (isDiceRollActive) {
         setCenterButtonIcon("diceRollActive");
         setIsDisabled(false);
-      } else if (isDiceRollActive) {
+      } else if (!isDiceRollActive) {
         setCenterButtonIcon("diceRollUnActive");
         setIsDisabled(true);
       } else if (isReportActive) {
@@ -42,7 +47,7 @@ export const useNavbar = (isBack?: boolean) => {
         setIsDisabled(true);
       }
     }
-  }, [data, isBack, isCellPage, isChatPage, isPracticePage]);
+  }, [data, isBack, isCellPage, isChatPage, isDiceRollPage, isPracticePage]);
 
   const handleDisable = () => setIsDisabled(true);
   const handleValid = () => setIsDisabled(false);
