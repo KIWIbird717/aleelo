@@ -52,7 +52,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
   const path = usePathname() || "";
   const { width } = useDimensions();
 
-  const { handleValid, handleDisable, isDisabled, centerButtonIcon, diceRoll } = useNavbar(isBack, props.manuallyConfigureCenterButton);
+  const { handleValidFirstItem, handleDisableFirstItem, isDisabled, isDisabledFirstItem,  centerButtonIcon, diceRoll } = useNavbar(isBack, props.manuallyConfigureCenterButton);
 
   const { blockTypeLastMessage, blockTypePreLastMessage } = useMessage();
 
@@ -64,20 +64,17 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
       const isDisabledNavbar = blockTypeLastMessage === "chooseSphere";
       const isValid = blockTypeLastMessage === "submitRequestFinal";
 
-      if (isDisabledNavbar) {
-        handleDisable();
+      if (isDisabledNavbar || !isValid) {
+        handleDisableFirstItem();
       } else if (isValid) {
-        handleValid();
+        handleValidFirstItem();
       }
     }
   }, [
     blockTypeLastMessage,
-    blockTypePreLastMessage,
-    handleDisable,
-    handleValid,
-    isDisabled,
-    isPracticePage,
-    pathName,
+    handleDisableFirstItem,
+    handleValidFirstItem,
+    isPracticePage
   ]);
 
   const getCenterTitle = useCallback(
@@ -153,10 +150,10 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
             <GameActiveIcon />
           ) : (
             <GameIcon
-              className={twMerge(isPracticePage && !isDisabled && "[&>path]:fill-mint-900")}
+              className={twMerge(isPracticePage && !isDisabledFirstItem && "[&>path]:fill-mint-900")}
             />
           ),
-        link: `/${locale}/home`,
+        link: `/${locale}/onboarding/home`,
       },
       {
         id: 1,
@@ -185,7 +182,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
         link: "profile",
       },
     ],
-    [pathName, isPracticePage, isDisabled, locale, getCenterTitle, getCenterIcon, getCenterLink],
+    [pathName, isPracticePage, isDisabled, isDisabledFirstItem, locale, getCenterTitle, getCenterIcon, getCenterLink],
   );
 
   return (
@@ -196,7 +193,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
             let isValidFirstItem;
 
             if (isPracticePage) {
-              isValidFirstItem = index === 0 ? isDisabled : index !== 2;
+              isValidFirstItem = index === 0 ? isDisabledFirstItem : false;
             } else {
               isValidFirstItem = index === 2 ? isDisabled : false;
             }

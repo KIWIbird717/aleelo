@@ -1,3 +1,5 @@
+"use client"
+
 import { useStages } from "@/entities/onboarding/PracticeOnboardingEftSpeeches/shared/hooks/useStages";
 import { Map } from "@/entities/Map";
 import { HomeOnboardingEftSpeeches } from "@/entities/onboarding/PracticeHomeEftSpeeches";

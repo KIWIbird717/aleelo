@@ -15,6 +15,7 @@ export const useNavbar = (
   manuallyConfigureCenterButton?: { icon: CenterButtonIconTypes; link: string },
 ) => {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabledFirstItem, setIsDisabledFirstItem] = useState(false);
   const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>(
     manuallyConfigureCenterButton?.icon || "diceRollActive",
   );
@@ -28,6 +29,8 @@ export const useNavbar = (
   const isCellPage = pageName === "cell" || pathName === "cell";
   const isChatPage = pageName === "chat";
   const isDiceRollPage = pathName === "diceroll";
+
+  console.log({isPracticePage});
 
   useEffect(() => {
     if (manuallyConfigureCenterButton) {
@@ -44,7 +47,7 @@ export const useNavbar = (
       const isReportActive = report === null && !reportSkipped;
       const isDiceRollActive = new Date(reportAfter) <= new Date() && diceRoll;
 
-      if (isBack && (isCellPage || isChatPage || isDiceRollPage)) {
+      if (isBack && (isCellPage || isChatPage || isDiceRollPage || isPracticePage)) {
         setCenterButtonIcon("backIcon");
         setIsDisabled(false);
       } else if (isDiceRollActive) {
@@ -63,15 +66,18 @@ export const useNavbar = (
     }
   }, [data, isBack, isCellPage, isChatPage, isDiceRollPage, isPracticePage, manuallyConfigureCenterButton]);
 
-  const handleDisable = () => setIsDisabled(true);
-  const handleValid = () => setIsDisabled(false);
+  const handleDisableFirstItem = () => setIsDisabledFirstItem(true);
+  const handleValidFirstItem = () => setIsDisabledFirstItem(false);
+
+  console.log({path});
 
   return {
     diceRoll: data?.data.currentStep.diceRoll,
     isDisabled,
+    isDisabledFirstItem,
     centerButtonIcon,
-    handleDisable,
-    handleValid,
+    handleDisableFirstItem,
+    handleValidFirstItem,
     setIsDisabled,
     setCenterButtonIcon,
   };
