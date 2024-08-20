@@ -16,6 +16,7 @@ export const useNavbar = (
   manuallyConfigureCenterButton?: { icon: CenterButtonIconTypes; link: string },
 ) => {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabledFirstItem, setIsDisabledFirstItem] = useState(false);
   const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>(
     CenterButtonIconTypes.DiceRollActive,
   );
@@ -30,6 +31,8 @@ export const useNavbar = (
   const isCellPage = pageName === "cell" || pathName === "cell";
   const isChatPage = pageName === "chat";
   const isDiceRollPage = pathName === "diceroll";
+
+  console.log({ isPracticePage });
 
   useEffect(() => {
     if (manuallyConfigureCenterButton) {
