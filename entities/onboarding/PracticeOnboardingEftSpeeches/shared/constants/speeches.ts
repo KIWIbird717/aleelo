@@ -1,4 +1,4 @@
-import { SpeechItemType } from "@/entities/GettingToKnowWithGame";
+import { SpeechItemType } from "@/shared/ui/EftOnboardingMessage";
 import Image0 from "@/public/images/onboarding/practice/0.png";
 import Image4 from "@/public/images/onboarding/practice/4.png";
 import Image6 from "@/public/images/onboarding/practice/6.png";

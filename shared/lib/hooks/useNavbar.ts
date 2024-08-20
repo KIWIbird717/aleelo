@@ -3,9 +3,16 @@ import { usePathname } from "next/navigation";
 import { GameService } from "@/shared/lib/services/game";
 import useSWR from "swr";
 
+export type CenterButtonIconTypes =
+  | "diceRollActive"
+  | "diceRollUnActive"
+  | "reportActive"
+  | "reportUnActive"
+  | "backIcon";
+
 export const useNavbar = (isBack?: boolean) => {
   const [isDisabled, setIsDisabled] = useState(false);
-  const [centerButtonIcon, setCenterButtonIcon] = useState<string>("diceRollActive");
+  const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>("diceRollActive");
 
   const { data } = useSWR("/game/status", GameService.getGameStatus);
   const path = usePathname() || "";
@@ -18,15 +25,16 @@ export const useNavbar = (isBack?: boolean) => {
   const isChatPage = pageName === "chat";
   const isDiceRollPage = pathName === "diceroll";
 
-  console.log({isDisabled, centerButtonIcon, pathName, path});
+  console.log({ isDisabled, centerButtonIcon, pathName, path });
 
   useEffect(() => {
     if (data?.data.currentStep) {
-      const { report, reportAfter, reportSkipped } = data.data.currentStep;
+      const { report, reportAfter, reportSkipped, diceRoll } = data.data.currentStep;
 
       const isReportActive = report === null && !reportSkipped;
-      const isReportUnActive = !isReportActive && report === null
-      const isDiceRollActive = new Date(reportAfter) <= new Date() && data.data.currentStep.diceRoll
+      const isDiceRollActive = new Date(reportAfter) <= new Date() && diceRoll;
+
+      console.log({ isBack });
 
       if (isBack && (isCellPage || isChatPage || isDiceRollPage)) {
         setCenterButtonIcon("backIcon");
@@ -56,5 +64,7 @@ export const useNavbar = (isBack?: boolean) => {
     centerButtonIcon,
     handleDisable,
     handleValid,
+    setIsDisabled,
+    setCenterButtonIcon,
   };
 };

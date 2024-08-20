@@ -1,6 +1,14 @@
 "use client";
 
-import React, { FC, MouseEvent, MutableRefObject, ReactNode, useEffect, useMemo } from "react";
+import React, {
+  FC,
+  MouseEvent,
+  MutableRefObject,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { NavbarCard } from "./shared/ui/NavbarCard";
 import GameIcon from "@/public/images/svg/navbar/game.svg";
 import GameActiveIcon from "@/public/images/svg/navbar/game-active.svg";
@@ -14,7 +22,7 @@ import { cn } from "@/shared/lib/utils/cn";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useDimensions } from "@/shared/lib/hooks/useDimensions";
-import { useNavbar } from "@/shared/lib/hooks/useNavbar";
+import { CenterButtonIconTypes, useNavbar } from "@/shared/lib/hooks/useNavbar";
 import { useMessage } from "@/shared/lib/hooks/useMessage";
 import { twMerge } from "tailwind-merge";
 
@@ -33,9 +41,13 @@ interface INavbarProps {
   width?: number;
   svgGRef?: MutableRefObject<SVGSVGElement | null>;
   svgRef?: MutableRefObject<SVGSVGElement | null>;
+  manuallyConfigureCenterButton?: {
+    icon: CenterButtonIconTypes;
+    link: string;
+  };
 }
 
-export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) => {
+export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...props }) => {
   const locale = useLocale();
   const path = usePathname() || "";
   const { width } = useDimensions();
@@ -68,20 +80,23 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
     pathName,
   ]);
 
-  const getCenterTitle = useMemo(() => {
-    switch (centerButtonIcon) {
-      case "backIcon":
-        return "Вернуться";
-      case "reportActive":
-      case "reportUnActive":
-        return "Мысли";
-      case "diceRollActive":
-      case "diceRollUnActive":
-        return "Бросок";
-      default:
-        return "Вернуться";
-    }
-  }, [centerButtonIcon]);
+  const getCenterTitle = useCallback(
+    (centerButtonIcon: CenterButtonIconTypes) => {
+      switch (centerButtonIcon) {
+        case "backIcon":
+          return "Вернуться";
+        case "reportActive":
+        case "reportUnActive":
+          return "Мысли";
+        case "diceRollActive":
+        case "diceRollUnActive":
+          return "Бросок";
+        default:
+          return "Вернуться";
+      }
+    },
+    [centerButtonIcon],
+  );
 
   const getCenterIcon = useMemo(() => {
     switch (centerButtonIcon) {
@@ -132,9 +147,11 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide }) =>
       },
       {
         id: 2,
-        name: getCenterTitle,
-        icon: getCenterIcon,
-        link: getCenterLink,
+        name: props.manuallyConfigureCenterButton
+          ? getCenterTitle(props.manuallyConfigureCenterButton.icon)
+          : getCenterTitle(centerButtonIcon),
+        icon: props.manuallyConfigureCenterButton?.icon || getCenterIcon,
+        link: props.manuallyConfigureCenterButton?.link || getCenterLink,
       },
       {
         id: 3,
