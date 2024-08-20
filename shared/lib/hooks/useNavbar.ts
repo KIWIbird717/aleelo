@@ -25,10 +25,8 @@ export const useNavbar = (isBack?: boolean) => {
       const { report, reportAfter, reportSkipped } = data.data.currentStep;
 
       const isReportActive = report === null && !reportSkipped;
-      const isReportUnActive = !isReportActive && report === null;
-      const isDiceRollActive = new Date(reportAfter) <= new Date();
-
-      console.log({isBack});
+      const isReportUnActive = !isReportActive && report === null
+      const isDiceRollActive = new Date(reportAfter) <= new Date() && data.data.currentStep.diceRoll
 
       if (isBack && (isCellPage || isChatPage || isDiceRollPage)) {
         setCenterButtonIcon("backIcon");
