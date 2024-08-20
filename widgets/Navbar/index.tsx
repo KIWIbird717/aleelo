@@ -52,7 +52,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
   const path = usePathname() || "";
   const { width } = useDimensions();
 
-  const { handleValid, handleDisable, isDisabled, centerButtonIcon, diceRoll } = useNavbar(isBack);
+  const { handleValid, handleDisable, isDisabled, centerButtonIcon, diceRoll } = useNavbar(isBack, props.manuallyConfigureCenterButton);
 
   const { blockTypeLastMessage, blockTypePreLastMessage } = useMessage();
 
@@ -95,10 +95,25 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
           return "Вернуться";
       }
     },
-    [centerButtonIcon],
+    [],
   );
 
   const getCenterIcon = useMemo(() => {
+    if (props.manuallyConfigureCenterButton) {
+      switch (props.manuallyConfigureCenterButton.icon) {
+        case "backIcon":
+          return <BackIcon />;
+        case "reportActive":
+        case "reportUnActive":
+          return <ReportIcon />;
+        case "diceRollUnActive":
+        case "diceRollActive":
+          return <ThrowIcon />;
+        default:
+          return <BackIcon />;
+      }
+    }
+
     switch (centerButtonIcon) {
       case "backIcon":
         return <BackIcon />;
@@ -111,9 +126,13 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
       default:
         return <BackIcon />;
     }
-  }, [centerButtonIcon]);
+  }, [centerButtonIcon, props.manuallyConfigureCenterButton]);
 
   const getCenterLink = useMemo(() => {
+    if (props.manuallyConfigureCenterButton) {
+      return props.manuallyConfigureCenterButton.link;
+    }
+
     switch (centerButtonIcon) {
       case "reportActive":
         return `/${locale}/chat`;
@@ -122,7 +141,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
       default:
         return `null`;
     }
-  }, [centerButtonIcon, locale]);
+  }, [centerButtonIcon, locale, props.manuallyConfigureCenterButton]);
 
   const navElements = useMemo<NavItemType[]>(
     () => [
@@ -150,8 +169,8 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
         name: props.manuallyConfigureCenterButton
           ? getCenterTitle(props.manuallyConfigureCenterButton.icon)
           : getCenterTitle(centerButtonIcon),
-        icon: props.manuallyConfigureCenterButton?.icon || getCenterIcon,
-        link: props.manuallyConfigureCenterButton?.link || getCenterLink,
+        icon: getCenterIcon,
+        link: getCenterLink,
       },
       {
         id: 3,

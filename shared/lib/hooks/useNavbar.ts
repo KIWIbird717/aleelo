@@ -10,10 +10,14 @@ export type CenterButtonIconTypes =
   | "reportUnActive"
   | "backIcon";
 
-export const useNavbar = (isBack?: boolean) => {
+export const useNavbar = (
+  isBack?: boolean,
+  manuallyConfigureCenterButton?: { icon: CenterButtonIconTypes; link: string },
+) => {
   const [isDisabled, setIsDisabled] = useState(false);
-  const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>("diceRollActive");
-
+  const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>(
+    manuallyConfigureCenterButton?.icon || "diceRollActive",
+  );
   const { data } = useSWR("/game/status", GameService.getGameStatus);
   const path = usePathname() || "";
 
@@ -25,16 +29,20 @@ export const useNavbar = (isBack?: boolean) => {
   const isChatPage = pageName === "chat";
   const isDiceRollPage = pathName === "diceroll";
 
-  console.log({ isDisabled, centerButtonIcon, pathName, path });
-
   useEffect(() => {
-    if (data?.data.currentStep) {
+    if (manuallyConfigureCenterButton) {
+      if (manuallyConfigureCenterButton.icon === "diceRollUnActive" || manuallyConfigureCenterButton.icon === "reportUnActive") {
+        setIsDisabled(true);
+      } else {
+        setIsDisabled(false);
+      }
+    }
+
+    if (!manuallyConfigureCenterButton && data?.data.currentStep) {
       const { report, reportAfter, reportSkipped, diceRoll } = data.data.currentStep;
 
       const isReportActive = report === null && !reportSkipped;
       const isDiceRollActive = new Date(reportAfter) <= new Date() && diceRoll;
-
-      console.log({ isBack });
 
       if (isBack && (isCellPage || isChatPage || isDiceRollPage)) {
         setCenterButtonIcon("backIcon");
@@ -53,7 +61,7 @@ export const useNavbar = (isBack?: boolean) => {
         setIsDisabled(true);
       }
     }
-  }, [data, isBack, isCellPage, isChatPage, isDiceRollPage, isPracticePage]);
+  }, [data, isBack, isCellPage, isChatPage, isDiceRollPage, isPracticePage, manuallyConfigureCenterButton]);
 
   const handleDisable = () => setIsDisabled(true);
   const handleValid = () => setIsDisabled(false);

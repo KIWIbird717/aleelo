@@ -18,7 +18,7 @@ export default async function Profile() {
 
   return (
     <View backgroundEffect="gradient">
-      <button onClick={deleteProfile}>Удалить аккаунт</button>
+      {/*<button onClick={deleteProfile}>Удалить аккаунт</button>*/}
       <ProfilePage url={url} />
     </View>
   );
