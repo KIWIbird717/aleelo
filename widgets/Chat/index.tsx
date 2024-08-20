@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Messages } from "@/widgets/Chat/entities/Messages";
 import { Input } from "@/shared/ui/Input";
 import SendIcon from "@/public/images/svg/chat/send.svg";
@@ -39,12 +39,30 @@ export const Chat: FC<IChatProps> = ({ svgHeight, height, messageObj }) => {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        top: containerRef.current.scrollHeight,
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const observer = new MutationObserver(() => {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth',
+        });
+      });
+
+      observer.observe(container, {
+        childList: true,
+        subtree: true,
+      });
+
+      // Прокручиваем к последнему сообщению при первой загрузке
+      container.scrollTo({
+        top: container.scrollHeight,
         behavior: 'smooth',
       });
+
+      return () => {
+        observer.disconnect();
+      };
     }
   }, [messages]);
 
