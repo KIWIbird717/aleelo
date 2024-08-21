@@ -16,7 +16,6 @@ export const useNavbar = (
   manuallyConfigureCenterButton?: { icon: CenterButtonIconTypes; link: string },
 ) => {
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isDisabledFirstItem, setIsDisabledFirstItem] = useState(false);
   const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>(
     CenterButtonIconTypes.DiceRollActive,
   );
