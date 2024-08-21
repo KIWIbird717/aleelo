@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Triangle } from "@/widgets/Triangle";
 import { DiceRollHeader } from "@/widgets/DiceRollHeader";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useLocale } from "next-intl";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
@@ -22,6 +23,8 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
   const searchParams = useSearchParams();
   const diceRoll = searchParams.get("diceRoll");
   const result = Number(diceRoll);
+  const router = useRouter();
+  const locale = useLocale();
 
   const { back } = useRouter();
 
@@ -77,6 +80,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
           className="fixed bottom-8 mt-5 flex w-full items-center justify-center"
         >
           <Button
+            onClick={() => router.push(`${locale}/home`)}
             variant={"green"}
             size={"large"}
             className="w-[167px] text-[20px] font-semibold leading-8 !text-white text-shadow-deep-blue"
@@ -89,7 +93,19 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
       <AnimatePresence initial={false}>
         {isIntroAnimationVisible && (
           <motion.div exit={{ opacity: 0 }} transition={{ type: "tween", stiffness: 300 }}>
-            <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack onHide={redirectBack} />
+            <Navbar
+              navBarSettings={{
+                0: { isActive: false },
+                1: { isActive: false },
+                2: { isActive: false },
+                3: { isActive: false },
+                4: { isActive: false },
+              }}
+              svgRef={svgRef}
+              svgGRef={svgGRef}
+              isBack
+              onHide={redirectBack}
+            />
           </motion.div>
         )}
       </AnimatePresence>

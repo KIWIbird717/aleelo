@@ -13,6 +13,8 @@ import { ChatService } from "@/shared/lib/services/chat";
 import { GameChatBlockUserResponseEnum } from "@/shared/lib/types/game-chat-block-user-response";
 import { useMessage } from "@/shared/lib/hooks/useMessage";
 import { useOption } from "@/shared/lib/hooks/useOption";
+import { CenterButtonIconTypes } from "@/shared/lib/hooks/useNavbar";
+import { useLocale } from "next-intl";
 
 export interface IOptions {
   message: string;
@@ -22,6 +24,7 @@ export interface IOptions {
 interface IPracticesPageProps {}
 
 const PracticesPage: NextPage<IPracticesPageProps> = () => {
+  const locale = useLocale();
   const logger = new Logger("ChatPage");
   const { height, svgGRef, svgRef, svgHeight } = useSizes();
 
@@ -97,7 +100,21 @@ const PracticesPage: NextPage<IPracticesPageProps> = () => {
   return (
     <View className={"flex flex-col"} backgroundEffect={"gradient"}>
       <Chat svgHeight={svgHeight!} height={height} messageObj={messageObj} />
-      <Navbar svgRef={svgRef} svgGRef={svgGRef} isBack={true} onHide={() => back()} />
+      <Navbar
+        navBarSettings={{
+          0: { link: `/${locale}/onboarding/home`, isActive: true },
+          1: { isActive: false },
+          2: {
+            icon: CenterButtonIconTypes.ReportUnActive,
+            isActive: false,
+          },
+          3: { isActive: false },
+          4: { isActive: false },
+        }}
+        svgRef={svgRef}
+        svgGRef={svgGRef}
+        onHide={() => back()}
+      />
     </View>
   );
 };

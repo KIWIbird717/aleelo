@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useStages } from "@/entities/onboarding/PracticeOnboardingEftSpeeches/shared/hooks/useStages";
 import { Map } from "@/entities/Map";
@@ -15,12 +15,21 @@ export default function OnboardingHome() {
 
   return (
     <View backgroundEffect="gradient">
-      <HomeOnboardingEftSpeeches stage={stage} next={next} />
+      {/* <HomeOnboardingEftSpeeches stage={stage} next={next} /> */}
 
       <div style={{ paddingBottom: 200 }}>
         <Map />
         <ModalSheet svgWidth={svgWidth} padding={padding} svgHeight={svgHeight} height={height} />
-        <Navbar svgGRef={svgGRef} svgRef={svgRef} />
+        <Navbar
+          navBarSettings={{
+            0: { isActive: false },
+            1: { isActive: false },
+            3: { isActive: false },
+            4: { isActive: false },
+          }}
+          svgGRef={svgGRef}
+          svgRef={svgRef}
+        />
       </div>
     </View>
   );

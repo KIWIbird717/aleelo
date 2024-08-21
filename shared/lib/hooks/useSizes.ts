@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { useDimensions } from "@/shared/lib/hooks/useDimensions";
 

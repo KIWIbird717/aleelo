@@ -11,6 +11,7 @@ import { PracticeOnboardingEftSpeeches } from "@/entities/onboarding/PracticeOnb
 import { useStages } from "@/entities/onboarding/PracticeOnboardingEftSpeeches/shared/hooks/useStages";
 import { PracticeDescriptionWidget } from "@/widgets/practice/PracticeDescriptionWidget";
 import { useDescriptionShow } from "@/widgets/practice/PracticeDescriptionWidget/shared/hooks/useDescriptionShow";
+import { CenterButtonIconTypes } from "@/shared/lib/hooks/useNavbar";
 
 type OnboardingPracticePropsType = {};
 
@@ -60,6 +61,16 @@ const OnboardingPractice: NextPage<OnboardingPracticePropsType> = () => {
       />
 
       <Navbar
+        navBarSettings={{
+          0: { isActive: false },
+          1: { isActive: false },
+          2: {
+            icon: CenterButtonIconTypes.ReportUnActive,
+            isActive: false,
+          },
+          3: { isActive: false },
+          4: { isActive: false },
+        }}
         svgRef={svgRef}
         svgGRef={svgGRef}
         isBack={isShowText}
