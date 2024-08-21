@@ -80,7 +80,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
           className="fixed bottom-8 mt-5 flex w-full items-center justify-center"
         >
           <Button
-            onClick={() => router.push(`${locale}/home`)}
+            onClick={() => router.push(`/${locale}/home`)}
             variant={"green"}
             size={"large"}
             className="w-[167px] text-[20px] font-semibold leading-8 !text-white text-shadow-deep-blue"

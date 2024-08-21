@@ -72,13 +72,21 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
       const isDisabledNavbar = blockTypeLastMessage === "chooseSphere";
       const isValid = blockTypeLastMessage === "submitRequestFinal";
 
-      if (isDisabledNavbar || !isValid) {
-        handleDisableFirstItem();
+      if (isDisabledNavbar) {
+        handleDisable();
       } else if (isValid) {
-        handleValidFirstItem();
+        handleValid();
       }
     }
-  }, [blockTypeLastMessage, handleDisableFirstItem, handleValidFirstItem, isPracticePage]);
+  }, [
+    blockTypeLastMessage,
+    blockTypePreLastMessage,
+    handleDisable,
+    handleValid,
+    isDisabled,
+    isPracticePage,
+    pathName,
+  ]);
 
   return (
     <div className="fixed bottom-[-13px] z-[33]">
@@ -88,7 +96,7 @@ export const Navbar: FC<INavbarProps> = ({ svgGRef, svgRef, isBack, onHide, ...p
             let isValidFirstItem;
 
             if (isPracticePage) {
-              isValidFirstItem = index === 0 ? isDisabledFirstItem : false;
+              isValidFirstItem = index === 0 ? isDisabled : index !== 2;
             } else {
               isValidFirstItem = index === 2 ? isDisabled : false;
             }

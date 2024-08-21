@@ -11,10 +11,7 @@ export enum CenterButtonIconTypes {
   BackIcon = "backIcon",
 }
 
-export const useNavbar = (
-  isBack?: boolean,
-  manuallyConfigureCenterButton?: { icon: CenterButtonIconTypes; link: string },
-) => {
+export const useNavbar = (isBack?: boolean) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [centerButtonIcon, setCenterButtonIcon] = useState<CenterButtonIconTypes>(
     CenterButtonIconTypes.DiceRollActive,
@@ -31,21 +28,8 @@ export const useNavbar = (
   const isChatPage = pageName === "chat";
   const isDiceRollPage = pathName === "diceroll";
 
-  console.log({ isPracticePage });
-
   useEffect(() => {
-    if (manuallyConfigureCenterButton) {
-      if (
-        manuallyConfigureCenterButton.icon === "diceRollUnActive" ||
-        manuallyConfigureCenterButton.icon === "reportUnActive"
-      ) {
-        setIsDisabled(true);
-      } else {
-        setIsDisabled(false);
-      }
-    }
-
-    if (!manuallyConfigureCenterButton && data?.data.currentStep) {
+    if (data?.data.currentStep) {
       const { report, reportAfter, reportSkipped, diceRoll } = data.data.currentStep;
 
       const isReportActive = report === null && !reportSkipped;
@@ -68,28 +52,17 @@ export const useNavbar = (
         setIsDisabled(true);
       }
     }
-  }, [
-    data,
-    isBack,
-    isCellPage,
-    isChatPage,
-    isDiceRollPage,
-    isPracticePage,
-    manuallyConfigureCenterButton,
-  ]);
+  }, [data, isBack, isCellPage, isChatPage, isDiceRollPage, isPracticePage]);
 
-  const handleDisableFirstItem = () => setIsDisabledFirstItem(true);
-  const handleValidFirstItem = () => setIsDisabledFirstItem(false);
-
-  console.log({ path });
+  const handleDisable = () => setIsDisabled(true);
+  const handleValid = () => setIsDisabled(false);
 
   return {
     diceRoll: data?.data.currentStep.diceRoll,
     isDisabled,
-    isDisabledFirstItem,
     centerButtonIcon,
-    handleDisableFirstItem,
-    handleValidFirstItem,
+    handleDisable,
+    handleValid,
     setIsDisabled,
     setCenterButtonIcon,
   };
