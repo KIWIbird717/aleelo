@@ -62,3 +62,25 @@ const { data } = await ChatService.postMessage({...});
 - работа с сообщениями через post-message
 - после окончания отчета переход обратно на главную страницу
 - если в /game/status reportAfter < currentDate то бросок доступен
+
+
+# после броска кубика
+
+- /game/make-step
+```json
+{} // пустой body
+```
+
+- затем делимся мыслями
+
+- /game/make-step
+type step4 = {
+  blockType: 'submitStepUsefullness',
+  response:   'submitStepUsefullness',
+  message: '5' // число от 1..10
+}
+
+- переход на главную
+
+# практики
+https://gitlab.feeltech.tech/aleela/aleela-mobile/-/blob/main/docs/practic.md?ref_type=heads

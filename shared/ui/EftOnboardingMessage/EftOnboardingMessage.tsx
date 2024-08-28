@@ -5,8 +5,6 @@ import Dialog from "@/public/images/svg/signin/dialog.svg";
 import { cn } from "@/shared/lib/utils/cn";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { Url } from "next/dist/shared/lib/router/router";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));

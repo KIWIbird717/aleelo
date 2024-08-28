@@ -14,11 +14,11 @@ export default function OnboardingHome() {
   const { stage, next } = useStages();
 
   return (
-    <View backgroundEffect="gradient">
-      {/* <HomeOnboardingEftSpeeches stage={stage} next={next} /> */}
+    <View backgroundEffect="gradient" className="relative">
+      <HomeOnboardingEftSpeeches stage={stage} next={next} className="absolute left-0 top-0" />
 
       <div style={{ paddingBottom: 200 }}>
-        <Map />
+        <Map isMapActive={false} />
         <ModalSheet svgWidth={svgWidth} padding={padding} svgHeight={svgHeight} height={height} />
         <Navbar
           navBarSettings={{

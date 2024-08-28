@@ -7,11 +7,12 @@ import { ManWomanOverlay } from "./shared/ui/Overlays/ManWomanOverlay";
 import { Logger } from "@/shared/lib/utils/logger/Logger";
 import { ArrowsAndSnakes } from "./shared/ui/Overlays/ArrowsAndSnakes";
 import { useLocale } from "next-intl";
-import { Cell, CellProps } from "./shared/ui/CellInfoType";
+import { Cell } from "./shared/ui/CellInfoType";
 
 type Props = {
   // ссылка, которой можно заменить все ссылки на кнопках
   linkReplacer?: string;
+  isMapActive?: boolean;
 };
 export const Map: FC<Props> = (props) => {
   const logger = new Logger("Map");
@@ -32,7 +33,7 @@ export const Map: FC<Props> = (props) => {
             id={cell.id}
             className={cell.className}
             icon={cell.icon}
-            isActive={cell.id === 1}
+            isActive={props.isMapActive || cell.id === 1}
           />
         ))}
       </div>
