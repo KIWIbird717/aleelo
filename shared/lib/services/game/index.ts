@@ -40,7 +40,7 @@ export namespace GameService {
   };
 
   export const makeStep = () => {
-    return errorHandler(thisName("makeStep"), serverApi.post("game/make-step"));
+    return errorHandler(thisName("makeStep"), serverApi.post<GameServiceTypes.GameStatusResult>("game/make-step"));
   };
 
   export const getPractices = (params: { limit?: number; offset?: number; gameId?: string }) => {

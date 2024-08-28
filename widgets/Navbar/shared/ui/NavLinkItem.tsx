@@ -44,11 +44,7 @@ export const NavLinkItem: FC<NavLinkItemProps> = (props) => {
       return push(itemLink);
     }
 
-    if (diceRoll === null) {
-      push(`/${locale}/diceroll?diceRoll=${1}`);
-    } else {
-      push(`/${locale}/diceroll?diceRoll=${diceRoll}`);
-    }
+      push(`/${locale}/diceroll`);
   };
 
   return (

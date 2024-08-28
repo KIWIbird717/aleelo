@@ -1,6 +1,6 @@
 "use client";
 
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { View } from "@/shared/layout/View";
 import { Navbar } from "@/widgets/Navbar";
@@ -11,24 +11,29 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { Triangle } from "@/widgets/Triangle";
 import { DiceRollHeader } from "@/widgets/DiceRollHeader";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { GameService } from "@/shared/lib/services/game";
+import { useDiceRoll } from "@/shared/lib/hooks/useDiceroll";
+import { ButtonLink } from "@/shared/ui/ButtonLink";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
-interface IDiceRollProps {}
+interface IDiceRollProps {
+}
 
 const DiceRoll: NextPage<IDiceRollProps> = () => {
   const { svgGRef, svgRef } = useSizes();
-  const searchParams = useSearchParams();
-  const diceRoll = searchParams.get("diceRoll");
-  const result = Number(diceRoll);
-  const router = useRouter();
+
+  const {diceRoll, cell} = useDiceRoll()
+
+  const result = diceRoll;
   const locale = useLocale();
 
-  const { back } = useRouter();
+  const { back, push } = useRouter();
 
   const redirectBack = () => back();
+  const redirectToGamePieceMove = () => push(`/${locale}/game-piece-move?cell=${cell}`)
 
   const endAnimationRef = useRef<Lottie>(null); // Реф для конечной анимации
   const [isIntroAnimationVisible, setIsIntroAnimationVisible] = useState(true); // Состояние видимости начальной анимации
@@ -48,12 +53,12 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
 
   // Эффект для управления состоянием загрузки
   useEffect(() => {
-    if (isLoopAnimationVisible) {
+    if (isLoopAnimationVisible && result) {
       setTimeout(() => {
         setIsLoading(false);
       }, 3000);
     }
-  }, [isLoopAnimationVisible]);
+  }, [isLoopAnimationVisible, result]);
 
   return (
     <View backgroundEffect="gradient" className={"relative pt-[35px]"}>
@@ -80,7 +85,7 @@ const DiceRoll: NextPage<IDiceRollProps> = () => {
           className="fixed bottom-8 mt-5 flex w-full items-center justify-center"
         >
           <Button
-            onClick={() => router.push(`/${locale}/home`)}
+            onClick={redirectToGamePieceMove}
             variant={"green"}
             size={"large"}
             className="w-[167px] text-[20px] font-semibold leading-8 !text-white text-shadow-deep-blue"
