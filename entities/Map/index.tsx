@@ -13,8 +13,10 @@ type Props = {
   // ссылка, которой можно заменить все ссылки на кнопках
   linkReplacer?: string;
   isMapActive?: boolean;
+  activeCell?: number
 };
 export const Map: FC<Props> = (props) => {
+  const {activeCell, ...rest} = props
   const logger = new Logger("Map");
   const locale = useLocale();
 
@@ -33,7 +35,7 @@ export const Map: FC<Props> = (props) => {
             id={cell.id}
             className={cell.className}
             icon={cell.icon}
-            isActive={props.isMapActive || cell.id === 1}
+            isActive={props.isMapActive || (activeCell ? cell.id === activeCell : cell.id === 1)}
           />
         ))}
       </div>

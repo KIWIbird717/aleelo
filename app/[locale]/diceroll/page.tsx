@@ -13,9 +13,7 @@ import { Triangle } from "@/widgets/Triangle";
 import { DiceRollHeader } from "@/widgets/DiceRollHeader";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { GameService } from "@/shared/lib/services/game";
 import { useDiceRoll } from "@/shared/lib/hooks/useDiceroll";
-import { ButtonLink } from "@/shared/ui/ButtonLink";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div));
 
