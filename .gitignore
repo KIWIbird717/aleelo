@@ -44,4 +44,4 @@ certificates
 .env.local
 .env.production
 
-.gitlab-ci.yml
+# .gitlab-ci.yml
