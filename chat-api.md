@@ -66,7 +66,7 @@ const { data } = await ChatService.postMessage({...});
 
 # после броска кубика
 
-- /game/make-step
+- POST /game/make-step
 ```json
 {} // пустой body
 ```
